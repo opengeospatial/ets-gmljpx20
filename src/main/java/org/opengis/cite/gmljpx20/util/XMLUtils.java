@@ -53,8 +53,7 @@ import org.w3c.dom.NodeList;
  */
 public class XMLUtils {
 
-    private static final Logger LOGR = Logger.getLogger(XMLUtils.class
-            .getPackage().getName());
+    private static final Logger LOGR = Logger.getLogger(XMLUtils.class.getPackage().getName());
     private static final XMLInputFactory STAX_FACTORY = initXMLInputFactory();
     private static final XPathFactory XPATH_FACTORY = initXPathFactory();
 
@@ -74,7 +73,8 @@ public class XMLUtils {
      * omitted and the character encoding is set to "US-ASCII" (any character
      * outside of this set is serialized as a numeric character reference).
      *
-     * @param node The DOM Node to be serialized.
+     * @param node
+     *            The DOM Node to be serialized.
      * @return A String representing the content of the given node.
      */
     public static String writeNodeToString(Node node) {
@@ -83,19 +83,16 @@ public class XMLUtils {
         }
         Writer writer = null;
         try {
-            Transformer idTransformer = TransformerFactory.newInstance()
-                    .newTransformer();
+            Transformer idTransformer = TransformerFactory.newInstance().newTransformer();
             Properties outProps = new Properties();
             outProps.setProperty(OutputKeys.ENCODING, "US-ASCII");
             outProps.setProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             outProps.setProperty(OutputKeys.INDENT, "yes");
             idTransformer.setOutputProperties(outProps);
             writer = new StringWriter();
-            idTransformer.transform(new DOMSource(node), new StreamResult(
-                    writer));
+            idTransformer.transform(new DOMSource(node), new StreamResult(writer));
         } catch (TransformerException ex) {
-            TestSuiteLogger.log(Level.WARNING, "Failed to serialize node "
-                    + node.getNodeName(), ex);
+            TestSuiteLogger.log(Level.WARNING, "Failed to serialize node " + node.getNodeName(), ex);
         }
         return writer.toString();
     }
@@ -111,22 +108,18 @@ public class XMLUtils {
      */
     public static void writeNode(Node node, OutputStream outputStream) {
         try {
-            Transformer idTransformer = TransformerFactory.newInstance()
-                    .newTransformer();
+            Transformer idTransformer = TransformerFactory.newInstance().newTransformer();
             Properties outProps = new Properties();
             outProps.setProperty(OutputKeys.METHOD, "xml");
             outProps.setProperty(OutputKeys.ENCODING, "UTF-8");
             outProps.setProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             outProps.setProperty(OutputKeys.INDENT, "yes");
             idTransformer.setOutputProperties(outProps);
-            idTransformer.transform(new DOMSource(node), new StreamResult(
-                    outputStream));
+            idTransformer.transform(new DOMSource(node), new StreamResult(outputStream));
         } catch (TransformerException ex) {
-            String nodeName = (node.getNodeType() == Node.DOCUMENT_NODE) ? Document.class
-                    .cast(node).getDocumentElement().getNodeName()
-                    : node.getNodeName();
-            TestSuiteLogger.log(Level.WARNING, "Failed to serialize DOM node: "
-                    + nodeName, ex);
+            String nodeName = (node.getNodeType() == Node.DOCUMENT_NODE)
+                    ? Document.class.cast(node).getDocumentElement().getNodeName() : node.getNodeName();
+            TestSuiteLogger.log(Level.WARNING, "Failed to serialize DOM node: " + nodeName, ex);
         }
     }
 
@@ -148,14 +141,11 @@ public class XMLUtils {
      * @throws XPathExpressionException
      *             If the expression cannot be evaluated for any reason.
      */
-    public static NodeList evaluateXPath(Node context, String expr,
-            Map<String, String> namespaceBindings)
+    public static NodeList evaluateXPath(Node context, String expr, Map<String, String> namespaceBindings)
             throws XPathExpressionException {
-        Object result = evaluateXPath(context, expr, namespaceBindings,
-                XPathConstants.NODESET);
+        Object result = evaluateXPath(context, expr, namespaceBindings, XPathConstants.NODESET);
         if (!NodeList.class.isInstance(result)) {
-            throw new XPathExpressionException(
-                    "Expression does not evaluate to a NodeList: " + expr);
+            throw new XPathExpressionException("Expression does not evaluate to a NodeList: " + expr);
         }
         return (NodeList) result;
     }
@@ -186,9 +176,8 @@ public class XMLUtils {
      * @throws XPathExpressionException
      *             If the expression cannot be evaluated for any reason.
      */
-    public static Object evaluateXPath(Node context, String expr,
-            Map<String, String> namespaceBindings, QName returnType)
-            throws XPathExpressionException {
+    public static Object evaluateXPath(Node context, String expr, Map<String, String> namespaceBindings,
+            QName returnType) throws XPathExpressionException {
         NamespaceBindings bindings = NamespaceBindings.withStandardBindings();
         bindings.addAllBindings(namespaceBindings);
         XPathFactory factory = XPATH_FACTORY;
@@ -218,11 +207,11 @@ public class XMLUtils {
      *             If an error occurs while evaluating the expression; this
      *             always wraps some other underlying exception.
      */
-    public static XdmValue evaluateXPath2(Source xmlSource, String expr,
-            Map<String, String> nsBindings) throws SaxonApiException {
+    public static XdmValue evaluateXPath2(Source xmlSource, String expr, Map<String, String> nsBindings)
+            throws SaxonApiException {
         Processor proc = new Processor(false);
         XPathCompiler compiler = proc.newXPathCompiler();
-       if (null != nsBindings) {
+        if (null != nsBindings) {
             for (String nsURI : nsBindings.keySet()) {
                 compiler.declareNamespace(nsBindings.get(nsURI), nsURI);
             }
@@ -252,13 +241,11 @@ public class XMLUtils {
     public static Element createElement(QName qName) {
         Document doc = null;
         try {
-            doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                    .newDocument();
+            doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
-        Element elem = doc.createElementNS(qName.getNamespaceURI(),
-                qName.getLocalPart());
+        Element elem = doc.createElementNS(qName.getNamespaceURI(), qName.getLocalPart());
         return elem;
     }
 
@@ -273,8 +260,7 @@ public class XMLUtils {
      * @return A List containing elements in the specified namespace; the list
      *         is empty if there are no elements in the namespace.
      */
-    public static List<Element> getElementsByNamespaceURI(Node node,
-            String namespaceURI) {
+    public static List<Element> getElementsByNamespaceURI(Node node, String namespaceURI) {
         List<Element> list = new ArrayList<Element>();
         NodeList children = node.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
@@ -301,13 +287,11 @@ public class XMLUtils {
         Document sourceDoc = null;
         Document resultDoc = null;
         try {
-            resultDoc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder().newDocument();
+            resultDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             if (source.getNodeType() == Node.DOCUMENT_NODE) {
                 sourceDoc = (Document) source;
             } else {
-                sourceDoc = DocumentBuilderFactory.newInstance()
-                        .newDocumentBuilder().newDocument();
+                sourceDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
                 sourceDoc.appendChild(sourceDoc.importNode(source, true));
             }
         } catch (ParserConfigurationException pce) {
@@ -328,9 +312,10 @@ public class XMLUtils {
     }
 
     /**
-     * Expands character entity (&name;) and numeric references (&#xhhhh; or
-     * &dddd;) that occur within a given string value. It may be necessary to do
-     * this before processing an XPath expression.
+     * Expands character entity ({@literal &name;}) and numeric references (
+     * {@literal &#xhhhh;} or {@literal &dddd;}) that occur within a given
+     * string value. It may be necessary to do this before processing an XPath
+     * expression.
      * 
      * @param value
      *            A string representing text content.

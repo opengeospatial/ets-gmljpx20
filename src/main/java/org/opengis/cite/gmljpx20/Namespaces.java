@@ -22,10 +22,10 @@ public class Namespaces {
     /** ISO 19136 (GML 3.2) */
     public static final String GML = "http://www.opengis.net/gml/3.2";
     /** W3C XML Schema namespace */
-    public static final URI XSD = URI
-            .create("http://www.w3.org/2001/XMLSchema");
+    public static final URI XSD = URI.create("http://www.w3.org/2001/XMLSchema");
     /** Schematron (ISO 19757-3) namespace */
-    public static final URI SCH = URI
-            .create("http://purl.oclc.org/dsdl/schematron");
+    public static final URI SCH = URI.create("http://purl.oclc.org/dsdl/schematron");
+    /** OGC 09-146r2 (OGC GML Application Schema - Coverages, v1.0.1) */
+    public static final String GMLCOV = "http://www.opengis.net/gmlcov/1.0";
 
 }

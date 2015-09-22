@@ -48,15 +48,13 @@ public class TestNGController implements TestSuiteController {
         DocumentBuilder db = dbf.newDocumentBuilder();
         File xmlArgs = null;
         if (args.length > 0) {
-            xmlArgs = (args[0].startsWith("file:")) ? new File(
-                    URI.create(args[0])) : new File(args[0]);
+            xmlArgs = (args[0].startsWith("file:")) ? new File(URI.create(args[0])) : new File(args[0]);
         } else {
             String homeDir = System.getProperty("user.home");
             xmlArgs = new File(homeDir, "test-run-props.xml");
         }
         if (!xmlArgs.exists()) {
-            throw new IllegalArgumentException(
-                    "Test run arguments not found at " + xmlArgs);
+            throw new IllegalArgumentException("Test run arguments not found at " + xmlArgs);
         }
         Document testRunArgs = db.parse(xmlArgs);
         TestNGController controller = new TestNGController();
@@ -85,17 +83,14 @@ public class TestNGController implements TestSuiteController {
         try {
             this.etsProperties.load(is);
         } catch (IOException ex) {
-            TestSuiteLogger.log(Level.WARNING,
-                    "Unable to load ets.properties. " + ex.getMessage());
+            TestSuiteLogger.log(Level.WARNING, "Unable to load ets.properties. " + ex.getMessage());
         }
         URL tngSuite = TestNGController.class.getResource("testng.xml");
         File resultsDir = new File(URI.create(outputDirUri));
         TestSuiteLogger.log(Level.CONFIG, "Using TestNG config: " + tngSuite);
-        TestSuiteLogger.log(Level.CONFIG,
-                "Using outputDirPath: " + resultsDir.getAbsolutePath());
+        TestSuiteLogger.log(Level.CONFIG, "Using outputDirPath: " + resultsDir.getAbsolutePath());
         // NOTE: setting third argument to 'true' enables the default listeners
-        this.executor = new TestNGExecutor(tngSuite.toString(),
-                resultsDir.getAbsolutePath(), false);
+        this.executor = new TestNGExecutor(tngSuite.toString(), resultsDir.getAbsolutePath(), false);
     }
 
     @Override
@@ -120,8 +115,8 @@ public class TestNGController implements TestSuiteController {
     }
 
     /**
-     * Validates the test run arguments. The test run is aborted if any of 
-     * these checks fail.
+     * Validates the test run arguments. The test run is aborted if any of these
+     * checks fail.
      *
      * @param testRunArgs
      *            A DOM Document containing a set of XML properties (key-value
@@ -129,15 +124,11 @@ public class TestNGController implements TestSuiteController {
      * @throws IllegalArgumentException
      *             If any arguments are missing or invalid for some reason.
      */
-    void validateTestRunArgs(Document testRunArgs) throws Exception {
-        if (null == testRunArgs
-                || !testRunArgs.getDocumentElement().getNodeName()
-                        .equals("properties")) {
-            throw new IllegalArgumentException(
-                    "Input is not an XML properties document.");
+    void validateTestRunArgs(Document testRunArgs) {
+        if (null == testRunArgs || !testRunArgs.getDocumentElement().getNodeName().equals("properties")) {
+            throw new IllegalArgumentException("Input is not an XML properties document.");
         }
-        NodeList entries = testRunArgs.getDocumentElement()
-                .getElementsByTagName("entry");
+        NodeList entries = testRunArgs.getDocumentElement().getElementsByTagName("entry");
         if (entries.getLength() == 0) {
             throw new IllegalArgumentException("No test run arguments found.");
         }
@@ -147,9 +138,8 @@ public class TestNGController implements TestSuiteController {
             args.put(entry.getAttribute("key"), entry.getTextContent());
         }
         if (!args.containsKey(TestRunArg.IUT.toString())) {
-            throw new IllegalArgumentException(String.format(
-                    "Missing argument: '%s' must be present.",
-                    TestRunArg.IUT));
+            throw new IllegalArgumentException(
+                    String.format("Missing argument: '%s' must be present.", TestRunArg.IUT));
         }
     }
 }

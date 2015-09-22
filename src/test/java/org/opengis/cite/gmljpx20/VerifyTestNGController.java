@@ -18,6 +18,7 @@ import net.sf.saxon.s9api.XdmValue;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.opengis.cite.gmljpx20.util.XMLUtils;
 import org.w3c.dom.Document;
@@ -52,6 +53,7 @@ public class VerifyTestNGController {
     }
 
     @Test
+    @Ignore("Use actual SUT")
     public void doTestRun() throws Exception {
         URL testSubject = getClass().getResource("/atom-feed-2.xml");
         this.testRunProps.setProperty(TestRunArg.IUT.toString(), testSubject

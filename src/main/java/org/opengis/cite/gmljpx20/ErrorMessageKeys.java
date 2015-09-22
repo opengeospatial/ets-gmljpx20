@@ -19,4 +19,6 @@ public class ErrorMessageKeys {
     public static final String UNEXPECTED_STATUS = "UnexpectedStatus";
     public static final String UNEXPECTED_MEDIA_TYPE = "UnexpectedMediaType";
     public static final String MISSING_ENTITY = "MissingEntity";
+    public static final String XML_BOX_NOT_FOUND = "XmlBoxNotFound";
+    public static final String GMLJP2_GMLCOV = "gmljp2-gmlcov";
 }
