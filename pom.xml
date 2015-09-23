@@ -12,8 +12,9 @@
 	<packaging>jar</packaging>
 
 	<name>Conformance Test Suite - GML in JPEG 2000</name>
-	<description>Checks JPEG 2000 images for conformance against "OGC GML in JPEG 
-  2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4).</description>
+	<description>Checks JPEG 2000 codestreams for conformance against "OGC GML 
+  in JPEG 2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related 
+  specifications.</description>
 	<url>http://opengeospatial.github.io/ets-gmljpx20/</url>
 	<licenses>
 		<license>

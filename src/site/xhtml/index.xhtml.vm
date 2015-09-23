@@ -56,23 +56,26 @@ dt {
   <body>
   <h1>Conformance Test Suite - GML in JPEG 2000</h1>
 	<h2>Scope</h2>
-	<p>This executable test suite (ETS) verifies the conformance of the implementation 
-	under test (IUT) with respect to the set of relevant specifications depicted in 
-	Figure 1. Conformance testing is a kind of "black box" testing that examines 
-	externally visible characteristics or behaviors of the IUT and is independent 
-	of any implementation details.</p>
+  <p>This executable test suite (ETS) verifies the conformance of JPEG 2000 codestreams
+  against <em>OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1</em> (OGC 08-085r4) 
+  and related specifications (see Figure 1). The JPEG 2000 standard (ISO 15444 series) 
+  is a wavelet-based encoding for imagery that provides the ability to include XML data 
+  for description of the image within the JPEG 2000 data file.</p>
 
 	<figure>
 	  <img src="./img/specifications.png" alt="Set of relevant specifications"/>
 	  <figcaption><p><strong>Figure 1</strong> - Relevant specifications</p></figcaption>
-    </figure>
+  </figure>
 
-	<p>Several conformance classes are defined in the principal specification:</p>
+	<p>The relevant conformance classes are defined in the principal specification:</p>
 	<dl>
-    <dt>Class A</dt>
-    <dd>Capabilities of conformance class A</dd>
+    <dt>Core (<code>http://www.opengis.net/spec/GMLJP2/2.0/conf/core</code>)</dt>
+    <dd>See <a href="http://docs.opengeospatial.org/is/08-085r4/08-085r4.html" 
+    target="_blank">OGC 08-085r4</a>: A.1</dd>
+    <!-- NOT APPLICABLE
     <dt>Class B</dt>
     <dd>Capabilities of conformance class B</dd>
+    -->
   </dl>
 
   <h2>Test suite structure</h2>
@@ -92,21 +95,23 @@ dt {
     </thead>
     <tbody>
       <tr style="vertical-align: top;">
-        <td>Conformance Level 1</td>
+        <td><strong>Core</strong></td>
         <td>
           <ul style="list-style: none;">
-            <li>org.opengis.cite.gmljpx20.level1.Capability1Tests</li>
+            <li>org.opengis.cite.gmljpx20.core.*Tests</li>
           </ul>
         </td>
       </tr>
+      <!-- NOT APPLICABLE
       <tr style="vertical-align: top;">
         <td>Conformance Level 2</td>
         <td>
           <ul style="list-style: none;">
-            <li>org.opengis.cite.gmljpx20.level2.Capability2Tests</li>
+            <li>org.opengis.cite.gmljpx20.level2.*Tests</li>
           </ul>
         </td>
       </tr>
+      -->
     </tbody>
   </table>
 
@@ -116,14 +121,18 @@ dt {
 	<h2>Test requirements</h2>
 	<p>The documents listed below stipulate requirements that must be satisfied 
 	by a conforming implementation.</p>
-	<ul>
-	  <li style="list-style: square;">[WCAG2] <a href="http://www.w3.org/TR/WCAG20/" target="_blank" 
-	  type="application/xhtml+xml">Web Content Accessibility Guidelines (WCAG) 2.0</a>
-	  </li>
-	  <li style="list-style: square;">[XML] <a href="http://www.w3.org/TR/xml/" target="_blank" 
-	  type="application/xhtml+xml">Extensible Markup Language (XML) 1.0, Fifth Edition</a>
-	  </li>
-	</ul>
+  <ul>
+    <li style="list-style: square;"><a href="http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>: 
+    OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1: Core, Version 2.0</li>
+    <li style="list-style: square;"><a href="http://docs.opengeospatial.org/is/12-108/12-108.html">OGC 12-108</a>: 
+    OGC GML Application Schema - Coverages - JPEG2000 Coverage Encoding Extension, Version 1.0</li>
+    <li style="list-style: square;"><a href="https://portal.opengeospatial.org/files/?artifact_id=48553">OGC 09-146r2</a>: 
+    OGC GML Application Schema - Coverages, Version 1.0.1</li>
+    <li style="list-style: square;"><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=33160">ISO/IEC 15444-2:2004</a>: 
+    Information technology -- JPEG 2000 image coding system: Extensions</li>
+    <li style="list-style: square;"><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=37674">ISO/IEC 15444-1:2004</a>: 
+    Information technology -- JPEG 2000 image coding system: Core coding system</li>
+  </ul>
 
 	<h2>How to run the tests</h2>
 	<p>The test suite may be run in any of the following environments:</p>
@@ -145,18 +154,19 @@ dt {
       <tr>
         <th>Name</th>
         <th>Value domain</th>
-		<th>Obligation</th>
-		<th>Description</th>
+		    <th>Obligation</th>
+        <th>Description</th>
       </tr>
-      </thead>
+    </thead>
 	  <tbody>
-      <tr>
-        <td>iut</td>
-        <td>URI</td>
-		<td>M</td>
-		<td>A URI that refers to the implementation under test or metadata about it.
-    Ampersand ('&amp;') characters must be percent-encoded as '%26'.</td>
-      </tr>
+    <tr>
+      <td>iut</td>
+      <td>URI</td>
+      <td>M</td>
+      <td>A URI that refers to the test subject or metadata about it. Ampersand ('&amp;') 
+      characters must be percent-encoded as '%26'.</td>
+    </tr>
+    <!-- NOT APPLICABLE
 	  <tr>
       <td>ics</td>
       <td>A comma-separated list of string values.</td>
@@ -164,6 +174,7 @@ dt {
       <td>An implementation conformance statement that indicates which conformance 
       classes or options are supported.</td>
     </tr>
+    -->
 	  </tbody>
     </table>
 

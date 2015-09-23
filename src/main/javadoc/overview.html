@@ -55,10 +55,11 @@ dt {
   </head>
   <body>
   <h1>Conformance Test Suite - GML in JPEG 2000</h1>
-	<p>This executable test suite (ETS) verifies the conformance of the implementation 
-	under test (IUT) with respect to all relevant specifications. Conformance testing 
-  is a kind of "black box" testing that examines externally visible characteristics 
-  or behaviors of the IUT and is independent of any implementation details.</p>
+	<p>This executable test suite (ETS) verifies the conformance of JPEG 2000 codestreams
+  against <em>OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1</em> (OGC 08-085r4) 
+  and related specifications. The JPEG 2000 standard (ISO 15444 series) is a wavelet-based 
+  encoding for imagery that provides the ability to include XML data for description of 
+  the image within the JPEG 2000 data file.</p>
 
 	<p>The test run arguments are summarized in the following table. The <em>Obligation</em> 
 	descriptor can have the following values: M (mandatory), O (optional), or C 
@@ -73,15 +74,16 @@ dt {
 		    <th>Obligation</th>
 		    <th>Description</th>
       </tr>
-      </thead>
+    </thead>
 	  <tbody>
-      <tr>
-        <td>iut</td>
-        <td>URI</td>
-		<td>M</td>
-		<td>A URI that refers to the implementation under test or metadata about it.
-    Ampersand ('&amp;') characters must be percent-encoded as '%26'.</td>
-      </tr>
+    <tr>
+      <td>iut</td>
+      <td>URI</td>
+      <td>M</td>
+      <td>A URI that refers to the test subject or metadata about it. Ampersand ('&amp;') 
+      characters must be percent-encoded as '%26'.</td>
+    </tr>
+    <!--  NOT APPLICABLE
 	  <tr>
       <td>ics</td>
       <td>A comma-separated list of string values.</td>
@@ -89,6 +91,7 @@ dt {
       <td>An implementation conformance statement that indicates which conformance 
       classes or options are supported.</td>
     </tr>
+    -->
 	  </tbody>
   </table>
 

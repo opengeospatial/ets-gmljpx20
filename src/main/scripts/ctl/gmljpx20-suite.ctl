@@ -19,7 +19,8 @@
 
    <ctl:suite name="tns:ets-gmljpx20-${version}">
      <ctl:title>Conformance Test Suite - GML in JPEG 2000</ctl:title>
-     <ctl:description>Describe scope of testing.</ctl:description>
+     <ctl:description>Checks JPEG 2000 codestreams for conformance against "OGC GML in JPEG 
+     2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related specifications.</ctl:description>
      <ctl:starting-test>tns:Main</ctl:starting-test>
    </ctl:suite>
  
@@ -30,40 +31,48 @@
            <ctl:form method="POST" width="800" height="600" xmlns="http://www.w3.org/1999/xhtml">
              <h2>Conformance Test Suite - GML in JPEG 2000</h2>
              <div style="background:#F0F8FF" bgcolor="#F0F8FF">
-               <p>The implementation under test (IUT) is checked against the following specifications:</p>
+               <p>The test subject is checked against the following specifications:</p>
                <ul>
-                 <li><a href="http://www.w3.org/TR/xml/">Extensible Markup Language (XML) 1.0</a>, 
-				 Fifth Edition</li>
-				 <li><a href="http://www.w3.org/TR/xmlbase/">XML Base</a>, Second Edition</li>
+                 <li><a href="http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>: 
+                 OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1: Core, Version 2.0</li>
+                 <li><a href="http://docs.opengeospatial.org/is/12-108/12-108.html">OGC 12-108</a>: 
+                 OGC GML Application Schema - Coverages - JPEG2000 Coverage Encoding Extension, Version 1.0</li>
+                 <li><a href="https://portal.opengeospatial.org/files/?artifact_id=48553">OGC 09-146r2</a>: 
+                 OGC GML Application Schema - Coverages, Version 1.0.1</li>
+                 <li><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=33160">ISO/IEC 15444-2:2004</a>: 
+                 Information technology -- JPEG 2000 image coding system: Extensions</li>
+                 <li><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=37674">ISO/IEC 15444-1:2004</a>: 
+                 Information technology -- JPEG 2000 image coding system: Core coding system</li>
                </ul>
-               <p>Two conformance levels are defined:</p>
+               <p>The following conformance levels are defined:</p>
                <ul>
-                 <li>Level 1</li>
-                 <li>Level 2</li>
+                 <li>Core (<code>http://www.opengis.net/spec/GMLJP2/2.0/conf/core</code>): OGC 08-085, A.1</li>
                </ul>
              </div>
              <fieldset style="background:#ccffff">
                <legend style="font-family: sans-serif; color: #000099; 
 			                 background-color:#F0F8FF; border-style: solid; 
-                       border-width: medium; padding:4px">Implementation under test</legend>
+                       border-width: medium; padding:4px">Test subject</legend>
                <p>
                  <label for="uri">
-                   <h4 style="margin-bottom: 0.5em">Location of IUT (absolute http: or file: URI)</h4>
+                   <h4 style="margin-bottom: 0.5em">Location (absolute 'http' or 'file' URI)</h4>
                  </label>
-                 <input id="uri" name="uri" size="128" type="text" value="http://www.w3schools.com/xml/note.xml" />
+                 <input id="uri" name="uri" size="128" type="text" value="" />
                </p>
                <p>
                  <label for="doc">
-                   <h4 style="margin-bottom: 0.5em">Upload IUT</h4>
+                   <h4 style="margin-bottom: 0.5em">Upload representation</h4>
                  </label>
                  <input name="doc" id="doc" size="128" type="file" />
                </p>
                <p>
                  <label for="level">Conformance class: </label>
-                 <input id="level-1" type="radio" name="level" value="1" checked="checked" />
-                 <label for="level-1"> Level 1 | </label>
+                 <input id="core" type="radio" name="level" value="1" checked="checked" />
+                 <label for="core"> Core | </label>
+                 <!-- NOT APPLICABLE
                  <input id="level-2" type="radio" name="level" value="2" />
                  <label class="form-label" for="level-2"> Level 2</label>
+                 -->
                </p>
              </fieldset>
              <p>
