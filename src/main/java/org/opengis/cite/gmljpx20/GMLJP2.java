@@ -11,5 +11,5 @@ package org.opengis.cite.gmljpx20;
 public class GMLJP2 {
 
     public static final String LBL_GML_DATA = "gml.data";
-    public static final String LBL_GML_ROOT = "gml.root-instance";
+	public static final String LBL_GML_ROOT = "gml.root-instance";
 }

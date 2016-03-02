@@ -34,7 +34,7 @@ public class StreamUtil {
 	        //
 	        //   System.ArgumentOutOfRangeException:
 	        //     count is negative.
-	        static byte[] ReadBytes(InputStream s, int count) throws IOException
+	        public static byte[] ReadBytes(InputStream s, int count) throws IOException
 	        {
 	            byte[] buffer = new byte[count];
 	            int len = s.read(buffer, 0, count);
@@ -48,7 +48,7 @@ public class StreamUtil {
 	            if (len < count) throw(new Exception("Expected " + count + " bytes but only read " + len + " bytes."));
 	            return buffer;
 	        }
-	        static byte[] ReadToEnd(InputStream s) throws IOException
+	        public static byte[] ReadToEnd(InputStream s) throws IOException
 	        {
 	            int len;
 	            int position = 0;
