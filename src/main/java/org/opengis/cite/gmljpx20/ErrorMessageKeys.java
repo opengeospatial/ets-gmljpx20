@@ -27,7 +27,7 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_METADATA_HIGH = "gmljp2-gmlcov-metadata-coherence";
     public static final String GMLJP2_GMLCOV_PRECEDENCE_METADATA = "gmljp2-gmlcov-precedence-metadata";
     public static final String GMLJP2_GMLCOV_PRECEDENCE_DOMAIN_SET = "gmljp2-gmlcov-precedence-domainset";
-    public static final String GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE = "gmljp2-gmlcov-precedence-domainset";
+    public static final String GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE = "gmljp2-gmlcov-precedence-rangetype";
     public static final String GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1 = "gmljp2-gmlcov-precedence-coherence1";
     public static final String GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 = "gmljp2-gmlcov-precedence-coherence2";
     public static final String GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY = "gmljp2-gmlcov-metadata-property";
