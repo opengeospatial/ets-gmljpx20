@@ -109,7 +109,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovElems = (Boolean) XMLUtils.evaluateXPath(doc, "//cov:*",
+            Boolean hasGmlCovElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’cov’]",
                     Collections.singletonMap(Namespaces.GMLCOV, "cov"), XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV, doc.getDocumentElement().getNodeName()));
@@ -151,7 +151,7 @@ public class CoreTests {
 	            XMLBox auxXmlBox = (XMLBox) ContigousCodestream;
 	            Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
 				
-	            Boolean hasGmlCovElems = (Boolean) XMLUtils.evaluateXPath(doc, "//high:*",
+	            Boolean hasGmlCovElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’high’]",
 	                    null, XPathConstants.BOOLEAN);
 	            Assert.assertTrue(hasGmlCovElems,
 	                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_METADATA_HIGH, doc.getDocumentElement().getNodeName()));
@@ -194,17 +194,17 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//gmlcov:metadata:*",
+            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gmlcov:metadata’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovMetadataElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_METADATA, doc.getDocumentElement().getNodeName()));
             
-            Boolean hasGmlCovDomainSetElems = (Boolean) XMLUtils.evaluateXPath(doc, "//domainSet:*",
+            Boolean hasGmlCovDomainSetElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’domainSet’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovDomainSetElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_DOMAIN_SET, doc.getDocumentElement().getNodeName()));
             
-            Boolean hasGmlCovRangeTypeElems = (Boolean) XMLUtils.evaluateXPath(doc, "//rangeType:*",
+            Boolean hasGmlCovRangeTypeElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’rangeType’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovRangeTypeElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE, doc.getDocumentElement().getNodeName()));
@@ -255,7 +255,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//metaDataProperty:*",
+            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’metadataProperty’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovMetadataElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY, doc.getDocumentElement().getNodeName()));
@@ -295,7 +295,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//RectifiedGrid:*",
+            Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’RectifiedGrid’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovCRSElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID, doc.getDocumentElement().getNodeName()));
@@ -344,7 +344,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//RectifiedGrid:*",
+            Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’RectifiedGrid’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovCRSElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID, doc.getDocumentElement().getNodeName()));
@@ -396,7 +396,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovDataRecordsElems = (Boolean) XMLUtils.evaluateXPath(doc, "//swe:DataRecords:*",
+            Boolean hasGmlCovDataRecordsElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’swe:DataRecords’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovDataRecordsElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS, doc.getDocumentElement().getNodeName()));
@@ -451,7 +451,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovUOMElems = (Boolean) XMLUtils.evaluateXPath(doc, "//swe:uom:*",
+            Boolean hasGmlCovUOMElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’swe:uom’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovUOMElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_BY_REF, doc.getDocumentElement().getNodeName()));
@@ -498,7 +498,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath(doc, "//nil-values:*",
+            Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’nil-values’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovNilValuesElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES, doc.getDocumentElement().getNodeName()));
@@ -545,7 +545,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath(doc, "//nil-values:*",
+            Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’nil-values’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovNilValuesElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES_BY_REF, doc.getDocumentElement().getNodeName()));
@@ -596,7 +596,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovCollectionElems = (Boolean) XMLUtils.evaluateXPath(doc, "//GMLJP2CoverageCollection:*",
+            Boolean hasGmlCovCollectionElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='GMLJP2CoverageCollection']",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovCollectionElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION, doc.getDocumentElement().getNodeName()));
@@ -700,7 +700,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//gmlcov:metadata:*",
+            Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gmlcov:metadata’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlCovMetadataElems,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_METADATA, doc.getDocumentElement().getNodeName()));
@@ -801,7 +801,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlJp2Annotation = (Boolean) XMLUtils.evaluateXPath(doc, "//gmljp2:annotation:*",
+            Boolean hasGmlJp2Annotation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gmljp2:annotation’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlJp2Annotation,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_ANNOTATION_CONTAINER, doc.getDocumentElement().getNodeName()));
@@ -841,7 +841,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlJp2Style = (Boolean) XMLUtils.evaluateXPath(doc, "//gmljp2:style:*",
+            Boolean hasGmlJp2Style = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gmljp2:style’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlJp2Style,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_STYLE_CONTAINER, doc.getDocumentElement().getNodeName()));
@@ -881,7 +881,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlJp2fileName = (Boolean) XMLUtils.evaluateXPath(doc, "//gml:fileName:*",
+            Boolean hasGmlJp2fileName = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gml:fileName’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasGmlJp2fileName,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM, doc.getDocumentElement().getNodeName()));
@@ -889,7 +889,7 @@ public class CoreTests {
             reset = true;
             String[] A117 = getNodeValueArray(doc.getChildNodes(), "gml:fileName");
 
-    		Boolean hasFilenameCodestream = (Boolean) Arrays.asList(A117).contains("gmljp2://codestream/");
+    		Boolean hasFilenameCodestream = (Boolean) Arrays.asList(A117).contains("//*[local-name()=’gmljp2:codestream’]");
             Assert.assertTrue(hasFilenameCodestream,
             	ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CODESTREAM, doc.getDocumentElement().getNodeName()));
     		
@@ -971,7 +971,7 @@ public class CoreTests {
 			
 			String fileTypeData = auxFileType.fileTypeData;
 			
-    		Boolean hasFilenameCodestream = (Boolean) fileTypeData.contains("jpx\040");
+    		Boolean hasFilenameCodestream = (Boolean) fileTypeData.contains("//*[local-name()=’jpx\040’]");
             Assert.assertTrue(hasFilenameCodestream,
             	ErrorMessage.format(ErrorMessageKeys.GMLJP2_XML_SIGNALED_CORRECTLY, auxFileType));
 
@@ -1036,7 +1036,7 @@ public class CoreTests {
 			
 			String fileTypeData = auxFileType.fileTypeData;
 			
-    		Boolean isJPXcompatible = (Boolean) fileTypeData.contains("jpx");
+    		Boolean isJPXcompatible = (Boolean) fileTypeData.contains("//*[local-name()=’jpx’]");
             Assert.assertTrue(isJPXcompatible,
             	ErrorMessage.format(ErrorMessageKeys.GMLJP2_JPX_COMPATILITY, auxFileType));
 
@@ -1156,7 +1156,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//xsi:schemaLocation:*",
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’xsi:schemaLocation’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasSchemaLocation,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION, doc.getDocumentElement().getNodeName()));
@@ -1196,7 +1196,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//xsi:schemaLocation:*",
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’xsi:schemaLocation’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasSchemaLocation,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION, doc.getDocumentElement().getNodeName()));
@@ -1245,7 +1245,7 @@ public class CoreTests {
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//gmljp2:references:*",
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()=’gmljp2:references’]",
                     null, XPathConstants.BOOLEAN);
             Assert.assertTrue(hasSchemaLocation,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REFERENCES, doc.getDocumentElement().getNodeName()));
@@ -1295,7 +1295,7 @@ public class CoreTests {
 			reset = true;
     		String[] A126 = getNodeAttributeValueArray(doc.getChildNodes(), "gml:FeatureCollection", "xsi:schemaLocation");
 
-    		Boolean hasFileInternalRefToXmlBox = (Boolean) Arrays.asList(A126).contains("gmljp2://xml/");
+    		Boolean hasFileInternalRefToXmlBox = (Boolean) Arrays.asList(A126).contains("//*[local-name()=’gmljp2:xml’]");
             Assert.assertTrue(hasFileInternalRefToXmlBox,
             	ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_XML_BOX, doc.getDocumentElement().getNodeName()));
             
@@ -1340,7 +1340,7 @@ public class CoreTests {
 			reset = true;
     		String[] A127 = getNodeValueArray(doc.getChildNodes(), "gml:fileName");
 
-            Boolean hasGMLJP2InternalRefToCodestream = (Boolean) Arrays.asList(A127).contains("gmljp2://codestream/");
+            Boolean hasGMLJP2InternalRefToCodestream = (Boolean) Arrays.asList(A127).contains("//*[local-name()=’gmljp2:codestream’]");
             Assert.assertTrue(hasGMLJP2InternalRefToCodestream,
                     ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_CODESTREAM, doc.getDocumentElement().getNodeName()));
 
