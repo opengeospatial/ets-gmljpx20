@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Unpack the *-ctl-scripts.zip archive in the TE_BASE/scripts directory -->
+<!-- Add this entry to TE_BASE/config.xml (//organization/standard) -->
+<organization>
+  <name>OGC</name>
+  <standard>
+    <name>GML in JPEG 2000 (GMLJP2)</name>
+    <version>
+      <name>${spec-version}</name>
+      <suite>
+        <namespace-uri>http://www.opengis.net/cite/gmljpx20</namespace-uri>
+        <prefix>tns</prefix>
+        <local-name>ets-gmljpx20-${version}</local-name>
+        <title>Conformance Test Suite - GML in JPEG 2000</title>
+        <description>Checks JPEG 2000 codestreams for conformance against "OGC GML 
+        in JPEG 2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related 
+        specifications.</description>
+      </suite>
+      <revision>
+        <name>${version}</name>
+        <status>Beta</status>
+        <sources>
+          <source>gmljpx20/${spec-version}/ctl</source>
+        </sources>
+        <webdir>gmljpx20/${spec-version}/site</webdir>
+      </revision>
+    </version>
+  </standard>
+</organization>

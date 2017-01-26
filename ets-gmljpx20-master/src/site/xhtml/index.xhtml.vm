@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>Conformance Test Suite - GML in JPEG 2000</title>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+body {
+  color: black;
+  background: white;
+  font-family: Georgia, serif;
+}
+h1, h2, h3 {
+  font-family: Verdana, sans-serif;
+  color: #000099;
+  text-align: left;
+}
+h1 {
+  font-size: 1.4em;
+  margin-top: 2em;
+}
+h2 {
+  font-size: 1.2em;
+}
+h3 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+table {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+td, th {
+  padding: 0.25em;
+  border: 1px solid black;
+}
+caption, figcaption {
+  font-weight: bold;
+  text-align: left;
+  margin: 0.25em;
+}
+th {
+  font-weight: bold;
+  font-family: Verdana, sans-serif;
+  text-align: left;
+  vertical-align: top;
+  background: #eeeeee;
+  color: #000099;
+}
+dt {
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+    </style>
+  </head>
+  <body>
+  <h1>Conformance Test Suite - GML in JPEG 2000</h1>
+	<h2>Scope</h2>
+  <p>This executable test suite (ETS) verifies the conformance of JPEG 2000 codestreams
+  against <em>OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1</em> (OGC 08-085r4) 
+  and related specifications (see Figure 1). The JPEG 2000 standard (ISO 15444 series) 
+  is a wavelet-based encoding for imagery that provides the ability to include XML data 
+  for description of the image within the JPEG 2000 data file.</p>
+
+	<figure>
+	  <img src="./img/specifications.png" alt="Set of relevant specifications"/>
+	  <figcaption><p><strong>Figure 1</strong> - Relevant specifications</p></figcaption>
+  </figure>
+
+	<p>The relevant conformance classes are defined in the principal specification:</p>
+	<dl>
+    <dt>Core (<code>http://www.opengis.net/spec/GMLJP2/2.0/conf/core</code>)</dt>
+    <dd>See <a href="http://docs.opengeospatial.org/is/08-085r4/08-085r4.html" 
+    target="_blank">OGC 08-085r4</a>: A.1</dd>
+    <!-- NOT APPLICABLE
+    <dt>Class B</dt>
+    <dd>Capabilities of conformance class B</dd>
+    -->
+  </dl>
+
+  <h2>Test suite structure</h2>
+
+  <p>The test suite definition file (testng.xml) is located in the root package, 
+  <code>org.opengis.cite.gmljpx20</code>. A conformance class corresponds to a &lt;test&gt;
+  element; each test element includes a set of test classes that contain the actual 
+  test methods. The general structure of the test suite is shown in Table 1.</p>
+
+  <table border="1" style="border-collapse: collapse;">
+    <caption>Table 1 - Test suite structure</caption>
+    <thead>
+      <tr style="background-color:#eeeeee;">
+        <th style="width: 35%;">Conformance class</th>
+        <th>Test classes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="vertical-align: top;">
+        <td><strong>Core</strong></td>
+        <td>
+          <ul style="list-style: none;">
+            <li>org.opengis.cite.gmljpx20.core.*Tests</li>
+          </ul>
+        </td>
+      </tr>
+      <!-- NOT APPLICABLE
+      <tr style="vertical-align: top;">
+        <td>Conformance Level 2</td>
+        <td>
+          <ul style="list-style: none;">
+            <li>org.opengis.cite.gmljpx20.level2.*Tests</li>
+          </ul>
+        </td>
+      </tr>
+      -->
+    </tbody>
+  </table>
+
+  <p>The Javadoc documentation provides more detailed information about the test 
+  methods that constitute the suite.</p>
+
+	<h2>Test requirements</h2>
+	<p>The documents listed below stipulate requirements that must be satisfied 
+	by a conforming implementation.</p>
+  <ul>
+    <li style="list-style: square;"><a href="http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>: 
+    OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1: Core, Version 2.0</li>
+    <li style="list-style: square;"><a href="http://docs.opengeospatial.org/is/12-108/12-108.html">OGC 12-108</a>: 
+    OGC GML Application Schema - Coverages - JPEG2000 Coverage Encoding Extension, Version 1.0</li>
+    <li style="list-style: square;"><a href="https://portal.opengeospatial.org/files/?artifact_id=48553">OGC 09-146r2</a>: 
+    OGC GML Application Schema - Coverages, Version 1.0.1</li>
+    <li style="list-style: square;"><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=33160">ISO/IEC 15444-2:2004</a>: 
+    Information technology -- JPEG 2000 image coding system: Extensions</li>
+    <li style="list-style: square;"><a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=37674">ISO/IEC 15444-1:2004</a>: 
+    Information technology -- JPEG 2000 image coding system: Core coding system</li>
+  </ul>
+
+	<h2>How to run the tests</h2>
+	<p>The test suite may be run in any of the following environments:</p>
+	<ul>
+	  <li style="list-style: square;">Integrated development environment (IDE): The main Java class is <code>
+	  TestNGController</code>.</li>
+	  <li style="list-style: square;">RESTful API: Submit a request that includes the necessary arguments 
+    to the test run controller (/rest/suites/gmljpx20/${project.version}/run).</li>
+    <li style="list-style: square;">TEAM-Engine: Run the CTL script located in the <code>/src/main/ctl/</code> 
+	  directory.</li>
+	</ul>
+
+	<p>The test run arguments are summarized in Table 2. The <em>Obligation</em> 
+	descriptor can have the following values: M (mandatory), O (optional), or C 
+	(conditional).</p>
+	<table border="1" style="border-collapse: collapse;">
+	  <caption>Table 2 - Test run arguments</caption>
+	  <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value domain</th>
+		    <th>Obligation</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+	  <tbody>
+    <tr>
+      <td>iut</td>
+      <td>URI</td>
+      <td>M</td>
+      <td>A URI that refers to the test subject or metadata about it. Ampersand ('&amp;') 
+      characters must be percent-encoded as '%26'.</td>
+    </tr>
+    <!-- NOT APPLICABLE
+	  <tr>
+      <td>ics</td>
+      <td>A comma-separated list of string values.</td>
+      <td>O</td>
+      <td>An implementation conformance statement that indicates which conformance 
+      classes or options are supported.</td>
+    </tr>
+    -->
+	  </tbody>
+    </table>
+
+  </body>
+</html>
