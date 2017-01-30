@@ -105,7 +105,7 @@ public class CoreTests {
         try (InputStream inStream = new FileInputStream(this.jp2File)) {
             JP2Stream jp2s = new JP2Stream(inStream);
             Box xmlBox = findXMLbox(jp2s.Boxes);
-           /* Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND)); */
+        
             if (xmlBox==null) 
         		{
             		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
@@ -122,8 +122,7 @@ public class CoreTests {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV));
         	}
            
-           /* Assert.assertTrue(hasGmlCovElems,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV, doc.getDocumentElement().getNodeName())); */
+          
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
         }
@@ -156,13 +155,13 @@ public class CoreTests {
       		{
           		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
       		}
-			//Assert.assertNotNull(ContigousCodestream, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+			
 			ContigousCodestream auxContigousCodestream = (ContigousCodestream)ContigousCodestream;
 		
 			if (auxContigousCodestream != null) {
 				
 				
-		//		findXmlbox
+		
 				
 				//Extract Xsize and Ysize from codestream
 				int[] fileContigousCodestream = auxContigousCodestream.ContigousCodestreamData;
@@ -174,14 +173,12 @@ public class CoreTests {
         		}
 	          Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
 				
-	          //String strhigh = (String) XMLUtils.evaluateXPath(doc, "//*[local-name()='high']/text()",
-	           //         null, XPathConstants.STRING);
+	          
 	            
 	          String strhigh = (String) XMLUtils.evaluateXPath(doc, "//*[local-name()='GMLJP2RectifiedGridCoverage']//*[local-name()='high']/text()",
 	                    null, XPathConstants.STRING);
 	            
-	            /*Boolean hasGmlCovElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='high']",
-	                    null, XPathConstants.BOOLEAN); */
+	           
 	            if (strhigh==null) 
         		{
             		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
@@ -233,8 +230,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-           // Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
-            XMLBox auxXmlBox = (XMLBox) xmlBox;
+                      XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='metadata']",
@@ -244,7 +240,7 @@ public class CoreTests {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_METADATA));
         	}
             
-            // Assert.assertTrue(hasGmlCovMetadataElems,ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_METADATA, doc.getDocumentElement().getNodeName()));
+            
             
             Boolean hasGmlCovDomainSetElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='domainSet']",
                     null, XPathConstants.BOOLEAN);
@@ -254,7 +250,7 @@ public class CoreTests {
         	}
             
             
-          //  Assert.assertTrue(hasGmlCovDomainSetElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_DOMAIN_SET, doc.getDocumentElement().getNodeName()));
+        
             
             Boolean hasGmlCovRangeTypeElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='rangeType']",
                     null, XPathConstants.BOOLEAN);
@@ -263,7 +259,7 @@ public class CoreTests {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE));
         	}
             
-           // Assert.assertTrue(hasGmlCovRangeTypeElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE, doc.getDocumentElement().getNodeName()));
+         
             
     		String[] A13_0 = findElementContains(doc.getChildNodes(), "gmlcov:metadata");
     		String[] A13_1 = findElementContains(doc.getChildNodes(), "gml:domainSet");
@@ -274,13 +270,13 @@ public class CoreTests {
             	{
                 	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1));
             	}
-           //     Assert.assertTrue(hasCoherence1, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1, doc.getDocumentElement().getNodeName()));
+         
                 Boolean hasCoherence2 = (Boolean) Arrays.asList(A13_2).contains(A13_0[n]);
                 if (hasCoherence2==false) 
             	{
                 	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2));
             	}
-           //     Assert.assertTrue(hasCoherence2, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2, doc.getDocumentElement().getNodeName()));
+         
 			}
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -317,7 +313,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-           // Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -327,7 +323,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY));
         	}
-        //    Assert.assertTrue(hasGmlCovMetadataElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY, doc.getDocumentElement().getNodeName()));
+       
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -356,32 +352,7 @@ public class CoreTests {
      * </ul>
      */
     @Test(description = "OGC 08-085r4, A.1.5")
- /* public void containsCRSdeclaredUsingURIs() {
-        try (InputStream inStream = new FileInputStream(this.jp2File)) {
-            JP2Stream jp2s = new JP2Stream(inStream);
-            Box xmlBox = findXMLbox(jp2s.Boxes);
-            Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
-            XMLBox auxXmlBox = (XMLBox) xmlBox;
-            Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
-            // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='RectifiedGrid']",
-                    null, XPathConstants.BOOLEAN);
-            Assert.assertTrue(hasGmlCovCRSElems,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID, doc.getDocumentElement().getNodeName()));
-            
-            reset = true;
-            String[] A15 = getNodeAttributeValueArray(doc.getChildNodes(), "gml:RectifiedGrid", "srsName");
 
-    		for (int a = 0; a < A15.length; a++) {
-                Boolean hasSrsName = (Boolean) Arrays.asList(A15[a]).contains("http");
-                Assert.assertTrue(hasSrsName,
-                        ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP, doc.getDocumentElement().getNodeName()));
-    		}
-            
-        } catch (IOException | SAXException | XPathExpressionException e) {
-            throw new AssertionError(e.getMessage());
-        }
-    } */
     public void containsCRSdeclaredUsingURIs() {
         try (InputStream inStream = new FileInputStream(this.jp2File)) {
             JP2Stream jp2s = new JP2Stream(inStream);
@@ -390,15 +361,11 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-       //     Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+     
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-          /*  Boolean hasGmlCovCRSElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='RectifiedGrid']",
-                    null, XPathConstants.BOOLEAN);
-            Assert.assertTrue(hasGmlCovCRSElems,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID, doc.getDocumentElement().getNodeName()));
-            */
+          
                                                if ((Boolean) XMLUtils.evaluateXPath(doc,"//*[local-name()='RectifiedGrid']",null, XPathConstants.BOOLEAN)==false) 
                                                {
                    throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID));
@@ -418,20 +385,7 @@ public class CoreTests {
                 }
             }
             
-            /*String[] A15 = getNodeAttributeValueArray(doc.getChildNodes(), "//*[local-name()='RectifiedGrid']", "srsName");
-
-                               for (int a = 0; a < A15.length; a++) {
-                Boolean hasSrsName = (Boolean) Arrays.asList(A15[a]).contains("http");
-                                                               if (hasSrsName==false) 
-                                                               {
-                                                                                  throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP));
-                                                                                  
-
-                                                               }*/
-               /* Assert.assertTrue(hasSrsName,
-                        ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP, doc.getDocumentElement().getNodeName()));
-                                                                                              
-                               }*/
+          
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -469,23 +423,11 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-       //     Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+      
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-          /*  if ((Boolean) XMLUtils.evaluateXPath(doc,"//*[local-name()='RectifiedGrid']",null, XPathConstants.BOOLEAN)==false) 
-            {
-            	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID));
-			}
-            
-            reset = true;
-            String[] A15 = getNodeAttributeValueArray(doc.getChildNodes(), "gml:RectifiedGrid", "srsName");
-
-    		for (int a = 0; a < A15.length; a++) {
-                Boolean hasSrsName = (Boolean) Arrays.asList(A15[a]).contains("http");
-                Assert.assertFalse(hasSrsName,
-                        ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP, doc.getDocumentElement().getNodeName()));
-    		} */
+        
             
             if ((Boolean) XMLUtils.evaluateXPath(doc,"//*[local-name()='RectifiedGrid']",null, XPathConstants.BOOLEAN)==false) 
             {
@@ -544,17 +486,17 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-           // Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovDataRecordsElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='swe:DataRecords']",null, XPathConstants.BOOLEAN);
-           // Boolean hasGmlCovDataRecordsElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='swe:DataRecords']", null, XPathConstants.BOOLEAN);
+          
             if (hasGmlCovDataRecordsElems==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS));
     		}
-          //  Assert.assertTrue(hasGmlCovDataRecordsElems,ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS, doc.getDocumentElement().getNodeName()));
+          
             
            
 			String A17elements[] = findElementContains(doc.getChildNodes(), "swe:DataRecords");
@@ -564,21 +506,21 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_RANGETYPE));
     		}
-        //    Assert.assertTrue(hasRangeType, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_RANGETYPE, doc.getDocumentElement().getNodeName()));
+      
 
             Boolean hasSweDatarecords = (Boolean) Arrays.asList(A17elements).contains("swe:DataRecord");
             if (hasGmlCovDataRecordsElems==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD));
     		}
-    //        Assert.assertTrue(hasSweDatarecords, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD, doc.getDocumentElement().getNodeName()));
+  
 
             Boolean hasSweUom = (Boolean) Arrays.asList(A17elements).contains("uom");
             if (hasGmlCovDataRecordsElems==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEUOM));
     		}
-            //   Assert.assertTrue(hasSweUom, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEUOM, doc.getDocumentElement().getNodeName()));
+          
 				
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -615,7 +557,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-          //  Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -625,7 +567,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_BY_REF));
         	}
-          //  Assert.assertTrue(hasGmlCovUOMElems,ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_BY_REF, doc.getDocumentElement().getNodeName()));
+         
             
            
             String[] A18 = findElementContains(doc.getChildNodes(), "//*[local-name()='uom']");
@@ -635,7 +577,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP));
         	}
-     //       Assert.assertTrue(hasHttpUom, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP, doc.getDocumentElement().getNodeName()));
+   
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -672,7 +614,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-           // Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+         
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -683,7 +625,7 @@ public class CoreTests {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES));
         	}
             
-            // Assert.assertTrue(hasGmlCovNilValuesElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES, doc.getDocumentElement().getNodeName()));
+          
             
         
             String[] A19 = findElementContains(doc.getChildNodes(), "nil-values");
@@ -693,7 +635,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP));
         	}
-         //   Assert.assertTrue(hasHttpUom, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP, doc.getDocumentElement().getNodeName()));
+        
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -730,7 +672,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-    //       Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+  
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -740,7 +682,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-         //   Assert.assertTrue(hasGmlCovNilValuesElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES_BY_REF, doc.getDocumentElement().getNodeName()));
+      
             
         
             String[] A110 = findElementContains(doc.getChildNodes(), "nil-values");
@@ -750,7 +692,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP));
     		}
-//            Assert.assertTrue(hasHttpNilValue, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP, doc.getDocumentElement().getNodeName()));
+
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -791,7 +733,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-           // Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -800,8 +742,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION));
         	}  
-      //      Boolean hasGmlCovCollectionElems = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='GMLJP2CoverageCollection']",null, XPathConstants.BOOLEAN);
-      //      Assert.assertTrue(hasGmlCovCollectionElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION, doc.getDocumentElement().getNodeName()));
+     
             
     		String[] elements = {
     				"gmljp2:GMLJP2CoverageCollection",
@@ -815,7 +756,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION_ELEMENT));
         	}
-       //     Assert.assertTrue(hasCoverageElement, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION_ELEMENT, doc.getDocumentElement().getNodeName()));
+       
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -854,7 +795,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-            //Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+           
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
                         
@@ -868,7 +809,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_CONTAINER_ELEMENT));
         	}
-            //Assert.assertTrue(hasCoverageContainerElement, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_CONTAINER_ELEMENT, doc.getDocumentElement().getNodeName()));
+          
             
         } catch (IOException | SAXException e) {
             throw new AssertionError(e.getMessage());
@@ -912,7 +853,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-         //   Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -923,7 +864,7 @@ public class CoreTests {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_METADATA));
         	}
             
-           // Assert.assertTrue(hasGmlCovMetadataElems, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_METADATA, doc.getDocumentElement().getNodeName()));
+        
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -964,7 +905,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-  //          Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+  
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
 
@@ -977,7 +918,7 @@ public class CoreTests {
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION));
     		}
             
- //           Assert.assertTrue(hasGMLJP2FeaturesAnnotation, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION, doc.getDocumentElement().getNodeName()));
+
 
             Boolean hasGMLJP2FeaturesCoverage = (Boolean) Arrays.asList(A114_1).contains("coverage");
             if (hasGMLJP2FeaturesCoverage==null) 
@@ -985,7 +926,7 @@ public class CoreTests {
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE));
     		}
             
- //           Assert.assertTrue(hasGMLJP2FeaturesCoverage, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE, doc.getDocumentElement().getNodeName()));
+
 
        
     		String[] A114_2 = getNodeValueArray(doc.getChildNodes(), "gmljp2:feature");
@@ -995,14 +936,14 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION));
     		}
- //           Assert.assertTrue(hasFeaturesAnnotation, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION, doc.getDocumentElement().getNodeName()));
+ 
 
             Boolean hasFeaturesCoverage = (Boolean) Arrays.asList(A114_2).contains("coverage");
             if (hasGMLJP2FeaturesCoverage==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE));
     		} 
- //           Assert.assertTrue(hasFeaturesCoverage, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE, doc.getDocumentElement().getNodeName()));
+ 
             
         } catch (IOException | SAXException e) {
             throw new AssertionError(e.getMessage());
@@ -1039,7 +980,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-  //          Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+  
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -1049,7 +990,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_ANNOTATION_CONTAINER));
     		}
-//            Assert.assertTrue(hasGmlJp2Annotation, ErrorMessage.format(ErrorMessageKeys.GMLJP2_ANNOTATION_CONTAINER, doc.getDocumentElement().getNodeName()));
+
                         
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -1086,7 +1027,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-   //         Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+  
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -1096,7 +1037,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_STYLE_CONTAINER));
     		}
-  //          Assert.assertTrue(hasGmlJp2Style, ErrorMessage.format(ErrorMessageKeys.GMLJP2_STYLE_CONTAINER, doc.getDocumentElement().getNodeName()));
+  
                         
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -1133,7 +1074,7 @@ public class CoreTests {
         		{
             		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
         		}
-            /* Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND)); */
+           
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
@@ -1146,10 +1087,7 @@ public class CoreTests {
 
             }
             
-           /* Assert.assertTrue(hasGmlJp2fileName,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM, doc.getDocumentElement().getNodeName())); */
-
-            
+          
             String[] A117 = getNodeValueArray(doc.getChildNodes(), "gml:fileName");
 
     		Boolean hasFilenameCodestream = (Boolean) Arrays.asList(A117).contains("gmljp2://codestream/0");
@@ -1159,9 +1097,7 @@ public class CoreTests {
                                
 
             }
-            /* Assert.assertFalse(hasFilenameCodestream,
-            	ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_CODESTREAM, doc.getDocumentElement().getNodeName())); */
-    		
+            
             
         } catch (IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError(e.getMessage());
@@ -1237,15 +1173,15 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.FILETYPE_NOT_FOUND));
     		}
-          /*  Assert.assertNotNull(fileType, ErrorMessage.get(ErrorMessageKeys.FILETYPE_NOT_FOUND)); */
+          
 			
             FileType auxFileType = (FileType)fileType;
-          /*  Assert.assertNotNull(auxFileType, ErrorMessage.get(ErrorMessageKeys.AUX_FILETYPE_NOT_FOUND)); */
+          
 			
 			String fileTypeData = auxFileType.fileTypeData;
 			
     		Boolean hasFilenameCodestream = fileTypeData.contains("jpx\n");
-          /*  Assert.assertNotNull(hasFilenameCodestream, ErrorMessage.format(ErrorMessageKeys.GMLJP2_XML_SIGNALED_CORRECTLY, auxFileType)); */
+        
             if (hasFilenameCodestream==true) 
         		{
             		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_XML_NOT_SIGNALLED_CORRECTLY));
@@ -1259,12 +1195,11 @@ public class CoreTests {
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.RESOURCE_REQUIREMENTS_NOT_FOUND));
     		}
 
-			/*Assert.assertNull(resourceRequirements, ErrorMessage.get(ErrorMessageKeys.RESOURCE_REQUIREMENTS_NOT_FOUND)); */
-
+		
             ResourceRequirements rreq = (ResourceRequirements)resourceRequirements;
 			
     		int A119_2 = verifyBytes(rreq.rreqData);
-			// Boolean hasRreq67 = false;
+			
     		if (A119_2 != 67)
     		{
     			throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM));
@@ -1320,7 +1255,7 @@ public class CoreTests {
            /* Assert.assertNull(fileType, ErrorMessage.get(ErrorMessageKeys.FILETYPE_NOT_FOUND)); */
 			
             FileType auxFileType = (FileType)fileType;
-           /* Assert.assertNull(auxFileType, ErrorMessage.get(ErrorMessageKeys.AUX_FILETYPE_NOT_FOUND)); */
+       
             if (fileType==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.FILETYPE_NOT_FOUND));
@@ -1328,9 +1263,7 @@ public class CoreTests {
 			String fileTypeData = auxFileType.fileTypeData;
 			
     		if ((fileTypeData.contains("jpx")==false))
-          /*  Assert.assertTrue(isJPXcompatible,
-            	ErrorMessage.format(ErrorMessageKeys.GMLJP2_JPX_COMPATILITY, auxFileType)); */
-    		
+          
             {
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_JPX_COMPATILITY));
 
@@ -1341,8 +1274,7 @@ public class CoreTests {
 			//JP2 compatibility
 			
     		Boolean isJP2compatible = (Boolean) fileTypeData.contains("jp2");
-         /*   Assert.assertTrue(isJP2compatible,
-            	ErrorMessage.format(ErrorMessageKeys.GMLJP2_JP2_COMPATILITY, auxFileType)); */
+         
     		if ((fileTypeData.contains("jp2")==false))
     		{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_JP2_COMPATILITY));
@@ -1391,7 +1323,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLDATA_EXISTS));
     		}
-//    		Assert.assertTrue(hasGMLdata, ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLDATA_EXISTS, null));
+
 
         } catch (IOException e) {
             throw new AssertionError(e.getMessage());
@@ -1429,7 +1361,7 @@ public class CoreTests {
         		{
             		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_TEST_STRUCTURE_XMLBOX));
         		}
-  //          Assert.assertTrue(hasTestStructure, ErrorMessage.format(ErrorMessageKeys.GMLJP2_TEST_STRUCTURE_XMLBOX, null));
+ 
 
         } catch (IOException e) {
             throw new AssertionError(e.getMessage());
@@ -1465,15 +1397,11 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}          
- //           Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-           /* Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='xsi:schemaLocation']",
-                    null, XPathConstants.BOOLEAN);
-            Assert.assertTrue(hasSchemaLocation,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION, doc.getDocumentElement().getNodeName()));
-            */
+          
             if ((Boolean) XMLUtils.evaluateXPath(doc,"//@*[local-name()='schemaLocation']",null, XPathConstants.BOOLEAN)==false) 
         	{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION));
@@ -1515,21 +1443,11 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
- //           Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+ 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-           /* Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='xsi:schemaLocation']",
-                    null, XPathConstants.BOOLEAN);
-            Assert.assertTrue(hasSchemaLocation,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION, doc.getDocumentElement().getNodeName()));
- 
-            String A124 = findAttributeValue(doc.getChildNodes(), "xsi:schemaLocation");
-
-    		Boolean hasFileExternalRef = (Boolean) Arrays.asList(A124).contains("http");
-                Assert.assertTrue(hasFileExternalRef,
-                        ErrorMessage.format(ErrorMessageKeys.GMLJP2_FILE_EXTERNAL_REF, doc.getDocumentElement().getNodeName()));
-    		*/
+           
             if ((Boolean) XMLUtils.evaluateXPath(doc,"//@*[local-name()='schemaLocation']",null, XPathConstants.BOOLEAN)==false) 
         	{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION));
@@ -1574,21 +1492,11 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
- //           Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
             // Note: Just check doc element for allowed coverage types?
-           /* Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath(doc, "//*[local-name()='gmljp2:references']",
-                    null, XPathConstants.BOOLEAN);
-            Assert.assertTrue(hasSchemaLocation,
-                    ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REFERENCES, doc.getDocumentElement().getNodeName()));
- 
-            String A125 = findAttributeValue(doc.getChildNodes(), "gmljp2:references");
-
-    		Boolean hasFileInternalRef = (Boolean) !Arrays.asList(A125).contains(null);
-                Assert.assertTrue(hasFileInternalRef,
-                        ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REF, doc.getDocumentElement().getNodeName()));
-    		*/
+          
             if ((Boolean) XMLUtils.evaluateXPath(doc,"//@*[local-name()='schemaLocation']",null, XPathConstants.BOOLEAN)==false) 
         	{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION));
@@ -1629,7 +1537,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-   //         Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+   
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
 
@@ -1641,7 +1549,7 @@ public class CoreTests {
      		{
          		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_XML_BOX));
      		} 
- //   		Assert.assertTrue(hasFileInternalRefToXmlBox, ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_XML_BOX, doc.getDocumentElement().getNodeName()));
+
             
         } catch (IOException | SAXException e) {
             throw new AssertionError(e.getMessage());
@@ -1681,7 +1589,7 @@ public class CoreTests {
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
     		}
-          //  Assert.assertNotNull(xmlBox, ErrorMessage.get(ErrorMessageKeys.XML_BOX_NOT_FOUND));
+        
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse(new InputSource(new StringReader(auxXmlBox.xmldata.trim())));
 
@@ -1692,7 +1600,7 @@ public class CoreTests {
         	{
             	throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_CODESTREAM));
         	}
-    //        Assert.assertTrue(hasGMLJP2InternalRefToCodestream,ErrorMessage.format(ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_CODESTREAM, doc.getDocumentElement().getNodeName()));
+   
 
         } catch (IOException | SAXException e) {
             throw new AssertionError(e.getMessage());
