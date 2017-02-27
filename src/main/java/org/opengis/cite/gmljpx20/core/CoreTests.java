@@ -1888,7 +1888,7 @@ public class CoreTests {
     /**
      * Find file type from box.
      * 
-     * @param List of boxes
+     * @param boxes List of boxes
      * @return An XML Box, or null if one could not be found.
      */
     public Box findFileType(List<Box> boxes){
@@ -1912,7 +1912,7 @@ public class CoreTests {
     /**
      * Find box on resource requirement.
      * 
-     * @param List of boxes
+     * @param boxes List of boxes
      * @return An XML Box, or null if one could not be found.
      */
     public Box findResourceRequirements(List<Box> boxes){
@@ -1971,7 +1971,7 @@ public class CoreTests {
     /**
      * Verify if exists GML data on box.
      * 
-     * @param Array of Bytes
+     * @param boxes List of Bytes
      * @return True if exists, or false if not be found.
      */
     public Boolean existsGMLData(List<Box> boxes) {
@@ -1997,7 +1997,7 @@ public class CoreTests {
     /**
      * Verify test structure of XML box.
      * 
-     * @param List of boxes
+     * @param boxes List of boxes
      * @return True if exists, or false if not be found.
      */
     public Boolean testStructureXMLBox(List<Box> boxes) {
