@@ -150,7 +150,7 @@ public class Box {
         return b;
     }
     
-    public Box(InputStream source, int length, long extendedLength)
+    public Box(InputStream source, long length, long extendedLength)
     {
         //Start = start;
         Length = length;
@@ -181,7 +181,7 @@ public class Box {
     public static Box FromStream(InputStream source, long length) throws Exception
     {
         long extendedLength = 0;
-        int type = StreamUtil.ReadBUInt32(source);
+        int type = (int)StreamUtil.ReadBInt32(source);
         if (length == 1)
         {
             extendedLength = StreamUtil.ReadBUInt64(source);

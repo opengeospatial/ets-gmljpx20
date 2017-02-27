@@ -31,8 +31,8 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1 = "gmljp2-gmlcov-precedence-coherence1";
     public static final String GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 = "gmljp2-gmlcov-precedence-coherence2";
     public static final String GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY = "gmljp2-gmlcov-metadata-property";
-    public static final String GMLJP2_GMLCOV_CRS_RECTIFIED_GRID = "gmljp2-gmlcov-crs";
-    public static final String GMLJP2_GMLCOV_CRS_HTTP = "gmljp2-gmlcov-crs-http";
+    public static final String GMLJP2_GMLCOV_CRS_RECTIFIED_GRID = "RectifiedGrid-CRS-not-found";
+    public static final String GMLJP2_GMLCOV_CRS_HTTP = "SRS-Name-without-http";
     public static final String GMLJP2_GMLCOV_DATARECORDS = "gmljp2-gmlcov-datarecords";
     public static final String GMLJP2_GMLCOV_DATARECORDS_RANGETYPE = "gmljp2-gmlcov-datarecords-Rangetype";
     public static final String GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD = "gmljp2-gmlcov-datarecords-Swe-Datarecord";
@@ -52,7 +52,7 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_STYLE_CONTAINER = "gmljp2-style-container";
     public static final String GMLJP2_GMLCOV_FILENAME_CODESTREAM = "gmljp2-gmlcov-filename-codestream";
     public static final String GMLJP2_GMLCOV_CODESTREAM = "gmljp2-gmlcov-codestream";
-    public static final String GMLJP2_XML_SIGNALED_CORRECTLY = "gmljp2-xml-signaled-correctly";
+    public static final String GMLJP2_XML_NOT_SIGNALLED_CORRECTLY = "gmljp2-xml-not-signalled-correctly";
     public static final String GMLJP2_JPX_COMPATILITY = "gmljp2-jpx-compatibility";
     public static final String GMLJP2_JP2_COMPATILITY = "gmljp2-jp2-compatibility";
     public static final String GMLJP2_GMLDATA_EXISTS = "gmljp2-gmldata-exists";

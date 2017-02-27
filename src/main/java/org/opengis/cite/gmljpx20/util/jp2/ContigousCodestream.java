@@ -9,8 +9,7 @@ public class ContigousCodestream extends Box {
     private byte[] _Data;
     public int[] ContigousCodestreamData;
     //public List<Box> boxes = new ArrayList<Box>();
-    
-    public ContigousCodestream(InputStream source, int length, long extendedLength) throws IOException
+    public ContigousCodestream(InputStream source, long length, long extendedLength) throws IOException
     {
     	super(source, length, extendedLength);
     	int[] _DataTemp = null;
@@ -31,16 +30,21 @@ public class ContigousCodestream extends Box {
         	if (_Data[0] != 0){
         		//int maskLength = _Data[position];
         		//position += maskLength;
-        		int SOC = _Data[position] + _Data[position + 1];
+				
+				int SOC = Getushort(_Data,position);
+        		//int SOC = _Data[position] + _Data[position + 1];
         		position = position + 2;
-        		int SIZ = _Data[position] + _Data[position + 1];
+        		//int SIZ = _Data[position] + _Data[position + 1];
+				int SIZ = Getushort(_Data,position);
         		position = position + 2;
-        		int LSIZ = _Data[position] + _Data[position + 1];
+        		//int LSIZ = _Data[position] + _Data[position + 1];
+				int LSIZ = Getushort(_Data,position);
         		position = position + 2;
-        		int RSIZ = _Data[position] + _Data[position + 1];
+        		//int RSIZ = _Data[position] + _Data[position + 1];
+				int RSIZ = Getushort(_Data,position);
         		position = position + 2;
         		
-        		String XSIZ = "";
+        		/*String XSIZ = "";
         		for (int a = 0; a < 4; a++){
         			String hex = Integer.toHexString(_Data[position]);
         			try {
@@ -54,8 +58,11 @@ public class ContigousCodestream extends Box {
         		}
         		int XSIZhex = Integer.parseInt(XSIZ.toUpperCase(),16);
         		_DataTemp[0] = XSIZhex;
-        		
-        		String YSIZ = "";
+        		*/
+				
+				_DataTemp[0] = GetInt32 (_Data,position);
+				position = position + 4;
+        		/*String YSIZ = "";
         		for (int a = 0; a < 4; a++){
         			String hex = Integer.toHexString(_Data[position]);
         			if (hex.length() > 2)
@@ -68,13 +75,26 @@ public class ContigousCodestream extends Box {
         			}
         			YSIZ += hex;
         			position ++;
-        		}
-        		int YSIZhex = Integer.parseInt(YSIZ.toUpperCase(),16);
-        		_DataTemp[1] = YSIZhex;
+        		}*/
+				_DataTemp[1] = GetInt32 (_Data,position);
+				
+        		/*int YSIZhex = Integer.parseInt(YSIZ.toUpperCase(),16);
+        		_DataTemp[1] = YSIZhex;*/
        		
         	}
         }
         ContigousCodestreamData = _DataTemp;
     }
+	
+	public static int Getushort(byte[] arr,int off)
+	{
+		return arr[off]<<8 & 0xFF00 | arr[off+1]&0xFF;
+	}
+	public static int GetInt32 (byte[] arr,int off)
+	{
+		return (arr[3 + off] & 0xFF) | ((arr[2 + off] & 0xFF) << 8) |
+                  ((arr[1 + off] & 0xFF) << 16) | ((arr[0 + off] & 0xFF) << 24);  
+	} 
+    
 
 }

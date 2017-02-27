@@ -124,6 +124,14 @@ return (int)(
 );
 }
 
+public static long ToUInt32(byte[] bytes,int index) {
+    long result = (int)bytes[index]&0xff<<24;
+    result |= ((int)bytes[index+1]&0xff) << 16;
+    result |= ((int)bytes[index+2]&0xff) << 8;
+    result |= ((int)bytes[index+3]&0xff);
+    return result & 0xFFFFFFFFL;
+} 
+
 public static long toInt64(byte[] bytes, int index) throws Exception
 {
 if(bytes.length != 8) 
