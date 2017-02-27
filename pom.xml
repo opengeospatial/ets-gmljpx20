@@ -44,24 +44,12 @@
 			<timezone>UTC</timezone>
 		</developer>
 	</developers>
-	
-	
+
 	<properties>
 		<ets-code>gmljpx20</ets-code>
 		<spec-version>2.0</spec-version>
 	</properties>
-	
-	<repositories>
-  <repository>
-     <id>opengeospatial-cite</id>
-      <name>OGC CITE Repository</name>
-     <url>https://svn.opengeospatial.org/ogc-projects/cite/maven</url>
-      <snapshots>
-      <enabled>false</enabled>
-    </snapshots>
-    </repository>
-  </repositories>
- 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.gdal</groupId>
@@ -80,17 +68,6 @@
 			<artifactId>teamengine-spi</artifactId>
 		</dependency>
 		<dependency>
-    <groupId>com.beust</groupId>
-    <artifactId>jcommander</artifactId>
-    <version>1.48</version>
-</dependency>
-		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-core -->
-	<dependency>
-    	<groupId>com.sun.jersey</groupId>
-    	<artifactId>jersey-core</artifactId>
-    	<version>1.18.3</version>
-	</dependency>
-		<dependency>
 			<groupId>org.opengis.cite</groupId>
 			<artifactId>schema-utils</artifactId>
 		</dependency>
@@ -106,12 +83,6 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.sourceforge.saxon/saxon -->
-<dependency>
-    <groupId>net.sourceforge.saxon</groupId>
-    <artifactId>saxon</artifactId>
-    <version>9.0.0.8</version>
-</dependency>
 	</dependencies>
 
 	<build>
