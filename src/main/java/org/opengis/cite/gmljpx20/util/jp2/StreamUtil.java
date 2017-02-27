@@ -186,11 +186,11 @@ public class StreamUtil {
 	        //
 	        //   System.IO.IOException:
 	        //     An I/O error occurs.
-	        static int ReadBUInt32(InputStream s) throws Exception
+	        static long ReadBUInt32(InputStream s) throws Exception
 	        {
 	            byte[] buffer = ReadExactBytes(s, 4);
 	            //if (BitConverter.IsLittleEndian) Array.Reverse(buffer);
-	            return (BitConverter.toInt32(buffer, 0));
+	            return (BitConverter.ToUInt32(buffer, 0));
 	        }
 	        //
 	        // Summary:
