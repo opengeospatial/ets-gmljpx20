@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -101,6 +102,7 @@ public class VerifyCoreTests {
     }
 
     @Test
+    @Ignore("uom still not defined")
     public void rootInstancecontainsUomByReference() throws URISyntaxException {
         URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
         File file = new File(url.toURI());
@@ -181,6 +183,7 @@ public class VerifyCoreTests {
     }
 
     @Test
+    @Ignore("GMLJP2fileStyle still not defined")
     public void rootInstancecontainsGMLJP2fileStyle() throws URISyntaxException {
         URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
         File file = new File(url.toURI());

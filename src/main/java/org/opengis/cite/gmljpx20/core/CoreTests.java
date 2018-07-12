@@ -502,21 +502,21 @@ public class CoreTests {
 			String A17elements[] = findElementContains(doc.getChildNodes(), "swe:DataRecords");
 
             Boolean hasRangeType = (Boolean) Arrays.asList(A17elements).contains("gmlcov:rangeType");
-            if (hasGmlCovDataRecordsElems==null) 
+            if (hasRangeType==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_RANGETYPE));
     		}
       
 
             Boolean hasSweDatarecords = (Boolean) Arrays.asList(A17elements).contains("swe:DataRecord");
-            if (hasGmlCovDataRecordsElems==null) 
+            if (hasSweDatarecords==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD));
     		}
   
 
             Boolean hasSweUom = (Boolean) Arrays.asList(A17elements).contains("uom");
-            if (hasGmlCovDataRecordsElems==null) 
+            if (hasSweUom==null) 
     		{
         		throw new AssertionError(ErrorMessage.get(ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEUOM));
     		}
@@ -548,6 +548,7 @@ public class CoreTests {
      * gmljp2-gmlcov-uom-byref</a></li>
      * </ul>
      */
+
     @Test(description = "OGC 08-085r4, A.1.8")
     public void containsUomByReference() {
         try (InputStream inStream = new FileInputStream(this.jp2File)) {
