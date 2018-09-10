@@ -1,5 +1,10 @@
 package org.opengis.cite.gmljpx20.core;
 
+import static javax.xml.xpath.XPathConstants.BOOLEAN;
+import static javax.xml.xpath.XPathConstants.NODESET;
+import static javax.xml.xpath.XPathConstants.STRING;
+import static org.opengis.cite.gmljpx20.ErrorMessageKeys.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,11 +17,9 @@ import java.util.logging.Level;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.opengis.cite.gmljpx20.ErrorMessage;
-import org.opengis.cite.gmljpx20.ErrorMessageKeys;
 import org.opengis.cite.gmljpx20.GMLJP2;
 import org.opengis.cite.gmljpx20.SuiteAttribute;
 import org.opengis.cite.gmljpx20.util.TestSuiteLogger;
@@ -109,7 +112,7 @@ public class CoreTests {
             Box xmlBox = findXMLbox( jp2s.Boxes );
 
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
@@ -117,18 +120,17 @@ public class CoreTests {
 
             Boolean hasGmlCovGridElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                            "//*[local-name()='GMLJP2GridCoverage']",
-                                                                           null, XPathConstants.BOOLEAN );
+                                                                           null, BOOLEAN );
             Boolean hasGmlCovRectifiedElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                 "//*[local-name()='GMLJP2RectifiedGridCoverage']",
-                                                                                null, XPathConstants.BOOLEAN );
+                                                                                null, BOOLEAN );
             Boolean hasGmlCovRefereanceableElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                      "//*[local-name()='GMLJP2ReferenceableGridCoverage']",
-                                                                                     null, XPathConstants.BOOLEAN );
+                                                                                     null, BOOLEAN );
             if ( hasGmlCovGridElems == false && hasGmlCovRectifiedElems == false
                  && hasGmlCovRefereanceableElems == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -156,33 +158,30 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box ContigousCodestream = findContigousCodestream( jp2s.Boxes );
             if ( ContigousCodestream == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             ContigousCodestream auxContigousCodestream = (ContigousCodestream) ContigousCodestream;
 
             if ( auxContigousCodestream != null ) {
-
                 // Extract Xsize and Ysize from codestream
                 int[] fileContigousCodestream = auxContigousCodestream.ContigousCodestreamData;
                 // Extract width and height gml:high xmlBox
                 XMLBox auxXmlBox = (XMLBox) findXMLbox( jp2s.Boxes );
                 if ( auxXmlBox == null ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                    throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
                 }
                 Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
 
                 String strhigh = (String) XMLUtils.evaluateXPath( doc,
                                                                   "//*[local-name()='GMLJP2RectifiedGridCoverage']//*[local-name()='high']/text()",
-                                                                  null, XPathConstants.STRING );
-
+                                                                  null, STRING );
                 if ( strhigh == null ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                    throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
                 } else {
                     String[] parts = strhigh.split( " " );
                     if ( ( parts[0] + 1 ) == Integer.toString( fileContigousCodestream[0] )
                          || ( parts[1] + 1 ) == Integer.toString( fileContigousCodestream[1] ) ) {
-                        throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_METADATA_HIGH ) );
+                        throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_METADATA_HIGH ) );
                     }
                 }
             }
@@ -218,41 +217,41 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='metadata']",
-                                                                               null, XPathConstants.BOOLEAN );
+                                                                               null, BOOLEAN );
             if ( hasGmlCovMetadataElems == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_METADATA ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_METADATA ) );
             }
 
             Boolean hasGmlCovDomainSetElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='domainSet']",
-                                                                                null, XPathConstants.BOOLEAN );
+                                                                                null, BOOLEAN );
             if ( hasGmlCovDomainSetElems == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_DOMAIN_SET ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_DOMAIN_SET ) );
             }
 
             Boolean hasGmlCovRangeTypeElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='rangeType']",
-                                                                                null, XPathConstants.BOOLEAN );
+                                                                                null, BOOLEAN );
             if ( hasGmlCovRangeTypeElems == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE ) );
             }
 
             String[] A13_0 = findElementContains( doc.getChildNodes(), "gmlcov:metadata" );
             String[] A13_1 = findElementContains( doc.getChildNodes(), "gml:domainSet" );
             String[] A13_2 = findElementContains( doc.getChildNodes(), "gmlcov:rangeType" );
             for ( int n = 0; n < A13_1.length; n++ ) {
-                Boolean hasCoherence1 = (Boolean) Arrays.asList( A13_1 ).contains( A13_0[n] );
+                Boolean hasCoherence1 = Arrays.asList( A13_1 ).contains( A13_0[n] );
                 if ( hasCoherence1 == false ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1 ) );
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1 ) );
                 }
 
-                Boolean hasCoherence2 = (Boolean) Arrays.asList( A13_2 ).contains( A13_0[n] );
+                Boolean hasCoherence2 = Arrays.asList( A13_2 ).contains( A13_0[n] );
                 if ( hasCoherence2 == false ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 ) );
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 ) );
                 }
 
             }
@@ -286,19 +285,17 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                "//*[local-name()='metadataProperty']",
-                                                                               null, XPathConstants.BOOLEAN );
+                                                                               null, BOOLEAN );
             if ( hasGmlCovMetadataElems == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -329,26 +326,26 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-
-            if ( (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
-                                                   XPathConstants.BOOLEAN ) == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
+            Boolean isRectifiedGrid = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
+                                                                        BOOLEAN );
+            if ( !isRectifiedGrid ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
 
             }
             reset = true;
             NodeList A15 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']//@srsName", null,
-                                                              XPathConstants.NODESET );
+                                                              NODESET );
             for ( int a = 0; a < A15.getLength(); a++ ) {
                 Node nd = A15.item( a );
-                Boolean hasSrsName = (Boolean) nd.getNodeValue().contains( "http" );
-                if ( hasSrsName == false ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP ) );
+                Boolean hasSrsName = nd.getNodeValue().contains( "http" );
+                if ( !hasSrsName ) {
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_HTTP ) );
 
                 }
             }
@@ -383,30 +380,30 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
 
-            if ( (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
-                                                   XPathConstants.BOOLEAN ) == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
+            Boolean isRecifiedGrid = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
+                                                                       BOOLEAN );
+            if ( !isRecifiedGrid ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
 
             }
             reset = true;
             NodeList A15 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']//@srsName", null,
-                                                              XPathConstants.NODESET );
+                                                              NODESET );
             for ( int a = 0; a < A15.getLength(); a++ ) {
                 Node nd = A15.item( a );
-                Boolean hasSrsName = (Boolean) nd.getNodeValue().contains( "http" );
-                if ( hasSrsName == false ) {
-                    throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_CRS_HTTP ) );
+                Boolean hasSrsName = nd.getNodeValue().contains( "http" );
+                if ( !hasSrsName ) {
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_HTTP ) );
 
                 }
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -440,7 +437,7 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
@@ -448,27 +445,27 @@ public class CoreTests {
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovDataRecordsElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                   "//*[local-name()='swe:DataRecords']",
-                                                                                  null, XPathConstants.BOOLEAN );
+                                                                                  null, BOOLEAN );
 
             if ( hasGmlCovDataRecordsElems == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS ) );
             }
 
             String A17elements[] = findElementContains( doc.getChildNodes(), "swe:DataRecords" );
 
-            Boolean hasRangeType = (Boolean) Arrays.asList( A17elements ).contains( "gmlcov:rangeType" );
+            Boolean hasRangeType = Arrays.asList( A17elements ).contains( "gmlcov:rangeType" );
             if ( hasRangeType == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_RANGETYPE ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_RANGETYPE ) );
             }
 
-            Boolean hasSweDatarecords = (Boolean) Arrays.asList( A17elements ).contains( "swe:DataRecord" );
+            Boolean hasSweDatarecords = Arrays.asList( A17elements ).contains( "swe:DataRecord" );
             if ( hasSweDatarecords == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD ) );
             }
 
-            Boolean hasSweUom = (Boolean) Arrays.asList( A17elements ).contains( "uom" );
+            Boolean hasSweUom = Arrays.asList( A17elements ).contains( "uom" );
             if ( hasSweUom == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
             }
 
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -502,25 +499,20 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            Boolean hasGmlCovUOMElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null,
-                                                                          XPathConstants.BOOLEAN );
+            Boolean hasGmlCovUOMElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null, BOOLEAN );
             if ( hasGmlCovUOMElems == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_UOM_BY_REF ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_BY_REF ) );
             }
-
             String[] A18 = findElementContains( doc.getChildNodes(), "//*[local-name()='uom']" );
-
-            Boolean hasHttpUom = (Boolean) Arrays.asList( A18 ).contains( "http" );
+            Boolean hasHttpUom = Arrays.asList( A18 ).contains( "http" );
             if ( hasHttpUom == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -551,25 +543,22 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='nil-values']",
-                                                                                null, XPathConstants.BOOLEAN );
-            if ( hasGmlCovNilValuesElems == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES ) );
+                                                                                null, BOOLEAN );
+            if ( hasGmlCovNilValuesElems ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_NIL_VALUES ) );
             }
-
             String[] A19 = findElementContains( doc.getChildNodes(), "nil-values" );
-
-            Boolean hasHttpUom = (Boolean) !Arrays.asList( A19 ).contains( "" );
-            if ( hasHttpUom == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_UOM_HTTP ) );
+            Boolean hasHttpUom = !Arrays.asList( A19 ).contains( "" );
+            if ( !hasHttpUom ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -600,23 +589,23 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovNilValuesElems = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='nil-values']",
-                                                                                null, XPathConstants.BOOLEAN );
+                                                                                null, BOOLEAN );
             if ( hasGmlCovNilValuesElems == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             String[] A110 = findElementContains( doc.getChildNodes(), "nil-values" );
 
-            Boolean hasHttpNilValue = (Boolean) Arrays.asList( A110 ).contains( "http" );
+            Boolean hasHttpNilValue = Arrays.asList( A110 ).contains( "http" );
             if ( hasHttpNilValue == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP ) );
             }
 
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -653,7 +642,7 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
@@ -661,17 +650,16 @@ public class CoreTests {
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovCollectionElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                  "//*[local-name()='GMLJP2GridCoverage']",
-                                                                                 null, XPathConstants.BOOLEAN );
-            if ( hasGmlCovCollectionElems == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION ) );
+                                                                                 null, BOOLEAN );
+            if ( hasGmlCovCollectionElems ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_COVERAGE_COLLECTION ) );
             }
-
             String[] elements = { "gmljp2:GMLJP2CoverageCollection", "gml:domainSet", "gml:rangeSet",
                                  "gmlcov:rangeType" };
 
-            Boolean hasCoverageElement = (Boolean) findElementsArray( doc.getChildNodes(), elements );
-            if ( hasCoverageElement == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_COLLECTION_ELEMENT ) );
+            Boolean hasCoverageElement = findElementsArray( doc.getChildNodes(), elements );
+            if ( hasCoverageElement ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_COVERAGE_COLLECTION_ELEMENT ) );
             }
 
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -706,7 +694,7 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
@@ -714,9 +702,9 @@ public class CoreTests {
 
             String[] elements = { "gmlcov:AbstractCoverageType", "gmljp2:featureMembers" };
 
-            Boolean hasCoverageContainerElement = (Boolean) findElementsArray( doc.getChildNodes(), elements );
-            if ( hasCoverageContainerElement == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_COVERAGE_CONTAINER_ELEMENT ) );
+            Boolean hasCoverageContainerElement = findElementsArray( doc.getChildNodes(), elements );
+            if ( hasCoverageContainerElement ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_COVERAGE_CONTAINER_ELEMENT ) );
             }
 
         } catch ( IOException | SAXException e ) {
@@ -757,19 +745,17 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlCovMetadataElems = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                                "//*[local-name()='gmlcov:metadata']",
-                                                                               null, XPathConstants.BOOLEAN );
-            if ( hasGmlCovMetadataElems == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_METADATA ) );
+                                                                               null, BOOLEAN );
+            if ( hasGmlCovMetadataElems ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_METADATA ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -804,7 +790,7 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
@@ -812,28 +798,27 @@ public class CoreTests {
 
             String[] A114_1 = getNodeValueArray( doc.getChildNodes(), "gmljp2:GMLJP2Features" );
 
-            Boolean hasGMLJP2FeaturesAnnotation = (Boolean) Arrays.asList( A114_1 ).contains( "annotation" );
+            Boolean hasGMLJP2FeaturesAnnotation = Arrays.asList( A114_1 ).contains( "annotation" );
             if ( hasGMLJP2FeaturesAnnotation == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
             }
 
-            Boolean hasGMLJP2FeaturesCoverage = (Boolean) Arrays.asList( A114_1 ).contains( "coverage" );
+            Boolean hasGMLJP2FeaturesCoverage = Arrays.asList( A114_1 ).contains( "coverage" );
             if ( hasGMLJP2FeaturesCoverage == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
             }
 
             String[] A114_2 = getNodeValueArray( doc.getChildNodes(), "gmljp2:feature" );
 
-            Boolean hasFeaturesAnnotation = (Boolean) Arrays.asList( A114_2 ).contains( "annotation" );
+            Boolean hasFeaturesAnnotation = Arrays.asList( A114_2 ).contains( "annotation" );
             if ( hasGMLJP2FeaturesCoverage == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
             }
 
-            Boolean hasFeaturesCoverage = (Boolean) Arrays.asList( A114_2 ).contains( "coverage" );
+            Boolean hasFeaturesCoverage = Arrays.asList( A114_2 ).contains( "coverage" );
             if ( hasGMLJP2FeaturesCoverage == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
             }
-
         } catch ( IOException | SAXException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -865,7 +850,7 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
@@ -873,11 +858,10 @@ public class CoreTests {
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlJp2Annotation = (Boolean) XMLUtils.evaluateXPath( doc,
                                                                             "//*[local-name()='gmljp2:annotation']",
-                                                                            null, XPathConstants.BOOLEAN );
+                                                                            null, BOOLEAN );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_ANNOTATION_CONTAINER ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_ANNOTATION_CONTAINER ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -909,18 +893,17 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlJp2Style = (Boolean) XMLUtils.evaluateXPath( doc, "//*[local-name()='gmljp2:style']", null,
-                                                                       XPathConstants.BOOLEAN );
-            if ( hasGmlJp2Style == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_STYLE_CONTAINER ) );
+                                                                       BOOLEAN );
+            if ( !hasGmlJp2Style ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_STYLE_CONTAINER ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -951,27 +934,25 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
 
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             Boolean hasGmlJp2fileName = (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='gml:fileName']",
-                                                                          null, XPathConstants.BOOLEAN );
-            if ( hasGmlJp2fileName == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
+                                                                          null, BOOLEAN );
+            if ( hasGmlJp2fileName ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
 
             }
-
             String[] A117 = getNodeValueArray( doc.getChildNodes(), "gml:fileName" );
 
             Boolean hasFilenameCodestream = (Boolean) Arrays.asList( A117 ).contains( "gmljp2://codestream/0" );
-            if ( hasGmlJp2fileName == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
+            if ( hasGmlJp2fileName ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
 
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1002,8 +983,7 @@ public class CoreTests {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
-            Assert.assertNotNull( xmlBox, ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
-
+            Assert.assertNotNull( xmlBox, ErrorMessage.get( XML_BOX_NOT_FOUND ) );
         } catch ( IOException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1034,51 +1014,38 @@ public class CoreTests {
     public void containsGMLJP2fileXMLSignaledCorrectly() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-
             // PART 1:
             // Verify that the use of JPX format extension is signalled with the value â€˜jpx\040â€™ in the brand field
             // of the file type box
             Box fileType = findFileType( jp2s.Boxes );
             if ( fileType == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.FILETYPE_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( FILETYPE_NOT_FOUND ) );
             }
-
             FileType auxFileType = (FileType) fileType;
-
             String fileTypeData = auxFileType.fileTypeData;
-
             Boolean hasFilenameCodestream = fileTypeData.contains( "jpx\n" );
-
             if ( hasFilenameCodestream == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_XML_NOT_SIGNALLED_CORRECTLY ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_XML_NOT_SIGNALLED_CORRECTLY ) );
             }
 
             // PART 2:
             // that the XML box is signaled with the value 67 indicating GML or Geographic metadata (XMLGISMetaData)
             Box resourceRequirements = findResourceRequirements( jp2s.Boxes );
             if ( resourceRequirements == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.RESOURCE_REQUIREMENTS_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( RESOURCE_REQUIREMENTS_NOT_FOUND ) );
             }
-
             ResourceRequirements rreq = (ResourceRequirements) resourceRequirements;
-
             int A119_2 = verifyBytes( rreq.rreqData );
-
             if ( A119_2 != 67 ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
             }
             /* hasRreq67 = true; */
             /* Assert.assertTrue(hasRreq67, */
-            /* ErrorMessage.format(ErrorMessageKeys.GMLJP2_GMLCOV_FILENAME_CODESTREAM, rreq)); */
+            /* ErrorMessage.format(GMLJP2_GMLCOV_FILENAME_CODESTREAM, rreq)); */
 
         } catch ( IOException e ) {
             throw new AssertionError( e.getMessage() );
         }
-    }
-
-    private boolean valueOf( Boolean hasFilenameCodestream ) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     /**
@@ -1112,32 +1079,22 @@ public class CoreTests {
             // PART 1:
             // JPX compatibility
             Box fileType = findFileType( jp2s.Boxes );
-            /* Assert.assertNull(fileType, ErrorMessage.get(ErrorMessageKeys.FILETYPE_NOT_FOUND)); */
 
             FileType auxFileType = (FileType) fileType;
-
             if ( fileType == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.FILETYPE_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( FILETYPE_NOT_FOUND ) );
             }
             String fileTypeData = auxFileType.fileTypeData;
 
-            if ( ( fileTypeData.contains( "jpx" ) == false ) )
-
-            {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_JPX_COMPATILITY ) );
-
+            if ( !fileTypeData.contains( "jpx" ) ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_JPX_COMPATILITY ) );
             }
 
             // PART 2:
             // JP2 compatibility
-
-            Boolean isJP2compatible = (Boolean) fileTypeData.contains( "jp2" );
-
-            if ( ( fileTypeData.contains( "jp2" ) == false ) ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_JP2_COMPATILITY ) );
-
+            if ( !fileTypeData.contains( "jp2" ) ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_JP2_COMPATILITY ) );
             }
-
         } catch ( IOException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1169,10 +1126,9 @@ public class CoreTests {
     public void containsGMLJP2fileJp2OuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-
             Boolean hasGMLdata = existsGMLData( jp2s.Boxes );
-            if ( hasGMLdata == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_GMLDATA_EXISTS ) );
+            if ( !hasGMLdata ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLDATA_EXISTS ) );
             }
 
         } catch ( IOException e ) {
@@ -1206,7 +1162,7 @@ public class CoreTests {
 
             Boolean hasTestStructure = testStructureXMLBox( jp2s.Boxes );
             if ( hasTestStructure == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_TEST_STRUCTURE_XMLBOX ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_TEST_STRUCTURE_XMLBOX ) );
             }
 
         } catch ( IOException e ) {
@@ -1239,17 +1195,15 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-
-            if ( (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']", null,
-                                                   XPathConstants.BOOLEAN ) == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION ) );
-
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']",
+                                                                          null, BOOLEAN );
+            if ( !hasSchemaLocation ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_SCHEMA_LOCATION ) );
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
@@ -1281,19 +1235,16 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-
-            if ( (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']", null,
-                                                   XPathConstants.BOOLEAN ) == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION ) );
-
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']",
+                                                                          null, BOOLEAN );
+            if ( !hasSchemaLocation ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_SCHEMA_LOCATION ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1325,18 +1276,16 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-
-            if ( (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']", null,
-                                                   XPathConstants.BOOLEAN ) == false ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_SCHEMA_LOCATION ) );
+            Boolean hasSchemaLocation = (Boolean) XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']",
+                                                                          null, BOOLEAN );
+            if ( !hasSchemaLocation ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_SCHEMA_LOCATION ) );
             }
-
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1367,21 +1316,18 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
-
             reset = true;
             String[] A126 = getNodeAttributeValueArray( doc.getChildNodes(), "gml:FeatureCollection",
                                                         "xsi:schemaLocation" );
 
-            Boolean hasFileInternalRefToXmlBox = (Boolean) Arrays.asList( A126 ).contains( "//*[local-name()='gmljp2:xml']" );
+            Boolean hasFileInternalRefToXmlBox = Arrays.asList( A126 ).contains( "//*[local-name()='gmljp2:xml']" );
             if ( hasFileInternalRefToXmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
+                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
             }
-
         } catch ( IOException | SAXException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1414,19 +1360,15 @@ public class CoreTests {
             JP2Stream jp2s = new JP2Stream( inStream );
             Box xmlBox = findXMLbox( jp2s.Boxes );
             if ( xmlBox == null ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.XML_BOX_NOT_FOUND ) );
+                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
-
             XMLBox auxXmlBox = (XMLBox) xmlBox;
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
-
             String[] A127 = getNodeValueArray( doc.getChildNodes(), "//*[local-name()='fileName']" );
-
-            Boolean hasGMLJP2InternalRefToCodestream = (Boolean) Arrays.asList( A127 ).contains( "//*[local-name()='fileName']" );
-            if ( hasGMLJP2InternalRefToCodestream == true ) {
-                throw new AssertionError( ErrorMessage.get( ErrorMessageKeys.GMLJP2_INTERNAL_REF_TO_CODESTREAM ) );
+            Boolean hasGMLJP2InternalRefToCodestream = Arrays.asList( A127 ).contains( "//*[local-name()='fileName']" );
+            if ( hasGMLJP2InternalRefToCodestream ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_CODESTREAM ) );
             }
-
         } catch ( IOException | SAXException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -1439,12 +1381,10 @@ public class CoreTests {
      *            A collection of boxes extracted from the codestream.
      * @return An XML Box, or null if one could not be found.
      */
-    Box findXMLbox( List<Box> boxes ) {
-        Box xmlBox = null;
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+    private Box findXMLbox( List<Box> boxes ) {
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                xmlBox = findXMLbox( auxBox.Boxes );
+                Box xmlBox = findXMLbox( auxBox.Boxes );
                 if ( xmlBox != null )
                     return xmlBox;
             } else if ( auxBox instanceof Label ) {
@@ -1467,9 +1407,8 @@ public class CoreTests {
      *            A collection of boxes extracted from the codestream.
      * @return A contigous codestream from XML Box, or null if it cannot be found.
      */
-    public Box findContigousCodestream( List<Box> boxes ) {
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+    private Box findContigousCodestream( List<Box> boxes ) {
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof ContigousCodestream ) {
                 return auxBox;
             }
@@ -1481,20 +1420,15 @@ public class CoreTests {
     /**
      * Find an element contained on nodelist.
      * 
-     * @param nodelist
-     *            , element Nodelist which find element.
+     * @param nodeList
+     *            element Nodelist which find element.
      * @return An array containing elements founded, or null if one could not be found.
      */
     private static String[] findElementContains( NodeList nodeList, String element ) {
-
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
             Node tempNode = nodeList.item( count );
-
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
                 if ( tempNode.hasAttributes() ) {
-
                     NamedNodeMap nodeMap = tempNode.getAttributes();
                     for ( int i = 0; i < nodeMap.getLength(); i++ ) {
                         Node node = nodeMap.item( i );
@@ -1520,8 +1454,8 @@ public class CoreTests {
     /**
      * Extract an array from nodelist where attribute is within element.
      * 
-     * @param nodelist
-     *            , element, attribute Nodelist which find attribute into element.
+     * @param nodeList
+     *            element, attribute Nodelist which find attribute into element.
      * @return An array containing attribute founded, or null if one could not be found.
      */
     private static String[] getNodeAttributeValueArray( NodeList nodeList, String element, String attribute ) {
@@ -1538,20 +1472,14 @@ public class CoreTests {
             reset = false;
         }
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
             Node tempNode = nodeList.item( count );
-
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
                 if ( tempNode.getNodeName().contains( element ) ) {
                     NamedNodeMap nodeMap = tempNode.getAttributes();
                     for ( int i = 0; i < nodeMap.getLength(); i++ ) {
-
                         Node node = nodeMap.item( i );
-
                         if ( node.getNodeName().contains( attribute ) ) {
                             String getVal = node.getTextContent();
-
                             nodeValues[counter] = getVal;
                             counter++;
                         }
@@ -1573,23 +1501,17 @@ public class CoreTests {
     /**
      * Find elements in array passed on nodelist.
      * 
-     * @param nodelist
-     *            , elements Nodelist which find elements.
+     * @param nodeList
+     *            elements Nodelist which find elements.
      * @return True if all elements has been found, or false if one could not be found.
      */
     private static Boolean findElementsArray( NodeList nodeList, String[] elements ) {
-
         boolean[] nodeExists = new boolean[elements.length];
         nodeExists[0] = false;
-
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
             Node tempNode = nodeList.item( count );
-
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
                 if ( tempNode.hasAttributes() ) {
-
                     NamedNodeMap nodeMap = tempNode.getAttributes();
                     String mainNode = elements[0];
                     for ( int i = 0; i < nodeMap.getLength(); i++ ) {
@@ -1597,7 +1519,6 @@ public class CoreTests {
                         if ( node.getNodeName().contains( mainNode ) ) {
                             nodeExists[0] = true;
                             NodeList childrenNodes = node.getChildNodes();
-
                             for ( int n = 1; n < elements.length; n++ ) {
                                 nodeExists[n] = false;
                                 for ( int d = 0; d < childrenNodes.getLength(); d++ ) {
@@ -1628,8 +1549,8 @@ public class CoreTests {
     /**
      * Get an array values from nodelist containing element.
      * 
-     * @param nodelist
-     *            , element Nodelist which find element.
+     * @param nodeList
+     *            element Nodelist which find element.
      * @return array strings.
      */
     private static String[] getNodeValueArray( NodeList nodeList, String element ) {
@@ -1648,12 +1569,9 @@ public class CoreTests {
         }
 
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
             Node tempNode = nodeList.item( count );
-
             // make sure it's element node.
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
                 if ( tempNode.getNodeName().contains( element ) ) {
                     String getVal = tempNode.getTextContent();
                     if ( getVal != null ) {
@@ -1663,13 +1581,10 @@ public class CoreTests {
                 }
 
                 if ( tempNode.hasChildNodes() ) {
-
                     // loop again if has child nodes
                     getNodeValueArray( tempNode.getChildNodes(), element );
-
                 }
             }
-
         }
         return nodeValues;
     }
@@ -1677,25 +1592,20 @@ public class CoreTests {
     /**
      * Count elements from node.
      * 
-     * @param nodelist
-     *            , element Nodelist which find element.
+     * @param nodeList
+     *            element Nodelist which find element.
      * @return void, fill global variable totalElements.
      */
     private static void countElementsNode( NodeList nodeList, String element ) {
-
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
             Node tempNode = nodeList.item( count );
-
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
                 if ( tempNode.getNodeName().contains( element ) ) {
                     String getVal = tempNode.getTextContent();
                     if ( getVal != null ) {
                         totalElements++;
                     }
                 }
-
                 if ( tempNode.hasChildNodes() ) {
                     countElementsNode( tempNode.getChildNodes(), element );
                 }
@@ -1710,12 +1620,10 @@ public class CoreTests {
      *            List of boxes
      * @return An XML Box, or null if one could not be found.
      */
-    public Box findFileType( List<Box> boxes ) {
-        Box XMLBox = null;
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+    private Box findFileType( List<Box> boxes ) {
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                XMLBox = findFileType( auxBox.Boxes );
+                Box XMLBox = findFileType( auxBox.Boxes );
                 if ( XMLBox != null )
                     return XMLBox;
             } else if ( auxBox instanceof FileType ) {
@@ -1733,9 +1641,8 @@ public class CoreTests {
      *            List of boxes
      * @return An XML Box, or null if one could not be found.
      */
-    public Box findResourceRequirements( List<Box> boxes ) {
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+    private Box findResourceRequirements( List<Box> boxes ) {
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof ResourceRequirements ) {
                 return auxBox;
             }
@@ -1746,12 +1653,11 @@ public class CoreTests {
     /**
      * Verify bytes in array of bytes.
      * 
-     * @param Array
-     *            of Bytes
+     * @param req
+     *            array of Bytes
      * @return Integer.
      */
     private static int verifyBytes( byte[] req ) {
-        byte[] _DataTemp = new byte[req.length];
         int position = 0;
         int valorFinal = 0;
         if ( req[0] != 0 ) {
@@ -1793,12 +1699,9 @@ public class CoreTests {
      *            List of Bytes
      * @return True if exists, or false if not be found.
      */
-    public Boolean existsGMLData( List<Box> boxes ) {
-
+    private Boolean existsGMLData( List<Box> boxes ) {
         Boolean existsGMLData = false;
-
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
                 for ( int d = 0; d < auxBox.Boxes.size(); d++ ) {
                     Box auxBox2 = auxBox.Boxes.get( d );
@@ -1820,65 +1723,21 @@ public class CoreTests {
      *            List of boxes
      * @return True if exists, or false if not be found.
      */
-    public Boolean testStructureXMLBox( List<Box> boxes ) {
-
+    private Boolean testStructureXMLBox( List<Box> boxes ) {
         Boolean structAssoc = false;
         Boolean structLabel = false;
-
-        for ( int i = 0; i < boxes.size(); i++ ) {
-            Box auxBox = boxes.get( i );
+        for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
                 structAssoc = true;
                 for ( int d = 0; d < auxBox.Boxes.size(); d++ ) {
                     Box auxBox2 = auxBox.Boxes.get( d );
                     if ( auxBox2 instanceof Label ) {
-                        Label auxLabel = (Label) auxBox2;
                         structLabel = true;
                     }
                 }
             }
         }
-        if ( structAssoc && structLabel )
-            return true;
-        else
-            return false;
-    }
-
-    /**
-     * Find attribute value from elements in nodelist.
-     * 
-     * @param List
-     *            of boxes, element
-     * @return Attribute string, if not found return null.
-     */
-    private static String findAttributeValue( NodeList nodeList, String element ) {
-
-        for ( int count = 0; count < nodeList.getLength(); count++ ) {
-
-            Node tempNode = nodeList.item( count );
-
-            if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-
-                // System.out.println("Node Value =" + tempNode.getTextContent());
-                NamedNodeMap nodeMap = tempNode.getAttributes();
-
-                for ( int i = 0; i < nodeMap.getLength(); i++ ) {
-                    Node node = nodeMap.item( i );
-                    if ( node.getNodeName().contains( element ) ) {
-                        return node.getNodeValue();
-                    }
-                }
-
-            }
-            if ( tempNode.hasChildNodes() ) {
-
-                // loop again if has child nodes
-                findAttributeValue( tempNode.getChildNodes(), element );
-
-            }
-
-        }
-        return null;
+        return structAssoc && structLabel;
     }
 
 }
