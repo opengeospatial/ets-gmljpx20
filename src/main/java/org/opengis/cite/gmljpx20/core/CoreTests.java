@@ -772,11 +772,11 @@ public class CoreTests {
             }
             String[] A114_2 = getNodeValueArray( doc.getChildNodes(), "gmljp2:feature" );
             boolean hasFeaturesAnnotation = Arrays.asList( A114_2 ).contains( "annotation" );
-            if ( !hasGMLJP2FeaturesCoverage ) {
+            if ( !hasFeaturesAnnotation ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
             }
             boolean hasFeaturesCoverage = Arrays.asList( A114_2 ).contains( "coverage" );
-            if ( !hasGMLJP2FeaturesCoverage ) {
+            if ( !hasFeaturesCoverage ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
             }
         } catch ( IOException | SAXException e ) {
@@ -817,7 +817,7 @@ public class CoreTests {
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlJp2Annotation = XMLUtils.evaluateXPath( doc, "//*[local-name()='gmljp2:annotation']" );
-            if ( xmlBox == null ) {
+            if ( !hasGmlJp2Annotation ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_ANNOTATION_CONTAINER ) );
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -898,16 +898,14 @@ public class CoreTests {
             Document doc = docBuilder.parse( new InputSource( new StringReader( auxXmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlJp2fileName = XMLUtils.evaluateXPath( doc, "//@*[local-name()='gml:fileName']" );
-            if ( hasGmlJp2fileName ) {
+            if ( !hasGmlJp2fileName ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
-
             }
             String[] A117 = getNodeValueArray( doc.getChildNodes(), "gml:fileName" );
 
             boolean hasFilenameCodestream = Arrays.asList( A117 ).contains( "gmljp2://codestream/0" );
-            if ( hasGmlJp2fileName ) {
+            if ( !hasFilenameCodestream ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
-
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
