@@ -16,7 +16,11 @@ import java.util.logging.Level;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.opengis.cite.gmljpx20.ErrorMessage;
 import org.opengis.cite.gmljpx20.GMLJP2;
@@ -723,7 +727,7 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
 
-            String[] A114_1 = getNodeValueArray( doc.getChildNodes(), "gmljp2:GMLJP2Features" );
+            String[] A114_1 = getNodeValueArray( doc, "//*[local-name()='GMLJP2Features']" );
             boolean hasGMLJP2FeaturesAnnotation = Arrays.asList( A114_1 ).contains( "annotation" );
             if ( !hasGMLJP2FeaturesAnnotation ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
@@ -732,7 +736,7 @@ public class CoreTests {
             if ( !hasGMLJP2FeaturesCoverage ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
             }
-            String[] A114_2 = getNodeValueArray( doc.getChildNodes(), "gmljp2:feature" );
+            String[] A114_2 = getNodeValueArray( doc, "//*[local-name()='feature']" );
             boolean hasFeaturesAnnotation = Arrays.asList( A114_2 ).contains( "annotation" );
             if ( !hasFeaturesAnnotation ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
@@ -741,7 +745,7 @@ public class CoreTests {
             if ( !hasFeaturesCoverage ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
             }
-        } catch ( IOException | SAXException e ) {
+        } catch ( IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError( e.getMessage() );
         }
     }
@@ -850,11 +854,11 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlJp2fileName = XMLUtils.evaluateXPath( doc, "//@*[local-name()='gml:fileName']" );
+            boolean hasGmlJp2fileName = XMLUtils.evaluateXPath( doc, "//gml:fileName");
             if ( !hasGmlJp2fileName ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
             }
-            String[] A117 = getNodeValueArray( doc.getChildNodes(), "gml:fileName" );
+            String[] A117 = getNodeValueArray( doc, "//gml:fileName" );
 
             boolean hasFilenameCodestream = Arrays.asList( A117 ).contains( "gmljp2://codestream/0" );
             if ( !hasFilenameCodestream ) {
@@ -1256,12 +1260,12 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
-            String[] A127 = getNodeValueArray( doc.getChildNodes(), "//*[local-name()='fileName']" );
+            String[] A127 = getNodeValueArray( doc, "//*[local-name()='fileName']" );
             boolean hasGMLJP2InternalRefToCodestream = Arrays.asList( A127 ).contains( "//*[local-name()='fileName']" );
             if ( hasGMLJP2InternalRefToCodestream ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_CODESTREAM ) );
             }
-        } catch ( IOException | SAXException e ) {
+        } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
     }
@@ -1444,42 +1448,20 @@ public class CoreTests {
      * @param nodeList
      *            element Nodelist which find element.
      * @return array strings.
+     * @throws XPathExpressionException 
      */
-    private static String[] getNodeValueArray( NodeList nodeList, String element ) {
-        if ( reset )
-            totalElements = 0;
-        countElementsNode( nodeList, element );
-        if ( reset ) {
-            // init static variables
-            if ( totalElements == 0 )
-                totalElements = 1;
-            nodeValues = new String[totalElements];
-            nodeValues[0] = "Not found";
-
-            counter = 0;
-            reset = false;
-        }
-
-        for ( int count = 0; count < nodeList.getLength(); count++ ) {
-            Node tempNode = nodeList.item( count );
-            // make sure it's element node.
-            if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-                if ( tempNode.getNodeName().contains( element ) ) {
-                    String getVal = tempNode.getTextContent();
-                    if ( getVal != null ) {
-                        nodeValues[counter] = getVal;
-                        counter++;
-                    }
-                }
-
-                if ( tempNode.hasChildNodes() ) {
-                    // loop again if has child nodes
-                    getNodeValueArray( tempNode.getChildNodes(), element );
-                }
-            }
-        }
-        return nodeValues;
+    private static String[] getNodeValueArray( Node doc, String xpathExpression ) throws XPathExpressionException {
+    	NodeList resultNodeList = (NodeList) XMLUtils.evaluateXPath(doc, xpathExpression, null, NODESET);
+    	String[] results = new String[resultNodeList.getLength()];
+    	for (int index = 0; index < resultNodeList.getLength(); index++) {
+    	    Node node = resultNodeList.item(index);
+    	    String value = node.getTextContent();
+    	    results[index] = value;
+    	}
+    	
+    	return results;
     }
+    
 
     /**
      * Count elements from node.
