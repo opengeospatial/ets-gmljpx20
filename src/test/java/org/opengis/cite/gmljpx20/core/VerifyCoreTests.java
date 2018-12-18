@@ -91,7 +91,8 @@ public class VerifyCoreTests {
         spy.containsCRSrectifiedGridCoverage();
     }
 
-    @Test
+    // "uom still not defined
+    @Test(expected = AssertionError.class)
     public void rootInstancecontainsGmlRangeTypeDataRecordUom() throws URISyntaxException {
         URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
         File file = new File(url.toURI());
@@ -102,7 +103,6 @@ public class VerifyCoreTests {
     }
 
     @Test
-    @Ignore("uom still not defined")
     public void rootInstancecontainsUomByReference() throws URISyntaxException {
         URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
         File file = new File(url.toURI());

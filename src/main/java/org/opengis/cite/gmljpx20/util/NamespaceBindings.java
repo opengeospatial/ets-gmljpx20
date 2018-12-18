@@ -85,6 +85,7 @@ public class NamespaceBindings implements NamespaceContext {
      * <li>ows: {@value org.opengis.cite.gmljpx20.Namespaces#OWS}</li>
      * <li>xlink: {@value org.opengis.cite.gmljpx20.Namespaces#XLINK}</li>
      * <li>gml: {@value org.opengis.cite.gmljpx20.Namespaces#GML}</li>
+     * <li>cov: {@value org.opengis.cite.gmljpx20.Namespaces#GMLCOV}</li>
      * </ul>
      * 
      * @return A NamespaceBindings object.
@@ -94,6 +95,8 @@ public class NamespaceBindings implements NamespaceContext {
         nsBindings.addNamespaceBinding(Namespaces.OWS, "ows");
         nsBindings.addNamespaceBinding(Namespaces.XLINK, "xlink");
         nsBindings.addNamespaceBinding(Namespaces.GML, "gml");
+        nsBindings.addNamespaceBinding(Namespaces.GMLCOV, Namespaces.GMLCOV_PREFIX);
+        nsBindings.addNamespaceBinding(Namespaces.SWE, Namespaces.SWE_PREFIX);
         return nsBindings;
     }
 
