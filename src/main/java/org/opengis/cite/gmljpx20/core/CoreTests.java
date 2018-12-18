@@ -4,13 +4,13 @@ import static javax.xml.xpath.XPathConstants.NODESET;
 import static javax.xml.xpath.XPathConstants.STRING;
 import static org.opengis.cite.gmljpx20.ErrorMessageKeys.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -55,18 +55,6 @@ public class CoreTests {
     private boolean rootInstance = false;
 
     private DocumentBuilder docBuilder;
-
-    static boolean exists = false;
-
-    static String[] results = null;
-
-    static String[] nodeValues;
-
-    static boolean reset = false;
-
-    static int totalElements = 0;
-
-    static int counter = 0;
 
     @BeforeClass
     public void initFixture( ITestContext testContext ) {
@@ -224,15 +212,15 @@ public class CoreTests {
             if ( !hasGmlCovRangeTypeElems ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_RANGE_TYPE ) );
             }
-            String[] A13_0 = findElementContains( doc.getChildNodes(), "gmlcov:metadata" );
-            String[] A13_1 = findElementContains( doc.getChildNodes(), "gml:domainSet" );
-            String[] A13_2 = findElementContains( doc.getChildNodes(), "gmlcov:rangeType" );
-            for ( int n = 0; n < A13_1.length; n++ ) {
-                boolean hasCoherence1 = Arrays.asList( A13_1 ).contains( A13_0[n] );
+            List<String> A13_0 = findElementContains( doc.getChildNodes(), "gmlcov:metadata" );
+            List<String> A13_1 = findElementContains( doc.getChildNodes(), "gml:domainSet" );
+            List<String> A13_2 = findElementContains( doc.getChildNodes(), "gmlcov:rangeType" );
+            for ( String A13_0_value : A13_0 ) {
+                boolean hasCoherence1 = A13_1.contains( A13_0_value );
                 if ( !hasCoherence1 ) {
                     throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_COHERENCE1 ) );
                 }
-                boolean hasCoherence2 = Arrays.asList( A13_2 ).contains( A13_0[n] );
+                boolean hasCoherence2 = A13_2.contains( A13_0_value );
                 if ( !hasCoherence2 ) {
                     throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 ) );
                 }
@@ -313,7 +301,6 @@ public class CoreTests {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
 
             }
-            reset = true;
             NodeList A15 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']//@srsName", null,
                                                               NODESET );
             for ( int a = 0; a < A15.getLength(); a++ ) {
@@ -362,7 +349,6 @@ public class CoreTests {
             if ( !isRecifiedGrid ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
             }
-            reset = true;
             NodeList A15_1 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
                     NODESET );
             NodeList A15_2 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid'][@*[local-name()='srsName']]", null,
@@ -411,18 +397,18 @@ public class CoreTests {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS ) );
             }
 
-            String A17elements[] = findElementContains( doc.getChildNodes(), "swe:DataRecord" );
-            boolean hasRangeType = Arrays.asList( A17elements ).contains( "gmlcov:rangeType" );
+            List<String> A17elements = findElementContains( doc.getChildNodes(), "swe:DataRecord" );
+            boolean hasRangeType = A17elements.contains( "gmlcov:rangeType" );
             if ( !hasRangeType ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_RANGETYPE ) );
             }
 
-            boolean hasSweDatarecords = Arrays.asList( A17elements ).contains( "swe:DataRecord" );
+            boolean hasSweDatarecords = A17elements.contains( "swe:DataRecord" );
             if ( !hasSweDatarecords ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD ) );
             }
 
-            boolean hasSweUom = Arrays.asList( A17elements ).contains( "uom" );
+            boolean hasSweUom = A17elements.contains( "uom" );
             if ( !hasSweUom ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
             }
@@ -1217,8 +1203,7 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
-            reset = true;
-         
+
             List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']/*", "xsi:schemaLocation" );
             
             boolean hasGmlFeatureCollection = !A126.isEmpty();
@@ -1322,7 +1307,8 @@ public class CoreTests {
      *            element Nodelist which find element.
      * @return An array containing elements founded, or null if one could not be found.
      */
-    private static String[] findElementContains( NodeList nodeList, String element ) {
+    private static List<String> findElementContains(NodeList nodeList, String element ) {
+        List<String> results = new ArrayList<>();
         for ( int count = 0; count < nodeList.getLength(); count++ ) {
             Node tempNode = nodeList.item( count );
             if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
@@ -1331,20 +1317,14 @@ public class CoreTests {
                     for ( int i = 0; i < nodeMap.getLength(); i++ ) {
                         Node node = nodeMap.item( i );
                         if ( node.getNodeName().contains( element ) ) {
-                            exists = true;
                             NodeList childrenNodes = node.getChildNodes();
-                            results = new String[childrenNodes.getLength()];
                             for ( int d = 0; d < childrenNodes.getLength(); d++ ) {
-                                results[d] = childrenNodes.item( d ).toString();
+                                results.add( childrenNodes.item( d ).toString() );
                             }
                         }
                     }
                 }
             }
-        }
-        if ( !exists ) {
-            results = new String[1];
-            results[0] = null;
         }
         return results;
     }
@@ -1367,54 +1347,6 @@ public class CoreTests {
     	}
     	
     	return results;
-    }
-    
-    /**
-     * Extract an array from nodelist where attribute is within element.
-     * 
-     * @param nodeList
-     *            element, attribute Nodelist which find attribute into element.
-     * @return An array containing attribute founded, or null if one could not be found.
-     */
-    
-    private static String[] getNodeAttributeValueArray( NodeList nodeList, String element, String attribute ) {
-    	if ( reset )
-            totalElements = 0;
-        countElementsNode( nodeList, element );
-        if ( reset ) {
-            // init static variables
-            if ( totalElements == 0 )
-                totalElements = 1;
-            nodeValues = new String[totalElements];
-            nodeValues[0] = null;
-            counter = 0;
-            reset = false;
-        }
-        for ( int count = 0; count < nodeList.getLength(); count++ ) {
-            Node tempNode = nodeList.item( count );
-            if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-                if ( tempNode.getNodeName().contains( element ) ) {
-                    NamedNodeMap nodeMap = tempNode.getAttributes();
-                    for ( int i = 0; i < nodeMap.getLength(); i++ ) {
-                        Node node = nodeMap.item( i );
-                        if ( node.getNodeName().contains( attribute ) ) {
-                            String getVal = node.getTextContent();
-                            nodeValues[counter] = getVal;
-                            counter++;
-                        }
-                    }
-                }
-                if ( tempNode.hasChildNodes() ) {
-                    getNodeAttributeValueArray( tempNode.getChildNodes(), element, attribute );
-                }
-
-            }
-            return nodeValues;
-        }
-        if ( nodeValues == null ) {
-            nodeValues[0] = "";
-        }
-        return nodeValues;
     }
 
     /**
@@ -1483,31 +1415,6 @@ public class CoreTests {
     	}
     	
     	return results;
-    }
-    
-
-    /**
-     * Count elements from node.
-     * 
-     * @param nodeList
-     *            element Nodelist which find element.
-     * @return void, fill global variable totalElements.
-     */
-    private static void countElementsNode( NodeList nodeList, String element ) {
-        for ( int count = 0; count < nodeList.getLength(); count++ ) {
-            Node tempNode = nodeList.item( count );
-            if ( tempNode.getNodeType() == Node.ELEMENT_NODE ) {
-                if ( tempNode.getNodeName().contains( element ) ) {
-                    String getVal = tempNode.getTextContent();
-                    if ( getVal != null ) {
-                        totalElements++;
-                    }
-                }
-                if ( tempNode.hasChildNodes() ) {
-                    countElementsNode( tempNode.getChildNodes(), element );
-                }
-            }
-        }
     }
 
     /**
