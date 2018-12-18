@@ -383,7 +383,7 @@ public class CoreTests {
      * <li>gmlcov:rangeType</li>
      * <li>swe:DataRecord</li>
      * <li>swe:uom</li>
-     * <li>Verify that all swe:DataRecords that declare variables that requires units have them populated
+     * <li>Verify that all swe:DataRecord that declare variables that requires units have them populated
      * (gmlcov:rangeType/swe:DataRecord/swe:uom). Test passes if they are present.</li>
      * </ul>
      *
@@ -406,8 +406,8 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovDataRecordsElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='DataRecord']" );
-            if ( !hasGmlCovDataRecordsElems ) {
+            boolean hasGmlCovDataRecordElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='DataRecord']" );
+            if ( !hasGmlCovDataRecordElems ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS ) );
             }
 
