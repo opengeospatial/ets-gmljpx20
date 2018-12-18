@@ -1223,7 +1223,7 @@ public class CoreTests {
             
             boolean hasGmlFeatureCollection = !A126.isEmpty();
             if(hasGmlFeatureCollection) {
-            boolean hasFileInternalRefToXmlBox = A126.contains( "gmljp2://xml" );
+            boolean hasFileInternalRefToXmlBox = A126.stream().filter(e -> e.contains( "gmljp2://xml" )).count() > 0;
 	            if ( !hasFileInternalRefToXmlBox ) {
 	                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
 	            }
