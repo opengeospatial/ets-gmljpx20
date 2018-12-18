@@ -146,7 +146,7 @@ public class ETSAssert {
             msg.append(e.getMessage());
             throw new AssertionError(msg);
         }
-        DOMResult result = validator.validate(xmlSource);
+        DOMResult result = (DOMResult) validator.validate(xmlSource);
         Assert.assertFalse(validator.ruleViolationsDetected(), ErrorMessage
                 .format(ErrorMessageKeys.NOT_SCHEMA_VALID,
                         validator.getRuleViolationCount(),

@@ -1,0 +1,68 @@
+= Conformance Test Suite - GML in JPEG 2000 2.0
+
+== Scope
+
+This executable test suite (ETS) verifies the conformance of JPEG 2000 codestreams against http://docs.opengeospatial.org/is/08-085r4/08-085r4.html[OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1 (OGC 08-085r4)] and related specifications (see Figure 1). The JPEG 2000 standard (ISO 15444 series) is a wavelet-based encoding for imagery that provides the ability to include XML data for description of the image within the JPEG 2000 data file. Conformance testing is a kind of "black box" testing that examines externally visible characteristics or behaviors of the IUT and is independent of any implementation details.
+
+.Relevant specifications
+image::img/specifications.png[]
+
+Several conformance classes are defined in the principal specifications; the ones listed below are covered by this test suite:
+
+* Core (http://www.opengis.net/spec/GMLJP2/2.0/req/core)
+    - The Core specifies requirements have to implemented.
+
+== Test requirements
+
+The documents listed below stipulate requirements that must be satisfied by a conforming implementation.
+
+* http://docs.opengeospatial.org/is/08-085r4/08-085r4.html[OGC 08-085r4]: OGC GML in JPEG 2000 (GMLJP2) Encoding Standard Part 1: Core, Version 2.0
+* http://docs.opengeospatial.org/is/12-108/12-108.html[OGC 12-108]
+    OGC GML Application Schema - Coverages - JPEG2000 Coverage Encoding Extension, Version 1.0
+* https://portal.opengeospatial.org/files/?artifact_id=48553[OGC 09-146r2]: OGC GML Application Schema - Coverages, Version 1.0.1
+* http://www.iso.org/iso/catalogue_detail.htm?csnumber=33160[ISO/IEC 15444-2:2004]: Information technology -- JPEG 2000 image coding system: Extensions
+* http://www.iso.org/iso/catalogue_detail.htm?csnumber=37674[ISO/IEC 15444-1:2004]: Information technology -- JPEG 2000 image coding system: Core coding system
+
+== Test suite structure
+
+The test suite definition file (testng.xml) is located in the root package, 
+`org.opengis.cite.gmljpx20`. A conformance class corresponds to a &lt;test&gt; element, each
+of which includes a set of test classes that contain the actual test methods. 
+The general structure of the test suite is shown in Table 1.
+
+.Test suite structure
+[cols="2,6a",options=header]
+|===
+|Conformance class
+|Test classes
+
+|Core
+|
+ * org.opengis.cite.gmljpx20.core.*
+
+|===
+
+The Javadoc documentation provides more detailed information about the test 
+methods that constitute the suite.
+
+include::how-to-run-the-tests.adoc[]
+
+== Using the REST API
+
+Using the REST API of the TEAM Engine requires some run arguments. These ate summarized in Table 2.
+The _Obligation_ descriptor can have the following values: M (mandatory), O (optional), or C (conditional).
+
+.Test run arguments
+[cols="1,1,1,6",options=header]
+|===
+|Name
+|Value domain
+|Obligation
+|Description
+
+|iut
+|URI
+|M
+|A URI that refers to the test subject. Ampersand ('&amp;') characters must be percent-encoded as '%26'.
+
+|===

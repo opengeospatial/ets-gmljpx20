@@ -1,0 +1,39 @@
+= Conformance Test Suite - GML in JPEG 2000
+
+== Scope
+
+This test suites checks JPEG 2000 image data for conformance against _OGC GML
+in JPEG 2000 (GMLJP2) Encoding Standard Part 1_ http://docs.opengeospatial.org/is/08-085r4/08-085r4.html[OGC 08-085r4].
+The nominal conformance target is a software component (an application or library)
+that can produce JPEG 2000 codestreams containing supplementary geospatial metadata.
+
+Visit the http://opengeospatial.github.io/ets-gmljpx20/[project documentation website]
+for more information, including the API documentation.'
+
+== Requirements
+
+The test suite uses the Geospatial Data Abstraction Library (http://www.gdal.org/[GDAL])
+along with its Java bindings. In a Windows environment the installation directory
+must be added to the `PATH` environment variable; in a UNIX-like environment the
+native binaries must be found in the shared library path (`LD_LIBRARY_PATH`).
+
+== How to build the test suite
+
+The test suite is built using https://maven.apache.org/[Apache Maven v3].
+
+== How to run the test suite
+The options for running the suite are summarized in
+
+include::src/site/asciidoc/how-to-run-the-tests.adoc[]
+
+== How to contribute
+
+If you would like to get involved, you can:
+
+* https://github.com/opengeospatial/ets-gmljpx20/issues[Report an issue] such as a defect or
+an enhancement request
+* Help to resolve an https://github.com/opengeospatial/ets-gmljpx20/issues?q=is%3Aopen[open issue]
+* Fix a bug: Fork the repository, apply the fix, and create a pull request
+* Add new tests: Fork the repository, implement and verify the tests on a new topic branch,
+and create a pull request (don't forget to periodically rebase long-lived branches so
+there are no extraneous conflicts)
