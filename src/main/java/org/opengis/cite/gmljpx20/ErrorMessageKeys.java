@@ -33,6 +33,7 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY = "gmljp2-gmlcov-metadata-property";
     public static final String GMLJP2_GMLCOV_CRS_RECTIFIED_GRID = "RectifiedGrid-CRS-not-found";
     public static final String GMLJP2_GMLCOV_CRS_HTTP = "SRS-Name-without-http";
+    public static final String GMLJP2_GMLCOV_CRS_UNDEFINED = "SRS-Name-undefined";
     public static final String GMLJP2_GMLCOV_DATARECORDS = "gmljp2-gmlcov-datarecords";
     public static final String GMLJP2_GMLCOV_DATARECORDS_RANGETYPE = "gmljp2-gmlcov-datarecords-Rangetype";
     public static final String GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD = "gmljp2-gmlcov-datarecords-Swe-Datarecord";
@@ -46,6 +47,7 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_COVERAGE_COLLECTION_ELEMENT = "gmljp2-gmlcov-coverage-collection-element";
     public static final String GMLJP2_GMLCOV_COVERAGE_CONTAINER_ELEMENT = "gmljp2-gmlcov-coverage-container-element";
     public static final String GMLJP2_GMLCOV_METADATA = "gmljp2-gmlcov-metadata";
+    public static final String GMLJP2_GMLCOV_FEATURES = "gmljp2-gmlcov-features";
     public static final String GMLJP2_GMLCOV_FEATURES_ANNOTATION = "gmljp2-gmlcov-features-annotation";
     public static final String GMLJP2_GMLCOV_FEATURES_COVERAGE = "gmljp2-gmlcov-features-coverage";
     public static final String GMLJP2_ANNOTATION_CONTAINER = "gmljp2-annotation-container";
