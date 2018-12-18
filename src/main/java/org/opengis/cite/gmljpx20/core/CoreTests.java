@@ -460,15 +460,15 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovUOMElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']" );
-            if ( !hasGmlCovUOMElems ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_BY_REF ) );
+            NodeList uomElements = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null, XPathConstants.NODESET );
+            for(int i = 0; i < uomElements.getLength(); i++) {
+            	Node element = uomElements.item(i);
+            	 boolean hasHttpUom = element.getNodeValue().contains("http");
+            	 if ( !hasHttpUom ) {
+                     throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
+                 }
             }
-            String[] A18 = findElementContains( doc.getChildNodes(), "//*[local-name()='uom']" );
-            boolean hasHttpUom = Arrays.asList( A18 ).contains( "http" );
-            if ( !hasHttpUom ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
-            }
+            
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -502,15 +502,16 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovNilValuesElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='nil-values']" );
-            if ( hasGmlCovNilValuesElems ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_NIL_VALUES ) );
+            
+            NodeList nilValues = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='nilValues']", null, XPathConstants.NODESET );
+            for(int i = 0; i < nilValues.getLength(); i++) {
+            	Node child = nilValues.item(i);
+            	boolean hasValueAndReason = (boolean) XMLUtils.evaluateXPath(child, "//*[local-name()='nilValue'][@*[local-name()='reason']]", null, XPathConstants.BOOLEAN);
+            	if(!hasValueAndReason) {
+            		throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_NIL_VALUES ));
+            	}
             }
-            String[] A19 = findElementContains( doc.getChildNodes(), "nil-values" );
-            boolean hasHttpUom = !Arrays.asList( A19 ).contains( "" );
-            if ( !hasHttpUom ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
-            }
+
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -544,15 +545,15 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovNilValuesElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='nil-values']" );
-            if ( hasGmlCovNilValuesElems ) {
-                throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
-            }
-
-            String[] A110 = findElementContains( doc.getChildNodes(), "nil-values" );
-            boolean hasHttpNilValue = Arrays.asList( A110 ).contains( "http" );
-            if ( !hasHttpNilValue ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP ) );
+            NodeList nilValues = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='nilValues']", null, XPathConstants.NODESET );
+            for(int i = 0; i < nilValues.getLength(); i++) {
+            	Node child = nilValues.item(i);
+            	ArrayList<String> reasons = (ArrayList<String>) getNodeAttributeValueArray(child,"//*[local-name()='nilValue']", "reason");
+            	for (String reason : reasons) {
+            		if(!reason.contains("http")) {
+            			throw new AssertionError( ErrorMessage.get(GMLJP2_GMLCOV_NIL_VALUES_BY_REF_HTTP));
+            		}
+            	}
             }
 
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -769,10 +770,14 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlJp2Annotation = XMLUtils.evaluateXPath( doc, "//*[local-name()='annotation']" );
-            if ( !hasGmlJp2Annotation ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_ANNOTATION_CONTAINER ) );
-            }
+            NodeList annotations = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='annotation']", null, XPathConstants.NODESET );
+            for(int i = 0; i < annotations.getLength(); i++) {
+            	Node annotation = annotations.item(i);
+            	boolean hasGmlJp2Annotation = annotation.getPrefix() != "gmljp2";
+                if ( !hasGmlJp2Annotation ) {
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_ANNOTATION_CONTAINER ) );
+                }
+            }  
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
@@ -806,10 +811,14 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
-            // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlJp2Style = XMLUtils.evaluateXPath( doc, "//*[local-name()='style']" );
-            if ( !hasGmlJp2Style ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_STYLE_CONTAINER ) );
+            
+            NodeList annotations = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='style']", null, XPathConstants.NODESET );
+            for(int i = 0; i < annotations.getLength(); i++) {
+            	Node annotation = annotations.item(i);
+            	boolean hasGmlJp2Annotation = annotation.getPrefix() != "gmljp2";
+                if ( !hasGmlJp2Annotation ) {
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_STYLE_CONTAINER ) );
+                }
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
@@ -1209,11 +1218,12 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             reset = true;
-            List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']",
-                                                        "xsi:schemaLocation" );
+         
+            List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']/*", "xsi:schemaLocation" );
+            
             boolean hasGmlFeatureCollection = !A126.isEmpty();
             if(hasGmlFeatureCollection) {
-            boolean hasFileInternalRefToXmlBox = A126.contains( "gmljpg2://xml" );
+            boolean hasFileInternalRefToXmlBox = A126.contains( "gmljp2://xml" );
 	            if ( !hasFileInternalRefToXmlBox ) {
 	                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
 	            }
@@ -1353,9 +1363,6 @@ public class CoreTests {
     	for (int index = 0; index < resultNodeList.getLength(); index++) {
     	    Node node = resultNodeList.item(index);
     	    String value = ((Element) node).getAttribute(attribute);
-    	    if(node.hasChildNodes()) {
-    	    	results.addAll(getNodeAttributeValueArray(node, "//*[@" + attribute + "]", attribute));
-    	    }
     	    results.add(value);
     	}
     	
