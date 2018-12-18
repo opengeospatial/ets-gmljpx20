@@ -1,10 +1,10 @@
 package org.opengis.cite.gmljpx20.core;
 
+import static javax.xml.xpath.XPathConstants.BOOLEAN;
 import static javax.xml.xpath.XPathConstants.NODESET;
 import static javax.xml.xpath.XPathConstants.STRING;
 import static org.opengis.cite.gmljpx20.ErrorMessageKeys.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -391,26 +391,14 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
-            // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovDataRecordElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='DataRecord']" );
-            if ( !hasGmlCovDataRecordElems ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS ) );
-            }
-
-            List<String> A17elements = findElementContains( doc.getChildNodes(), "swe:DataRecord" );
-            boolean hasRangeType = A17elements.contains( "gmlcov:rangeType" );
-            if ( !hasRangeType ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_RANGETYPE ) );
-            }
-
-            boolean hasSweDatarecords = A17elements.contains( "swe:DataRecord" );
-            if ( !hasSweDatarecords ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD ) );
-            }
-
-            boolean hasSweUom = A17elements.contains( "uom" );
-            if ( !hasSweUom ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
+            NodeList dataRecordElems = (NodeList) XMLUtils.evaluateXPath( doc, "//gmlcov:rangeType/swe:DataRecord",
+                                                                          null, NODESET );
+            for ( int i = 0; i < dataRecordElems.getLength(); i++ ) {
+                Node dataRecordElem = dataRecordElems.item( i );
+                boolean hasUom = (boolean) XMLUtils.evaluateXPath( dataRecordElem, "swe:uom", null, BOOLEAN );
+                if ( !hasUom ) {
+                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
+                }
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );

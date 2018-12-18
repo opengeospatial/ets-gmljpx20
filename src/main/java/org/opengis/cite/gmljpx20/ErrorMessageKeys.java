@@ -36,8 +36,8 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_CRS_UNDEFINED = "gmljp2-gmlcov-crs-undefined";
     public static final String GMLJP2_GMLCOV_DATARECORDS = "gmljp2-gmlcov-datarecords";
     public static final String GMLJP2_GMLCOV_DATARECORDS_RANGETYPE = "gmljp2-gmlcov-datarecords-Rangetype";
-    public static final String GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD = "gmljp2-gmlcov-datarecords-Swe-Datarecord";
-    public static final String GMLJP2_GMLCOV_DATARECORDS_SWEUOM = "gmljp2-gmlcov-datarecords-Swe-uom";
+    public static final String GMLJP2_GMLCOV_DATARECORDS_SWEDATARECORD = "gmljp2-gmlcov-datarecords-swe-Datarecord";
+    public static final String GMLJP2_GMLCOV_DATARECORDS_SWEUOM = "gmljp2-gmlcov-datarecords-swe-uom";
     public static final String GMLJP2_GMLCOV_UOM_BY_REF = "gmljp2-gmlcov-uom-byref";
     public static final String GMLJP2_GMLCOV_UOM_HTTP = "gmljp2-gmlcov-uom-http";
     public static final String GMLJP2_GMLCOV_NIL_VALUES = "gmljp2-gmlcov-nil-values";

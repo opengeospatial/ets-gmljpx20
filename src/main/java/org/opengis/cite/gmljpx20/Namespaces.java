@@ -27,5 +27,11 @@ public class Namespaces {
     public static final URI SCH = URI.create("http://purl.oclc.org/dsdl/schematron");
     /** OGC 09-146r2 (OGC GML Application Schema - Coverages, v1.0.1) */
     public static final String GMLCOV = "http://www.opengis.net/gmlcov/1.0";
+    /** OGC 09-146r2 (OGC GML Application Schema - Coverages, v1.0.1) Prefix*/
+    public static final String GMLCOV_PREFIX = "gmlcov";
+    /** OGC 09-146r2 (OGC GML Application Schema - Coverages, v1.0.1) */
+    public static final String SWE = "http://www.opengis.net/swe/2.0";
+    /** OGC 09-146r2 (OGC GML Application Schema - Coverages, v1.0.1) Prefix*/
+    public static final String SWE_PREFIX = "swe";
 
 }

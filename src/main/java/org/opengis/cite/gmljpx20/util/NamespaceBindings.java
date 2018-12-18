@@ -95,7 +95,8 @@ public class NamespaceBindings implements NamespaceContext {
         nsBindings.addNamespaceBinding(Namespaces.OWS, "ows");
         nsBindings.addNamespaceBinding(Namespaces.XLINK, "xlink");
         nsBindings.addNamespaceBinding(Namespaces.GML, "gml");
-        nsBindings.addNamespaceBinding(Namespaces.GMLCOV, "cov");
+        nsBindings.addNamespaceBinding(Namespaces.GMLCOV, Namespaces.GMLCOV_PREFIX);
+        nsBindings.addNamespaceBinding(Namespaces.SWE, Namespaces.SWE_PREFIX);
         return nsBindings;
     }
 
