@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,11 +17,8 @@ import java.util.logging.Level;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.opengis.cite.gmljpx20.ErrorMessage;
 import org.opengis.cite.gmljpx20.GMLJP2;
@@ -41,6 +39,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -273,7 +272,7 @@ public class CoreTests {
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='metadataProperty']" );
-            if ( !hasGmlCovMetadataElems ) {
+            if ( hasGmlCovMetadataElems ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY ) );
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
@@ -364,14 +363,13 @@ public class CoreTests {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
             }
             reset = true;
-            NodeList A15 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']//@srsName", null,
+            NodeList A15_1 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']", null,
+                    NODESET );
+            NodeList A15_2 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid'][@*[local-name()='srsName']]", null,
                                                               NODESET );
-            for ( int a = 0; a < A15.getLength(); a++ ) {
-                Node nd = A15.item( a );
-                boolean hasSrsName = nd.getNodeValue().contains( "http" );
-                if ( !hasSrsName ) {
-                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_HTTP ) );
-                }
+            boolean hasSrsName = A15_1.getLength() == A15_2.getLength();
+            if ( !hasSrsName ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_UNDEFINED ) );
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
@@ -383,7 +381,6 @@ public class CoreTests {
      * in the GMLCOV (gmlcov:rangeType/swe:DataRecord/swe:uom).
      * <ul>
      * <li>gmlcov:rangeType</li>
-     * <li>swe:DataRecord</li>
      * <li>swe:DataRecord</li>
      * <li>swe:uom</li>
      * <li>Verify that all swe:DataRecords that declare variables that requires units have them populated
@@ -409,12 +406,12 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovDataRecordsElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='swe:DataRecords']" );
+            boolean hasGmlCovDataRecordsElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='DataRecord']" );
             if ( !hasGmlCovDataRecordsElems ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS ) );
             }
 
-            String A17elements[] = findElementContains( doc.getChildNodes(), "swe:DataRecords" );
+            String A17elements[] = findElementContains( doc.getChildNodes(), "swe:DataRecord" );
             boolean hasRangeType = Arrays.asList( A17elements ).contains( "gmlcov:rangeType" );
             if ( !hasRangeType ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_RANGETYPE ) );
@@ -686,7 +683,7 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='gmlcov:metadata']" );
+            boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='metadata']" );
             if ( hasGmlCovMetadataElems ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_METADATA ) );
             }
@@ -727,24 +724,17 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
 
-            String[] A114_1 = getNodeValueArray( doc, "//*[local-name()='GMLJP2Features']" );
-            boolean hasGMLJP2FeaturesAnnotation = Arrays.asList( A114_1 ).contains( "annotation" );
-            if ( !hasGMLJP2FeaturesAnnotation ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
+            NodeList features = (NodeList) XMLUtils.evaluateXPath(doc, "//*[local-name()='GMLJP2Features']", null, NODESET);
+            
+            for(int i=0; i<features.getLength();i++) {
+            	Node feature = features.item(i);
+            	boolean hasCommonFeatures = (boolean) XMLUtils.evaluateXPath( feature, "//*[local-name()='GMLJP2Features']", null, XPathConstants.BOOLEAN );
+            	boolean hasSingleFeatures = (boolean) XMLUtils.evaluateXPath( feature, "//*[local-name()]='feature'", null, XPathConstants.BOOLEAN );
+            	if(!hasCommonFeatures && !hasSingleFeatures) {
+            		 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
+            	}
             }
-            boolean hasGMLJP2FeaturesCoverage = Arrays.asList( A114_1 ).contains( "coverage" );
-            if ( !hasGMLJP2FeaturesCoverage ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
-            }
-            String[] A114_2 = getNodeValueArray( doc, "//*[local-name()='feature']" );
-            boolean hasFeaturesAnnotation = Arrays.asList( A114_2 ).contains( "annotation" );
-            if ( !hasFeaturesAnnotation ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_ANNOTATION ) );
-            }
-            boolean hasFeaturesCoverage = Arrays.asList( A114_2 ).contains( "coverage" );
-            if ( !hasFeaturesCoverage ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FEATURES_COVERAGE ) );
-            }
+            
         } catch ( IOException | SAXException | XPathExpressionException e) {
             throw new AssertionError( e.getMessage() );
         }
@@ -779,7 +769,7 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlJp2Annotation = XMLUtils.evaluateXPath( doc, "//*[local-name()='gmljp2:annotation']" );
+            boolean hasGmlJp2Annotation = XMLUtils.evaluateXPath( doc, "//*[local-name()='annotation']" );
             if ( !hasGmlJp2Annotation ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_ANNOTATION_CONTAINER ) );
             }
@@ -817,7 +807,7 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
-            boolean hasGmlJp2Style = XMLUtils.evaluateXPath( doc, "//*[local-name()='gmljp2:style']" );
+            boolean hasGmlJp2Style = XMLUtils.evaluateXPath( doc, "//*[local-name()='style']" );
             if ( !hasGmlJp2Style ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_STYLE_CONTAINER ) );
             }
@@ -858,9 +848,9 @@ public class CoreTests {
             if ( !hasGmlJp2fileName ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
             }
-            String[] A117 = getNodeValueArray( doc, "//gml:fileName" );
+            List<String> A117 = getNodeValueArray( doc, "//gml:fileName" );
 
-            boolean hasFilenameCodestream = Arrays.asList( A117 ).contains( "gmljp2://codestream/0" );
+            boolean hasFilenameCodestream = A117.contains( "gmljp2://codestream/0" );
             if ( !hasFilenameCodestream ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
             }
@@ -1219,14 +1209,16 @@ public class CoreTests {
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
             reset = true;
-            String[] A126 = getNodeAttributeValueArray( doc.getChildNodes(), "gml:FeatureCollection",
+            List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']",
                                                         "xsi:schemaLocation" );
-
-            boolean hasFileInternalRefToXmlBox = Arrays.asList( A126 ).contains( "//*[local-name()='gmljp2:xml']" );
-            if ( !hasFileInternalRefToXmlBox ) {
-                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
+            boolean hasGmlFeatureCollection = !A126.isEmpty();
+            if(hasGmlFeatureCollection) {
+            boolean hasFileInternalRefToXmlBox = A126.contains( "gmljpg2://xml" );
+	            if ( !hasFileInternalRefToXmlBox ) {
+	                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
+	            }
             }
-        } catch ( IOException | SAXException e ) {
+        } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
     }
@@ -1260,8 +1252,8 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
-            String[] A127 = getNodeValueArray( doc, "//*[local-name()='fileName']" );
-            boolean hasGMLJP2InternalRefToCodestream = Arrays.asList( A127 ).contains( "//*[local-name()='fileName']" );
+            List<String> A127 = getNodeValueArray( doc, "//*[local-name()='fileName']" );
+            boolean hasGMLJP2InternalRefToCodestream = A127.contains( "//*[local-name()='fileName']" );
             if ( hasGMLJP2InternalRefToCodestream ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_CODESTREAM ) );
             }
@@ -1348,14 +1340,38 @@ public class CoreTests {
     }
 
     /**
+     * Extract a list of attribute from doc within elements fulfilling xpathExpression.
+     * 
+     * @param doc
+     *            xpathExpression, attribute Node which find attribute fulfilling xpathExpression.
+     * @return A list containing attribute found within elements fulfilling xpathExpression.
+     */
+    
+    private static List<String> getNodeAttributeValueArray( Node doc, String xpathExpression, String attribute ) throws XPathExpressionException {
+    	NodeList resultNodeList = (NodeList) XMLUtils.evaluateXPath(doc, xpathExpression, null, NODESET);
+    	List<String> results = new ArrayList<String>();
+    	for (int index = 0; index < resultNodeList.getLength(); index++) {
+    	    Node node = resultNodeList.item(index);
+    	    String value = ((Element) node).getAttribute(attribute);
+    	    if(node.hasChildNodes()) {
+    	    	results.addAll(getNodeAttributeValueArray(node, "//*[@" + attribute + "]", attribute));
+    	    }
+    	    results.add(value);
+    	}
+    	
+    	return results;
+    }
+    
+    /**
      * Extract an array from nodelist where attribute is within element.
      * 
      * @param nodeList
      *            element, attribute Nodelist which find attribute into element.
      * @return An array containing attribute founded, or null if one could not be found.
      */
+    
     private static String[] getNodeAttributeValueArray( NodeList nodeList, String element, String attribute ) {
-        if ( reset )
+    	if ( reset )
             totalElements = 0;
         countElementsNode( nodeList, element );
         if ( reset ) {
@@ -1443,20 +1459,20 @@ public class CoreTests {
     }
 
     /**
-     * Get an array values from nodelist containing element.
+     * Get an array of string values from doc containing the values under the node defined by xpathExpression.
      * 
-     * @param nodeList
-     *            element Nodelist which find element.
-     * @return array strings.
+     * @param doc
+     *            Node with the DOM content in which to find values under the xpathExpression.
+     * @return list of strings .
      * @throws XPathExpressionException 
      */
-    private static String[] getNodeValueArray( Node doc, String xpathExpression ) throws XPathExpressionException {
+    private static List<String> getNodeValueArray( Node doc, String xpathExpression ) throws XPathExpressionException {
     	NodeList resultNodeList = (NodeList) XMLUtils.evaluateXPath(doc, xpathExpression, null, NODESET);
-    	String[] results = new String[resultNodeList.getLength()];
+    	List<String> results = new ArrayList<String>();
     	for (int index = 0; index < resultNodeList.getLength(); index++) {
     	    Node node = resultNodeList.item(index);
     	    String value = node.getTextContent();
-    	    results[index] = value;
+    	    results.add(value);
     	}
     	
     	return results;
