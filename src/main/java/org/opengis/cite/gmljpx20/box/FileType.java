@@ -11,7 +11,7 @@ public class FileType extends Box {
     private String fileTypeData;
 
     public FileType( InputStream source, int length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
+        super( length );
 
         byte[] data;
         if ( length == 0 ) {

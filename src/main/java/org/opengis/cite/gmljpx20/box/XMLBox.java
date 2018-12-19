@@ -11,7 +11,7 @@ public class XMLBox extends Box {
     private String xmldata;
 
     public XMLBox( InputStream source, int length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
+        super( length );
 
         byte[] data;
         if ( length == 0 ) {

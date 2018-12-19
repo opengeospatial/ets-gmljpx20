@@ -1255,7 +1255,7 @@ public class CoreTests {
     private XMLBox findXMLbox( List<Box> boxes ) {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                XMLBox xmlBox = findXMLbox( auxBox.getBoxes());
+                XMLBox xmlBox = findXMLbox( ( (Association) auxBox ).getBoxes() );
                 if ( xmlBox != null )
                     return xmlBox;
             } else if ( auxBox instanceof Label ) {
@@ -1415,9 +1415,9 @@ public class CoreTests {
     private Box findFileType( List<Box> boxes ) {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                Box XMLBox = findFileType( auxBox.getBoxes());
-                if ( XMLBox != null )
-                    return XMLBox;
+                Box box = findFileType( ( (Association) auxBox ).getBoxes() );
+                if ( box != null )
+                    return box;
             } else if ( auxBox instanceof FileType ) {
                 return auxBox;
             }
@@ -1495,7 +1495,7 @@ public class CoreTests {
         boolean existsGMLData = false;
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                for (Box auxBox2 : auxBox.getBoxes() ) {
+                for (Box auxBox2 : ( (Association) auxBox ).getBoxes() ) {
                     if ( auxBox2 instanceof Label ) {
                         Label auxLabel = (Label) auxBox2;
                         if ( auxLabel.getLabel().contains( "gml.data" ) )
@@ -1520,7 +1520,7 @@ public class CoreTests {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
                 structAssoc = true;
-                for (Box auxBox2 : auxBox.getBoxes() ) {
+                for (Box auxBox2 : ( (Association) auxBox ).getBoxes() ) {
                     if ( auxBox2 instanceof Label ) {
                         structLabel = true;
                     }

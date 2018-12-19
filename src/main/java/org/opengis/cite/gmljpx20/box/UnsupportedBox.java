@@ -6,7 +6,7 @@ import java.io.InputStream;
 public class UnsupportedBox extends Box {
 
     public UnsupportedBox( InputStream source, int length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
+        super( length );
 
         if ( length == 1 ) {
             source.skip( (int) extendedLength - 16 );

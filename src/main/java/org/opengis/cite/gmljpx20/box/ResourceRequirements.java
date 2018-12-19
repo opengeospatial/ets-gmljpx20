@@ -1,16 +1,16 @@
 package org.opengis.cite.gmljpx20.box;
 
-import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
 
 public class ResourceRequirements extends Box {
 
     private byte[] rreqData;
 
     public ResourceRequirements( InputStream source, int length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
+        super( length );
 
         if ( length == 0 ) {
             rreqData = StreamUtil.readToEnd( source );

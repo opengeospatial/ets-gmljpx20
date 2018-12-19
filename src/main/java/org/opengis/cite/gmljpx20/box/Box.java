@@ -1,10 +1,8 @@
 package org.opengis.cite.gmljpx20.box;
 
-import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
-
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
 
 public abstract class Box {
 
@@ -66,17 +64,8 @@ public abstract class Box {
 
     protected long length;
 
-    protected long extendedLength;
-
-    protected List<Box> boxes = new ArrayList<>();
-
-    public Box( InputStream source, long length, long extendedLength ) {
+    public Box( long length ) {
         this.length = length;
-        this.extendedLength = extendedLength;
-    }
-
-    public List<Box> getBoxes() {
-        return boxes;
     }
 
     public static Box fromStream( InputStream source )
@@ -89,17 +78,17 @@ public abstract class Box {
 
         int type = StreamUtil.readBInt32( source );
         switch ( type ) {
-        case 0x6A703263:// contiguous codestream:
+        case 0x6A703263:
             return new ContigousCodestream( source, (int) length, extendedLength );
-        case 0x66747970:// File Type:
+        case 0x66747970:
             return new FileType( source, (int) length, extendedLength );
-        case 0x61736F63:// BoxTypes.asoc:
-            return new Association( source, (int) length, extendedLength );
-        case 0x786D6C20:// BoxTypes.xml0:
+        case 0x61736F63:
+            return new Association( source, (int) length );
+        case 0x786D6C20:
             return new XMLBox( source, (int) length, extendedLength );
         case 0x6C626C20:
             return new Label( source, (int) length, extendedLength );
-        case 0x72726571:// Resource Requirements (RREQ):
+        case 0x72726571:
             return new ResourceRequirements( source, (int) length, extendedLength );
         default:
             return new UnsupportedBox( source, (int) length, extendedLength );

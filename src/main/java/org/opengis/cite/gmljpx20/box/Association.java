@@ -1,18 +1,22 @@
 package org.opengis.cite.gmljpx20.box;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Association extends Box {
 
-    public Association( InputStream source, int length, long extendedLength ) {
-        super( source, length, extendedLength );
+    private List<Box> boxes = new ArrayList<>();
+
+    public Association( InputStream source, int length ) {
+        super( length );
         while ( true ) {
             try {
                 Box box = Box.fromStream( source );
                 boxes.add( box );
                 int auxLenght = 0;
 
-                for (int i = 0; i < boxes.size(); i++ ) {
+                for ( int i = 0; i < boxes.size(); i++ ) {
                     Box auxBox = boxes.get( i );
                     auxLenght += auxBox.length;
                 }
@@ -24,6 +28,10 @@ public class Association extends Box {
             }
         }
 
+    }
+
+    public List<Box> getBoxes() {
+        return boxes;
     }
 
 }

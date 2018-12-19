@@ -1,18 +1,18 @@
 package org.opengis.cite.gmljpx20.box;
 
-import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
-
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
 
 public class ContigousCodestream extends Box {
 
     private int[] contigousCodestreamData;
 
     public ContigousCodestream( InputStream source, long length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
-        int[] dataTemp = null;
+        super( length );
 
+        int[] dataTemp = null;
         byte[] data;
         if ( length == 0 ) {
             data = StreamUtil.readToEnd( source );

@@ -11,7 +11,7 @@ public class Label extends Box {
     private String label;
 
     public Label( InputStream source, int length, long extendedLength ) throws IOException {
-        super( source, length, extendedLength );
+        super( length );
 
         byte[] data;
         if ( length == 0 ) {
