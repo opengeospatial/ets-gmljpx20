@@ -1,5 +1,7 @@
 package org.opengis.cite.gmljpx20.box;
 
+import static org.opengis.cite.gmljpx20.util.jp2.BoxReader.readFromStream;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Association extends Box {
         super( length );
         while ( true ) {
             try {
-                Box box = Box.fromStream( source );
+                Box box = readFromStream( source );
                 boxes.add( box );
                 int auxLenght = 0;
 
