@@ -6,28 +6,24 @@ import java.nio.charset.Charset;
 
 public class XMLBox extends Box {
 
-    public String xmldata;
-
-    public int lengthfinal;
-
-    public BoxTypes type;
-
-    public long extendedLength;
+    private String xmldata;
 
     public XMLBox( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        this.lengthfinal = length - 8;
-        this.extendedLength = extendedLength;
+
         byte[] data;
         if ( length == 0 ) {
-            data = StreamUtil.readToEnd(source);
+            data = StreamUtil.readToEnd( source );
         } else if ( length == 1 ) {
             data = StreamUtil.readBytes( source, (int) extendedLength - 16 );
-        } else
+        } else {
             data = StreamUtil.readBytes( source, length - 8 );
-
+        }
         xmldata = new String( data, Charset.forName( "UTF8" ) );
+    }
 
+    public String getXmldata() {
+        return xmldata;
     }
 
 }

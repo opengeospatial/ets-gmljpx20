@@ -5,11 +5,10 @@ import java.io.InputStream;
 
 public class ResourceRequirements extends Box {
 
-    public byte[] rreqData;
+    private byte[] rreqData;
 
     public ResourceRequirements( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        this.lengthfinal = length - 8;
 
         if ( length == 0 ) {
             rreqData = StreamUtil.readToEnd( source );
@@ -18,6 +17,10 @@ public class ResourceRequirements extends Box {
         } else {
             rreqData = StreamUtil.readBytes( source, length - 8 );
         }
+    }
+
+    public byte[] getRreqData() {
+        return rreqData;
     }
 
 }

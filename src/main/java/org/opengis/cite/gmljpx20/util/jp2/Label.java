@@ -6,28 +6,24 @@ import java.nio.charset.Charset;
 
 public class Label extends Box {
 
-    public String xmldata;
-
-    public int lengthfinal;
-
-    public BoxTypes type;
-
-    public long extendedLength;
+    private String label;
 
     public Label( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        this.lengthfinal = length - 8;
-        this.extendedLength = extendedLength;
 
         byte[] data;
-        if ( length == 0 )
+        if ( length == 0 ) {
             data = StreamUtil.readToEnd( source );
-        else if ( length == 1 ) {
+        } else if ( length == 1 ) {
             data = StreamUtil.readBytes( source, (int) extendedLength - 16 );
-        } else
+        } else {
             data = StreamUtil.readBytes( source, length - 8 );
+        }
+        label = new String( data, Charset.forName( "UTF8" ) );
+    }
 
-        xmldata = new String( data, Charset.forName( "UTF8" ) );
+    public String getLabel() {
+        return label;
     }
 
 }

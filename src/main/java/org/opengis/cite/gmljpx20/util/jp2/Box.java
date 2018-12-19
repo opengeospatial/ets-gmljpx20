@@ -62,23 +62,14 @@ public abstract class Box {
 
     }
 
-    protected long start;
-
     protected long length;
 
-    protected long lengthOri;
-
-    protected long lengthfinal = 0;
-
     protected long extendedLength;
-
-    protected Box parent = null;
 
     protected List<Box> boxes = new ArrayList<>();
 
     public Box( InputStream source, long length, long extendedLength ) {
         this.length = length;
-        this.lengthOri = length;
         this.extendedLength = extendedLength;
     }
 

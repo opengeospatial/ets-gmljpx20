@@ -6,11 +6,11 @@ import java.nio.charset.Charset;
 
 public class FileType extends Box {
 
-    public String fileTypeData;
+    private String fileTypeData;
 
     public FileType( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        this.lengthfinal = length - 8;
+
         byte[] data;
         if ( length == 0 ) {
             data = StreamUtil.readToEnd( source );
@@ -29,6 +29,10 @@ public class FileType extends Box {
             data = dataTemp;
         }
         fileTypeData = new String( data, Charset.forName( "UTF8" ) );
+    }
+
+    public String getFileTypeData() {
+        return fileTypeData;
     }
 
 }

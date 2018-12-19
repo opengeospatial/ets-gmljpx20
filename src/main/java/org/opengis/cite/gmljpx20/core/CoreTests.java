@@ -102,7 +102,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
 
             boolean hasGmlCovGridElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='GMLJP2GridCoverage']" );
@@ -146,11 +146,11 @@ public class CoreTests {
 
             if ( auxContigousCodestream != null ) {
                 // Extract Xsize and Ysize from codestream
-                int[] fileContigousCodestream = auxContigousCodestream.contigousCodestreamData;
+                int[] fileContigousCodestream = auxContigousCodestream.getContigousCodestreamData();
                 // Extract width and height gml:high xmlBox
                 XMLBox xmlBox = findXMLbox( jp2s.boxes);
                 assertXmlBox( xmlBox );
-                Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+                Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
 
                 String strhigh = (String) XMLUtils.evaluateXPath( doc,
                                                                   "//*[local-name()='GMLJP2RectifiedGridCoverage']//*[local-name()='high']/text()",
@@ -198,7 +198,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='metadata']" );
             if ( hasGmlCovMetadataElems ) {
@@ -257,7 +257,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='metadataProperty']" );
             if ( hasGmlCovMetadataElems ) {
@@ -294,7 +294,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean isRectifiedGrid = XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']" );
             if ( !isRectifiedGrid ) {
@@ -342,7 +342,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
 
             boolean isRecifiedGrid = XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']" );
@@ -390,7 +390,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             NodeList dataRecordElems = (NodeList) XMLUtils.evaluateXPath( doc, "//gmlcov:rangeType/swe:DataRecord",
                                                                           null, NODESET );
             for ( int i = 0; i < dataRecordElems.getLength(); i++ ) {
@@ -432,7 +432,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             NodeList uomElements = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null, XPathConstants.NODESET );
             for(int i = 0; i < uomElements.getLength(); i++) {
@@ -474,7 +474,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             
             NodeList nilValues = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='nilValues']", null, XPathConstants.NODESET );
@@ -517,7 +517,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             NodeList nilValues = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='nilValues']", null, XPathConstants.NODESET );
             for(int i = 0; i < nilValues.getLength(); i++) {
@@ -565,7 +565,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlCovCollectionElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='GMLJP2GridCoverage']" );
             if ( hasGmlCovCollectionElems ) {
@@ -611,7 +611,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             String[] elements = { "gmlcov:AbstractCoverageType", "gmljp2:featureMembers" };
             boolean hasCoverageContainerElement = findElementsArray( doc.getChildNodes(), elements );
             if ( hasCoverageContainerElement ) {
@@ -656,7 +656,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlCovMetadataElems = XMLUtils.evaluateXPath( doc, "//*[local-name()='metadata']" );
             if ( hasGmlCovMetadataElems ) {
@@ -697,7 +697,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
 
             NodeList features = (NodeList) XMLUtils.evaluateXPath(doc, "//*[local-name()='GMLJP2Features']", null, NODESET);
             
@@ -742,7 +742,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             NodeList annotations = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='annotation']", null, XPathConstants.NODESET );
             for(int i = 0; i < annotations.getLength(); i++) {
@@ -784,7 +784,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             
             NodeList annotations = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='style']", null, XPathConstants.NODESET );
             for(int i = 0; i < annotations.getLength(); i++) {
@@ -825,7 +825,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasGmlJp2fileName = XMLUtils.evaluateXPath( doc, "//gml:fileName");
             if ( !hasGmlJp2fileName ) {
@@ -906,7 +906,7 @@ public class CoreTests {
                 throw new AssertionError( ErrorMessage.get( FILETYPE_NOT_FOUND ) );
             }
             FileType auxFileType = (FileType) fileType;
-            String fileTypeData = auxFileType.fileTypeData;
+            String fileTypeData = auxFileType.getFileTypeData();
             boolean hasFilenameCodestream = fileTypeData.contains( "jpx\n" );
             if ( hasFilenameCodestream ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_XML_NOT_SIGNALLED_CORRECTLY ) );
@@ -919,7 +919,7 @@ public class CoreTests {
                 throw new AssertionError( ErrorMessage.get( RESOURCE_REQUIREMENTS_NOT_FOUND ) );
             }
             ResourceRequirements rreq = (ResourceRequirements) resourceRequirements;
-            int A119_2 = verifyBytes( rreq.rreqData );
+            int A119_2 = verifyBytes( rreq.getRreqData() );
             if ( A119_2 != 67 ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_FILENAME_CODESTREAM ) );
             }
@@ -968,7 +968,7 @@ public class CoreTests {
             if ( fileType == null ) {
                 throw new AssertionError( ErrorMessage.get( FILETYPE_NOT_FOUND ) );
             }
-            String fileTypeData = auxFileType.fileTypeData;
+            String fileTypeData = auxFileType.getFileTypeData();
 
             if ( !fileTypeData.contains( "jpx" ) ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_JPX_COMPATILITY ) );
@@ -1078,7 +1078,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasSchemaLocation = XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']" );
             if ( !hasSchemaLocation ) {
@@ -1115,7 +1115,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasSchemaLocation = XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']" );
             if ( !hasSchemaLocation ) {
@@ -1153,7 +1153,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             boolean hasSchemaLocation = XMLUtils.evaluateXPath( doc, "//@*[local-name()='schemaLocation']" );
             if ( !hasSchemaLocation ) {
@@ -1190,7 +1190,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
 
             List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']/*", "xsi:schemaLocation" );
             
@@ -1234,7 +1234,7 @@ public class CoreTests {
             XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
-            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             List<String> A127 = getNodeValueArray( doc, "//*[local-name()='fileName']" );
             boolean hasGMLJP2InternalRefToCodestream = A127.contains( "//*[local-name()='fileName']" );
             if ( hasGMLJP2InternalRefToCodestream ) {
@@ -1260,8 +1260,8 @@ public class CoreTests {
                     return xmlBox;
             } else if ( auxBox instanceof Label ) {
                 Label auxLabel = (Label) auxBox;
-                TestSuiteLogger.log( Level.FINE, auxLabel.xmldata );
-                if ( auxLabel.xmldata.contains( GMLJP2.LBL_GML_ROOT ) )
+                TestSuiteLogger.log( Level.FINE, auxLabel.getLabel() );
+                if ( auxLabel.getLabel().contains( GMLJP2.LBL_GML_ROOT ) )
                     this.rootInstance = true;
             } else if ( auxBox instanceof XMLBox && this.rootInstance ) {
                 return (XMLBox) auxBox;
@@ -1498,7 +1498,7 @@ public class CoreTests {
                 for (Box auxBox2 : auxBox.getBoxes() ) {
                     if ( auxBox2 instanceof Label ) {
                         Label auxLabel = (Label) auxBox2;
-                        if ( auxLabel.xmldata.contains( "gml.data" ) )
+                        if ( auxLabel.getLabel().contains( "gml.data" ) )
                             existsGMLData = true;
                     }
                 }
