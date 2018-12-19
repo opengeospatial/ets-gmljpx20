@@ -1,12 +1,10 @@
 package org.opengis.cite.gmljpx20.util.jp2;
 
 import java.io.InputStream;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Box {
+public abstract class Box {
 
     public enum BoxTypes {
         // JP2 Box Types
@@ -58,134 +56,60 @@ public class Box {
 
         private long value;
 
-        private BoxTypes( long value ) {
+        BoxTypes( long value ) {
             this.value = value;
         }
 
-        /*
-         * public String GetDescription(Box.BoxTypes valor) { switch (valor) { case jp00: return "File Signature"; case
-         * ftyp: return "File Type"; case jp2h: return "JP2 Header"; case ihdr: return "Image Header"; case bpcc: return
-         * "Bits Per Component"; case colr: return "Color Specification"; case pclr: return "Palette"; case cmap: return
-         * "Component Mapping"; case cdef: return "Channel Definition"; case res0: return "Resolution"; case resc:
-         * return "Capture Resolution"; case resd: return "Default Display Resolution"; case jp2c: return
-         * "Contiguous Codestream"; case jp2i: return "Intellectual Property"; case xml0: return "XML"; case uuid:
-         * return "UUID"; case uinf: return "UUID Info"; case ulst: return "UUID List"; case url0: return "URL"; // JPX
-         * Box Types case asoc: return "Association"; case bfil: return "Binary Filter"; case cgrp: return
-         * "Color Group"; case chck: return "Digital Signature"; case comp: return "Composition"; case copt: return
-         * "Composition Options"; case cref: return "Cross-Reference"; case creg: return "Codestream Registration"; case
-         * drep: return "Desired Reproductions"; case dtlb: return "Data Reference"; case flst: return "Fragment List";
-         * case free: return "Free"; case ftbl: return "Fragment Table"; case gtso: return
-         * "Graphics Technology Standard Output"; case inst: return "Instruction Set"; case jpch: return
-         * "Codestream Header"; case jplh: return "Compositing Layer Header"; case lbl0: return "Label"; case mdat:
-         * return "Media Data"; case mp7b: return "MPEG-7 Binary"; case nlst: return "Number List"; case opct: return
-         * "Opacity"; case roid: return "ROI Description"; case rreq: return "Rersource Requirements";
-         * 
-         * 
-         * 
-         * } return ""; }
-         */
     }
 
-    public long Start;
+    protected long start;
 
-    public long ContentStart;
+    protected long length;
 
-    public long Length;
+    protected long lengthOri;
 
-    public long LengthOri;
+    protected long lengthfinal = 0;
 
-    public long lengthfinal = 0;
+    protected long extendedLength;
 
-    public long ExtendedLength;
+    protected Box parent = null;
 
-    public BoxTypes Type;
-
-    public Box parent = null;
-
-    public List<AbstractMap.SimpleEntry<String, String>> lstvalues = new ArrayList<AbstractMap.SimpleEntry<String, String>>();
-
-    public UUID guid = UUID.randomUUID();
-
-    public List<Box> Boxes = new ArrayList<Box>();
-
-    public Object Clone() {
-
-        Box b = (Box) this.Clone();
-        b.Start = -1;
-        if ( this.parent != null ) {
-            b.parent = (Box) this.parent.Clone();
-        }
-        return b;
-    }
+    protected List<Box> boxes = new ArrayList<>();
 
     public Box( InputStream source, long length, long extendedLength ) {
-        // Start = start;
-        Length = length;
-        LengthOri = length;
-        // Type = type;
-        ExtendedLength = extendedLength;
-        // ContentStart = source. ;//.Position;
-        /*
-         * if (length == 0) { this.lengthfinal = (long)(source. .Length - start - 8);
-         * 
-         * 
-         * } else if (length == 1) this.lengthfinal=length; else this.lengthfinal = Length - 8;
-         */
+        this.length = length;
+        this.lengthOri = length;
+        this.extendedLength = extendedLength;
     }
 
-    public static Box FromStream( InputStream source )
-                            throws Exception {
-
-        // long start = source.Position;
-        long length = StreamUtil.ReadBUInt32( source );// .ReadBUInt32(source);
-        // return FromStream(source, start, length);
-        return FromStream( source, length );
+    public List<Box> getBoxes() {
+        return boxes;
     }
 
-    // public static Box FromStream(InputStream source, long start, long length)
-    public static Box FromStream( InputStream source, long length )
+    public static Box fromStream( InputStream source )
                             throws Exception {
+        long length = StreamUtil.readBUInt32( source );
         long extendedLength = 0;
-        int type = (int) StreamUtil.ReadBInt32( source );
         if ( length == 1 ) {
-            extendedLength = StreamUtil.ReadBUInt64( source );
+            extendedLength = StreamUtil.readBUInt64( source );
         }
 
-        // if (DEBUG.Jp2File) Debug.WriteLine("Box " + type.ToString() + " Length " + length + " Extended Length " +
-        // extendedLength);
+        int type = StreamUtil.readBInt32( source );
         switch ( type ) {
-        /*
-         * case 0x6A502020:// BoxTypes.jp00: return new jp00(source, start, length, type, extendedLength); case
-         * BoxTypes.ftyp: return new ftyp(source, start, length, type, extendedLength); case BoxTypes.jp2h: return new
-         * jp2h(source, start, length, type, extendedLength);
-         */
         case 0x6A703263:// contiguous codestream:
-            Box e = new ContigousCodestream( source, (int) length, extendedLength );
-            return e;
+            return new ContigousCodestream( source, (int) length, extendedLength );
         case 0x66747970:// File Type:
-            Box d = new FileType( source, (int) length, extendedLength );
-            return d;
+            return new FileType( source, (int) length, extendedLength );
         case 0x61736F63:// BoxTypes.asoc:
-            Box c = new Association( source, (int) length, extendedLength );
-            return c;
+            return new Association( source, (int) length, extendedLength );
         case 0x786D6C20:// BoxTypes.xml0:
-            // return new XMLBox(source, start, length, type, extendedLength);
-            Box b = new XMLBox( source, (int) length, extendedLength );
-            return b;
-            /*
-             * case BoxTypes.ihdr: return new ihdr(source, start, length, type, extendedLength);
-             */
+            return new XMLBox( source, (int) length, extendedLength );
         case 0x6C626C20:
             return new Label( source, (int) length, extendedLength );
-            /*
-             * case BoxTypes.uuid: return new UUidBox(source, start, length, type, extendedLength);
-             */
         case 0x72726571:// Resource Requirements (RREQ):
-            Box f = new ResourceRequirements( source, (int) length, extendedLength );
-            return f;
-        default: {
+            return new ResourceRequirements( source, (int) length, extendedLength );
+        default:
             return new UnsupportedBox( source, (int) length, extendedLength );
-        }
         }
     }
 

@@ -5,42 +5,29 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 public class Label extends Box {
-    private byte[] _Data;
 
-    private byte[] value;
+    public String xmldata;
 
-    public byte[] Data( byte[] _Data ) {
-        // this.value = _Data;
-        return _Data;
-    }
-
-    public String xmldata = "";
-
-    public long start = 0;
-
-    public int lengthfinal = 0;
+    public int lengthfinal;
 
     public BoxTypes type;
 
     public long extendedLength;
 
-    // public XMLBox(InputStream source, long start, int length, BoxTypes type, long extendedLength) throws IOException
     public Label( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        // this.start = start;
         this.lengthfinal = length - 8;
-        // this.type = type;
         this.extendedLength = extendedLength;
 
+        byte[] data;
         if ( length == 0 )
-            _Data = StreamUtil.ReadToEnd( source );
+            data = StreamUtil.readToEnd( source );
         else if ( length == 1 ) {
-            _Data = StreamUtil.ReadBytes( source, (int) extendedLength - 16 );
+            data = StreamUtil.readBytes( source, (int) extendedLength - 16 );
         } else
-            _Data = StreamUtil.ReadBytes( source, (int) length - 8 );
+            data = StreamUtil.readBytes( source, length - 8 );
 
-        xmldata = new String( _Data, Charset.forName( "UTF8" ) );// convertCString(_Data, System.Text.Encoding.UTF8);
-
+        xmldata = new String( data, Charset.forName( "UTF8" ) );
     }
 
 }

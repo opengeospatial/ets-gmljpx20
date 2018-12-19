@@ -99,7 +99,7 @@ public class CoreTests {
     public void containsGmlCoverageDescriptions() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -138,7 +138,7 @@ public class CoreTests {
     public void containsGmlCoverageMetadataCoherence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            Box ContigousCodestream = findContigousCodestream( jp2s.Boxes );
+            Box ContigousCodestream = findContigousCodestream( jp2s.boxes);
             if ( ContigousCodestream == null ) {
                 throw new AssertionError( ErrorMessage.get( XML_BOX_NOT_FOUND ) );
             }
@@ -146,9 +146,9 @@ public class CoreTests {
 
             if ( auxContigousCodestream != null ) {
                 // Extract Xsize and Ysize from codestream
-                int[] fileContigousCodestream = auxContigousCodestream.ContigousCodestreamData;
+                int[] fileContigousCodestream = auxContigousCodestream.contigousCodestreamData;
                 // Extract width and height gml:high xmlBox
-                XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+                XMLBox xmlBox = findXMLbox( jp2s.boxes);
                 assertXmlBox( xmlBox );
                 Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
 
@@ -195,7 +195,7 @@ public class CoreTests {
     public void containsGmlcovPrecedence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -254,7 +254,7 @@ public class CoreTests {
     public void containsGmlcovInsteadmetaDataProperty() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -291,7 +291,7 @@ public class CoreTests {
     public void containsCRSdeclaredUsingURIs() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -339,7 +339,7 @@ public class CoreTests {
     public void containsCRSrectifiedGridCoverage() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -387,7 +387,7 @@ public class CoreTests {
     public void containsGmlRangeTypeDataRecordUom() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -429,7 +429,7 @@ public class CoreTests {
     public void containsUomByReference() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -471,7 +471,7 @@ public class CoreTests {
     public void containsGmlcovNilValues() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -514,7 +514,7 @@ public class CoreTests {
     public void containsGmlcovNilValuesByRef() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -562,7 +562,7 @@ public class CoreTests {
     public void containsGmlcovCoverageCollectionContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -608,7 +608,7 @@ public class CoreTests {
     public void containsGmlcovCoverageContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -653,7 +653,7 @@ public class CoreTests {
     public void containsGmlcovMetadata() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -694,7 +694,7 @@ public class CoreTests {
     public void containsFileFeatures() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -739,7 +739,7 @@ public class CoreTests {
     public void containsGMLJP2annotation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -781,7 +781,7 @@ public class CoreTests {
     public void containsGMLJP2fileStyle() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -822,7 +822,7 @@ public class CoreTests {
     public void containsGMLJP2filenameCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -866,7 +866,7 @@ public class CoreTests {
     public void containsXMLboxes() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             Assert.assertNotNull( xmlBox, ErrorMessage.get( XML_BOX_NOT_FOUND ) );
         } catch ( IOException e ) {
             throw new AssertionError( e.getMessage() );
@@ -901,7 +901,7 @@ public class CoreTests {
             // PART 1:
             // Verify that the use of JPX format extension is signalled with the value â€˜jpx\040â€™ in the brand field
             // of the file type box
-            Box fileType = findFileType( jp2s.Boxes );
+            Box fileType = findFileType( jp2s.boxes);
             if ( fileType == null ) {
                 throw new AssertionError( ErrorMessage.get( FILETYPE_NOT_FOUND ) );
             }
@@ -914,7 +914,7 @@ public class CoreTests {
 
             // PART 2:
             // that the XML box is signaled with the value 67 indicating GML or Geographic metadata (XMLGISMetaData)
-            Box resourceRequirements = findResourceRequirements( jp2s.Boxes );
+            Box resourceRequirements = findResourceRequirements( jp2s.boxes);
             if ( resourceRequirements == null ) {
                 throw new AssertionError( ErrorMessage.get( RESOURCE_REQUIREMENTS_NOT_FOUND ) );
             }
@@ -962,7 +962,7 @@ public class CoreTests {
 
             // PART 1:
             // JPX compatibility
-            Box fileType = findFileType( jp2s.Boxes );
+            Box fileType = findFileType( jp2s.boxes);
 
             FileType auxFileType = (FileType) fileType;
             if ( fileType == null ) {
@@ -1010,7 +1010,7 @@ public class CoreTests {
     public void containsGMLJP2fileJp2OuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            boolean hasGMLdata = existsGMLData( jp2s.Boxes );
+            boolean hasGMLdata = existsGMLData( jp2s.boxes);
             if ( !hasGMLdata ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_GMLDATA_EXISTS ) );
             }
@@ -1043,7 +1043,7 @@ public class CoreTests {
     public void containsGMLJP2fileJp2OtherOuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            boolean hasTestStructure = testStructureXMLBox( jp2s.Boxes );
+            boolean hasTestStructure = testStructureXMLBox( jp2s.boxes);
             if ( !hasTestStructure ) {
                 throw new AssertionError( ErrorMessage.get( GMLJP2_TEST_STRUCTURE_XMLBOX ) );
             }
@@ -1075,7 +1075,7 @@ public class CoreTests {
     public void containsFileSchemaLocation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -1112,7 +1112,7 @@ public class CoreTests {
     public void containsFileExternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -1150,7 +1150,7 @@ public class CoreTests {
     public void containsFileInternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -1187,7 +1187,7 @@ public class CoreTests {
     public void containsGMLJP2fileInternalRefToXMLBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -1231,7 +1231,7 @@ public class CoreTests {
     public void containsInternalRefToCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
-            XMLBox xmlBox = findXMLbox( jp2s.Boxes );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.xmldata.trim() ) ) );
@@ -1255,7 +1255,7 @@ public class CoreTests {
     private XMLBox findXMLbox( List<Box> boxes ) {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                XMLBox xmlBox = findXMLbox( auxBox.Boxes );
+                XMLBox xmlBox = findXMLbox( auxBox.getBoxes());
                 if ( xmlBox != null )
                     return xmlBox;
             } else if ( auxBox instanceof Label ) {
@@ -1415,7 +1415,7 @@ public class CoreTests {
     private Box findFileType( List<Box> boxes ) {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                Box XMLBox = findFileType( auxBox.Boxes );
+                Box XMLBox = findFileType( auxBox.getBoxes());
                 if ( XMLBox != null )
                     return XMLBox;
             } else if ( auxBox instanceof FileType ) {
@@ -1495,8 +1495,7 @@ public class CoreTests {
         boolean existsGMLData = false;
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
-                for ( int d = 0; d < auxBox.Boxes.size(); d++ ) {
-                    Box auxBox2 = auxBox.Boxes.get( d );
+                for (Box auxBox2 : auxBox.getBoxes() ) {
                     if ( auxBox2 instanceof Label ) {
                         Label auxLabel = (Label) auxBox2;
                         if ( auxLabel.xmldata.contains( "gml.data" ) )
@@ -1521,8 +1520,7 @@ public class CoreTests {
         for ( Box auxBox : boxes ) {
             if ( auxBox instanceof Association ) {
                 structAssoc = true;
-                for ( int d = 0; d < auxBox.Boxes.size(); d++ ) {
-                    Box auxBox2 = auxBox.Boxes.get( d );
+                for (Box auxBox2 : auxBox.getBoxes() ) {
                     if ( auxBox2 instanceof Label ) {
                         structLabel = true;
                     }

@@ -6,37 +6,29 @@ import java.nio.charset.Charset;
 
 public class FileType extends Box {
 
-    private byte[] _Data;
-
-    public String fileTypeData = "";
-
-    // public List<Box> boxes = new ArrayList<Box>();
+    public String fileTypeData;
 
     public FileType( InputStream source, int length, long extendedLength ) throws IOException {
         super( source, length, extendedLength );
-        byte[] _DataTemp = null;
-        // this.start = start;
         this.lengthfinal = length - 8;
-        // this.type = type;
-        // this.extendedLength = extendedLength;
-
-        if ( length == 0 )
-            _Data = StreamUtil.ReadToEnd( source );
-        else if ( length == 1 ) {
-            _Data = StreamUtil.ReadBytes( source, (int) extendedLength - 16 );
+        byte[] data;
+        if ( length == 0 ) {
+            data = StreamUtil.readToEnd( source );
+        } else if ( length == 1 ) {
+            data = StreamUtil.readBytes( source, (int) extendedLength - 16 );
         } else {
-            _Data = StreamUtil.ReadBytes( source, (int) length - 8 );
+            data = StreamUtil.readBytes( source, length - 8 );
             int contador = 0;
-            _DataTemp = new byte[_Data.length];
-            for ( int a = 0; a < _Data.length; a++ ) {
-                if ( _Data[a] != 0 ) {
-                    _DataTemp[contador] = _Data[a];
+            byte[] dataTemp = new byte[data.length];
+            for ( int a = 0; a < data.length; a++ ) {
+                if ( data[a] != 0 ) {
+                    dataTemp[contador] = data[a];
                     contador++;
                 }
             }
+            data = dataTemp;
         }
-        fileTypeData = new String( _DataTemp, Charset.forName( "UTF8" ) );// convertCString(_Data,
-                                                                          // System.Text.Encoding.UTF8);
+        fileTypeData = new String( data, Charset.forName( "UTF8" ) );
     }
 
 }
