@@ -10,13 +10,6 @@ that can produce JPEG 2000 codestreams containing supplementary geospatial metad
 Visit the http://opengeospatial.github.io/ets-gmljpx20/[project documentation website]
 for more information, including the API documentation.'
 
-== Requirements
-
-The test suite uses the Geospatial Data Abstraction Library (http://www.gdal.org/[GDAL])
-along with its Java bindings. In a Windows environment the installation directory
-must be added to the `PATH` environment variable; in a UNIX-like environment the
-native binaries must be found in the shared library path (`LD_LIBRARY_PATH`).
-
 == How to build the test suite
 
 The test suite is built using https://maven.apache.org/[Apache Maven v3].
