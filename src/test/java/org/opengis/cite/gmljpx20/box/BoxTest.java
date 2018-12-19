@@ -1,4 +1,4 @@
-package org.opengis.cite.gmljpx20.util.jp2;
+package org.opengis.cite.gmljpx20.box;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -8,6 +8,15 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.junit.Test;
+import org.opengis.cite.gmljpx20.box.Association;
+import org.opengis.cite.gmljpx20.box.Box;
+import org.opengis.cite.gmljpx20.box.ContigousCodestream;
+import org.opengis.cite.gmljpx20.box.FileType;
+import org.opengis.cite.gmljpx20.box.Label;
+import org.opengis.cite.gmljpx20.box.ResourceRequirements;
+import org.opengis.cite.gmljpx20.box.UnsupportedBox;
+import org.opengis.cite.gmljpx20.box.XMLBox;
+import org.opengis.cite.gmljpx20.util.jp2.JP2Stream;
 
 /**
  * @author <a href="mailto:goltz@lat-lon.de">Lyn Goltz </a>

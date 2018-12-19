@@ -1,4 +1,4 @@
-package org.opengis.cite.gmljpx20.util.jp2;
+package org.opengis.cite.gmljpx20.box;
 
 import java.io.InputStream;
 
