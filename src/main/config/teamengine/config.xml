@@ -15,6 +15,9 @@
         <description>Checks JPEG 2000 codestreams for conformance against "OGC GML 
         in JPEG 2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related 
         specifications.</description>
+        <BasicConformanceClasses>
+          <conformanceClass>Core</conformanceClass>
+        </BasicConformanceClasses>
       </suite>
       <revision>
         <name>${version}</name>
