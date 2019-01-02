@@ -10,8 +10,8 @@
       <suite>
         <namespace-uri>http://www.opengis.net/cite/gmljpx20</namespace-uri>
         <prefix>tns</prefix>
-        <local-name>ets-gmljpx20-${version}</local-name>
-        <title>Conformance Test Suite - GML in JPEG 2000</title>
+        <local-name>ets-${ets-code}-${version}</local-name>
+        <title>GML in JPEG 2000 Conformance Test Suite</title>
         <description>Checks JPEG 2000 codestreams for conformance against "OGC GML 
         in JPEG 2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related 
         specifications.</description>
@@ -20,12 +20,12 @@
         </BasicConformanceClasses>
       </suite>
       <revision>
-        <name>${version}</name>
+        <name>${project.version}</name>
         <status>Beta</status>
         <sources>
-          <source>gmljpx20/${spec-version}/ctl</source>
+          <source>${ets-code}/${spec-version}/ctl</source>
         </sources>
-        <webdir>gmljpx20/${spec-version}/site</webdir>
+        <webdir>${ets-code}/${spec-version}/site</webdir>
       </revision>
     </version>
   </standard>

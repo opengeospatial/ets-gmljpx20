@@ -11,7 +11,7 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Conformance Test Suite - GML in JPEG 2000</name>
+	<name>GML in JPEG 2000 Conformance Test Suite</name>
 	<description>Checks JPEG 2000 codestreams for conformance against "OGC GML 
   in JPEG 2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related 
   specifications.</description>

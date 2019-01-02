@@ -10,15 +10,15 @@
 		<ctl:param name="testRunArgs">A Document node containing test run arguments (as XML properties).</ctl:param>
     <ctl:param name="outputDir">The directory in which the test results will be written.</ctl:param>
 		<ctl:return>The test results as a Source object (root node).</ctl:return>
-		<ctl:description>Runs the gmljpx20 ${version} test suite.</ctl:description>
+		<ctl:description>Runs the gmljpx20 (${version}) test suite.</ctl:description>
     <ctl:code>
       <xsl:variable name="controller" select="tng:new($outputDir)" />
       <xsl:copy-of select="tng:doTestRun($controller, $testRunArgs)" />
     </ctl:code>
 	</ctl:function>
 
-   <ctl:suite name="tns:ets-gmljpx20-${version}">
-     <ctl:title>Conformance Test Suite - GML in JPEG 2000</ctl:title>
+   <ctl:suite name="tns:ets-${ets-code}-${version}">
+     <ctl:title>GML in JPEG 2000 Conformance Test Suite</ctl:title>
      <ctl:description>Checks JPEG 2000 codestreams for conformance against "OGC GML in JPEG 
      2000 (GMLJP2) Encoding Standard Part 1" (OGC 08-085r4) and related specifications.</ctl:description>
      <ctl:starting-test>tns:Main</ctl:starting-test>
@@ -29,7 +29,7 @@
 	  <ctl:code>
         <xsl:variable name="form-data">
            <ctl:form method="POST" width="800" height="600" xmlns="http://www.w3.org/1999/xhtml">
-             <h2>Conformance Test Suite - GML in JPEG 2000</h2>
+             <h2>GML in JPEG 2000 Conformance Test Suite</h2>
              <div style="background:#F0F8FF" bgcolor="#F0F8FF">
                <p>The test subject is checked against the following specifications:</p>
                <ul>
@@ -65,15 +65,6 @@
                  </label>
                  <input name="doc" id="doc" size="128" type="file" />
                </p>
-               <p>
-                 <label for="level">Conformance class: </label>
-                 <input id="core" type="radio" name="level" value="1" checked="checked" />
-                 <label for="core"> Core | </label>
-                 <!-- NOT APPLICABLE
-                 <input id="level-2" type="radio" name="level" value="2" />
-                 <label class="form-label" for="level-2"> Level 2</label>
-                 -->
-               </p>
              </fieldset>
              <p>
                <input class="form-button" type="submit" value="Start"/> | 
@@ -94,7 +85,6 @@
               </xsl:otherwise>
             </xsl:choose>
           </entry>
-          <entry key="ics"><xsl:value-of select="$form-data/values/value[@key='level']"/></entry>
 		    </properties>
 		   </xsl:variable>
        <xsl:variable name="testRunDir">
