@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+  tools {
+    maven 'mvn'
+    jdk 'JDK 8'
+  }
+  stages {
+    stage('Preparation') {
+      steps{
+        deleteDir()
+        sh 'git clone git@github.com:opengeospatial/ets-gmljpx20.git .'
+      }
+    }
+    stage('Build') {
+      steps{
+        sh 'mvn --version'
+        sh 'mvn clean install site -Pintegration-tests,docker -Dsoapui.test.fail.ignore=true'
+      }
+    }
+    stage('Results') {
+      steps{
+        junit '**/target/surefire-reports/TEST-*.xml'
+        junit '**/target/soapui/TEST-*.xml'
+        archive 'target/*'
+      }
+    }
+  }
+}
