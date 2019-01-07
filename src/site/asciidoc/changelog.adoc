@@ -1,3 +1,14 @@
 = Release Notes GML in JPEG 2000 2.0
 
-== VERSION (YYYY-MM-DD)
+== 0.1 (2019-01-07)
+
+- https://github.com/opengeospatial/ets-gmljpx20/issues/24[#24]: Publish test suite on Docker Hub
+- https://github.com/opengeospatial/ets-gmljpx20/issues/20[#20]: Check if GDAL is required and removed GDAL if not
+- https://github.com/opengeospatial/ets-gmljpx20/issues/21[#21]: Clean up ETS
+- https://github.com/opengeospatial/ets-gmljpx20/issues/8[#8]: Add conformance class configuration into the ets-gmljpx20 test
+- https://github.com/opengeospatial/ets-gmljpx20/issues/17[#17]: Update to ETS Common 9
+- https://github.com/opengeospatial/ets-gmljpx20/issues/10[#10]: Fix XPath expressions in CoreTests
+- https://github.com/opengeospatial/ets-gmljpx20/issues/6[#6]: Missing error messages in MessageBundle.properties
+- https://github.com/opengeospatial/ets-gmljpx20/issues/12[#12]: Introduce Dockerfile and Maven Docker plugin
+- https://github.com/opengeospatial/ets-gmljpx20/issues/7[#7]: Failing unit tests
+- https://github.com/opengeospatial/ets-gmljpx20/issues/4[#4]: Merge branch satcen-branch
