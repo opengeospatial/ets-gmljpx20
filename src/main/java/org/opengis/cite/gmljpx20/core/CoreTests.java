@@ -437,7 +437,7 @@ public class CoreTests {
             NodeList uomElements = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null, XPathConstants.NODESET );
             for(int i = 0; i < uomElements.getLength(); i++) {
             	Node element = uomElements.item(i);
-            	 boolean hasHttpUom = element.getNodeValue().contains("http");
+            	 boolean hasHttpUom = element.getTextContent().contains("http");
             	 if ( !hasHttpUom ) {
                      throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
                  }
