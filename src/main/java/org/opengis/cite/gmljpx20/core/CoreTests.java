@@ -395,7 +395,7 @@ public class CoreTests {
                                                                           null, NODESET );
             for ( int i = 0; i < dataRecordElems.getLength(); i++ ) {
                 Node dataRecordElem = dataRecordElems.item( i );
-                boolean hasUom = (boolean) XMLUtils.evaluateXPath( dataRecordElem, "swe:uom", null, BOOLEAN );
+                boolean hasUom = (boolean) XMLUtils.evaluateXPath( dataRecordElem, "//*[local-name()='uom']", null, BOOLEAN );
                 if ( !hasUom ) {
                     throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
                 }
