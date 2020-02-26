@@ -20,6 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.xerces.dom.DeferredElementNSImpl;
 import org.opengis.cite.gmljpx20.ErrorMessage;
 import org.opengis.cite.gmljpx20.GMLJP2;
 import org.opengis.cite.gmljpx20.SuiteAttribute;
@@ -391,14 +392,26 @@ public class CoreTests {
             assertXmlBox( xmlBox );
 
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
-            NodeList dataRecordElems = (NodeList) XMLUtils.evaluateXPath( doc, "//gmlcov:rangeType/swe:DataRecord",
-                                                                          null, NODESET );
-            for ( int i = 0; i < dataRecordElems.getLength(); i++ ) {
-                Node dataRecordElem = dataRecordElems.item( i );
-                boolean hasUom = (boolean) XMLUtils.evaluateXPath( dataRecordElem, "//*[local-name()='uom']", null, BOOLEAN );
-                if ( !hasUom ) {
-                    throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_DATARECORDS_SWEUOM ) );
+            NodeList dataRecordElems = (NodeList) XMLUtils.evaluateXPath( doc, "//gmlcov:rangeType/swe:DataRecord", null, NODESET );
+            for (int i = 0; i < dataRecordElems.getLength(); i++) {
+                DeferredElementNSImpl dataRecordElem = (DeferredElementNSImpl) dataRecordElems.item(i);
+
+                NodeList fieldElementNL = dataRecordElem.getElementsByTagNameNS("http://www.opengis.net/swe/2.0", "field");
+
+                for (int f = 0; f < fieldElementNL.getLength(); f++) {
+                    DeferredElementNSImpl fieldElement = (DeferredElementNSImpl) fieldElementNL.item(f);
+                    String field = fieldElement.hasAttribute("name")? fieldElement.getAttribute("name"): null;
+
+                    boolean hasUom = (fieldElement.getElementsByTagNameNS("http://www.opengis.net/swe/2.0", "uom").getLength() > 0);
+
+                    if (!field.equals("Collection")) {
+                        if (!hasUom) {
+                            System.out.println("FAILED!!");
+                            throw new AssertionError(ErrorMessage.get(GMLJP2_GMLCOV_DATARECORDS_SWEUOM));
+                        }
+                    }
                 }
+
             }
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
