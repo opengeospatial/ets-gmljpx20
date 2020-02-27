@@ -435,12 +435,21 @@ public class CoreTests {
             Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
             // Note: Just check doc element for allowed coverage types?
             NodeList uomElements = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='uom']", null, XPathConstants.NODESET );
-            for(int i = 0; i < uomElements.getLength(); i++) {
-            	Node element = uomElements.item(i);
-            	 boolean hasHttpUom = element.getNodeValue().contains("http");
-            	 if ( !hasHttpUom ) {
-                     throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_UOM_HTTP ) );
-                 }
+            for (int i = 0; i < uomElements.getLength(); i++) {
+                Node element = uomElements.item(i);
+
+                String uomCode = element.getAttributes().getNamedItem("code").getTextContent();
+
+                boolean hasHttpUom = (uomCode.startsWith("http"));
+
+                boolean hasAllowableUomNamespace = (uomCode.startsWith("http://www.opengis.net/def/uom/") || 
+                                                    uomCode.startsWith("https://www.opengis.net/def/uom/") || 
+                                                    uomCode.startsWith("http://www.epsg-registry.org"));
+                if (hasHttpUom) {
+                    if (!hasAllowableUomNamespace) {
+                        throw new AssertionError(ErrorMessage.get(GMLJP2_GMLCOV_UOM_HTTP));
+                    }
+                }
             }
             
         } catch ( IOException | SAXException | XPathExpressionException e ) {
