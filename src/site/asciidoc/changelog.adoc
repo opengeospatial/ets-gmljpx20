@@ -1,5 +1,12 @@
 = Release Notes GML in JPEG 2000 2.0
 
+== 0.2 (2020-02-27)
+
+- https://github.com/opengeospatial/ets-gmljpx20/issues/33[#33]: Allow indication that the GMLJP2CoverageCollection is a Collection
+- https://github.com/opengeospatial/ets-gmljpx20/issues/32[#32]: Reference to UOM definition
+- https://github.com/opengeospatial/ets-gmljpx20/issues/28[#28]: wrong verification of containsUomByReference
+- https://github.com/opengeospatial/ets-gmljpx20/issues/27[#27]: Wrong xpath expression in containsGmlRangeTypeDataRecordUom
+
 == 0.1 (2019-01-07)
 
 - https://github.com/opengeospatial/ets-gmljpx20/issues/24[#24]: Publish test suite on Docker Hub
