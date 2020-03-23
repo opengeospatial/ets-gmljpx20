@@ -17,7 +17,7 @@ public class BoxTest {
 
     @Test
     public void testFromStream() {
-        InputStream is = getClass().getResourceAsStream( "/jp2/romagmljp2-collection2-rreq7.jp2" );
+        InputStream is = getClass().getResourceAsStream( "/jp2/roma4326-2b.jp2" );
         List<Box> boxes = new JP2Stream( is ).boxes;
 
         assertThat( boxes.size(), is( 6 ) );

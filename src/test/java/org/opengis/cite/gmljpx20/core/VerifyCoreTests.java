@@ -33,7 +33,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstanceContainsGmlCoverageElements() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -43,7 +43,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlCoverageMetadataCoherence() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -53,7 +53,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovPrecedence() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -63,7 +63,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovInsteadmetaDataProperty() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -73,7 +73,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsCRSdeclaredUsingURIs() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -83,7 +83,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsCRSrectifiedGridCoverage() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -103,7 +103,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsUomByReference() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -113,7 +113,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovNilValues() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -123,7 +123,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovNilValuesByRef() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -133,7 +133,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovCoverageCollectionContainer() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -143,7 +143,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovCoverageContainer() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -153,7 +153,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGmlcovMetadata() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -163,7 +163,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsFileFeatures() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -173,7 +173,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2annotation() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -184,7 +184,7 @@ public class VerifyCoreTests {
     @Test
     @Ignore("GMLJP2fileStyle still not defined")
     public void rootInstancecontainsGMLJP2fileStyle() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -194,7 +194,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2filenameCodestream() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -204,7 +204,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsXMLboxes() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -214,7 +214,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2fileXMLSignaledCorrectly() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -224,7 +224,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2fileJPXJP2Compatible() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -234,7 +234,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2fileJp2OuterBox() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -244,7 +244,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2fileJp2OtherOuterBox() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -254,7 +254,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsFileSchemaLocation() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -264,7 +264,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsFileExternalReferences() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -274,7 +274,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsFileInternalReferences() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -284,7 +284,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsGMLJP2fileInternalRefToXMLBox() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
@@ -294,7 +294,7 @@ public class VerifyCoreTests {
 
     @Test
     public void rootInstancecontainsInternalRefToCodestream() throws URISyntaxException {
-        URL url = this.getClass().getResource("/jp2/romagmljp2-collection2-rreq7.jp2");
+        URL url = this.getClass().getResource("/jp2/roma4326-2b.jp2");
         File file = new File(url.toURI());
         when(suite.getAttribute(SuiteAttribute.TEST_SUBJECT.getName())).thenReturn(file);
         CoreTests spy = Mockito.spy(new CoreTests());
