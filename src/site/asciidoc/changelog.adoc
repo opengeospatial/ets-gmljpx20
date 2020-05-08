@@ -1,5 +1,10 @@
 = Release Notes GML in JPEG 2000 2.0
 
+== 1.0 (2020-05-08)
+
+- https://github.com/opengeospatial/ets-gmljpx20/issues/35[#35]: Prepare release 1.0
+- https://github.com/opengeospatial/ets-gmljpx20/issues/29[#29]: Update jp2 files
+
 == 0.2 (2020-02-27)
 
 - https://github.com/opengeospatial/ets-gmljpx20/issues/33[#33]: Allow indication that the GMLJP2CoverageCollection is a Collection
