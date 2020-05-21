@@ -27,6 +27,7 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLCOV_PRECEDENCE_COHERENCE2 = "gmljp2-gmlcov-precedence-coherence2";
     public static final String GMLJP2_GMLCOV_INSTEAD_METADATAPROPERTY = "gmljp2-gmlcov-metadata-property";
     public static final String GMLJP2_GMLCOV_CRS_RECTIFIED_GRID = "gmljp2-gmlcov-crs";
+    public static final String GMLJP2_GML_GEOGRAPHIC_FEATURES = "gml-geographicFeatures";
     public static final String GMLJP2_GMLCOV_CRS_HTTP = "gmljp2-gmlcov-crs-http";
     public static final String GMLJP2_GMLCOV_CRS_UNDEFINED = "gmljp2-gmlcov-crs-undefined";
     public static final String GMLJP2_GMLCOV_DATARECORDS_SWEUOM = "gmljp2-gmlcov-datarecords-swe-uom";
@@ -47,6 +48,8 @@ public class ErrorMessageKeys {
     public static final String GMLJP2_GMLDATA_EXISTS = "gmljp2-gmldata-exists";
     public static final String GMLJP2_TEST_STRUCTURE_XMLBOX = "gmljp2-test-structure-xmlbox";
     public static final String GMLJP2_SCHEMA_LOCATION = "gmljp2-schema-location";
+    public static final String GMLJP2_EXTERNAL_REFS = "gmljp2-external-references";
+    public static final String GMLJP2_INTERNAL_REFERENCES = "gmljp2-internal-references";
     public static final String GMLJP2_INTERNAL_REF_TO_XML_BOX = "gmljp2-internal-ref-to-xml-box";
     public static final String GMLJP2_INTERNAL_REF_TO_CODESTREAM = "gmljp2-internal-ref-to-codestream";
 }
