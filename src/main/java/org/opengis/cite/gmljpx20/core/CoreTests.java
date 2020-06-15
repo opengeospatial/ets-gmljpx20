@@ -92,7 +92,7 @@ public class CoreTests {
      * Test passes if <a href="http://www.opengis.net/gmlcov/1.0">http://www.opengis.net/gmlcov/1.0</a> is used.</li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.1")
+    @Test(description = "OGC 08-085r4, A.1.1 and OGC 08-085r8, A.1.1")
     public void containsGmlCoverageDescriptions() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -131,7 +131,7 @@ public class CoreTests {
      * <li>Verify that the image headers values are the same that are included in the GMLJP2 XML instance. Test passes if they are the same.</li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.2")
+    @Test(description = "OGC 08-085r4, A.1.2 and OGC 08-085r8, A.1.2")
     public void containsGmlCoverageMetadataCoherence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -188,7 +188,7 @@ public class CoreTests {
      * gmljp2-gmlcov:precedence</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.3")
+    @Test(description = "OGC 08-085r4, A.1.3 and OGC 08-085r8, A.1.3")
     public void containsGmlcovPrecedence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -247,7 +247,7 @@ public class CoreTests {
      * gmljp2-gml-metaDataProperty</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.4")
+    @Test(description = "OGC 08-085r4, A.1.4 and OGC 08-085r8, A.1.4")
     public void containsGmlcovInsteadmetaDataProperty() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -331,7 +331,7 @@ public class CoreTests {
      * gmljp2-gmlcov-CRS-byref</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.6")
+    @Test(description = "OGC 08-085r4, A.1.5 and OGC 08-085r8, A.1.6")
     public void containsCRSdeclaredUsingURIs() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -379,7 +379,7 @@ public class CoreTests {
      * gmlcov-RectifiedGridCoverage-CRS</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.7")
+    @Test(description = "OGC 08-085r4, A.1.6 and OGC 08-085r8, A.1.7")
     public void containsCRSrectifiedGridCoverage() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -427,7 +427,7 @@ public class CoreTests {
      * gmlcov-rangetype-uom</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.8")
+    @Test(description = "OGC 08-085r4, A.1.7 and OGC 08-085r8, A.1.8")
     public void containsGmlRangeTypeDataRecordUom() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -481,7 +481,7 @@ public class CoreTests {
      * </ul>
      */
 
-    @Test(description = "OGC 08-085r8, A.1.9")
+    @Test(description = "OGC 08-085r4, A.1.8 and OGC 08-085r8, A.1.9")
     public void containsUomByReference() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -532,7 +532,7 @@ public class CoreTests {
      * gmljp2-gmlcov-nil-values</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.10")
+    @Test(description = "OGC 08-085r4, A.1.9 and OGC 08-085r8, A.1.10")
     public void containsGmlcovNilValues() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -575,7 +575,7 @@ public class CoreTests {
      * gmljp2-gmlcov-nil-reason-byref</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.11")
+    @Test(description = "OGC 08-085r4, A.1.10 and OGC 08-085r8, A.1.11")
     public void containsGmlcovNilValuesByRef() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -624,7 +624,7 @@ public class CoreTests {
      * gmljp2-gmlcov-coverage-collection-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.12")
+    @Test(description = "OGC 08-085r4, A.1.11 and OGC 08-085r8, A.1.12")
     public void containsGmlcovCoverageCollectionContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -670,7 +670,7 @@ public class CoreTests {
      * gmljp2-gmlcov-coverage-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.13")
+    @Test(description = "OGC 08-085r4, A.1.12 and OGC 08-085r8, A.1.13")
     public void containsGmlcovCoverageContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -715,7 +715,7 @@ public class CoreTests {
      * gmljp2-gmlcov-metadata</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.14")
+    @Test(description = "OGC 08-085r4, A.1.13 and OGC 08-085r8, A.1.14")
     public void containsGmlcovMetadata() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -756,7 +756,7 @@ public class CoreTests {
      * gmljp2-gml-feature-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.15")
+    @Test(description = "OGC 08-085r4, A.1.14 and OGC 08-085r8, A.1.15")
     public void containsFileFeatures() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -801,7 +801,7 @@ public class CoreTests {
      * annotation-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.16")
+    @Test(description = "OGC 08-085r4, A.1.15 and OGC 08-085r8, A.1.16")
     public void containsGMLJP2annotation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -843,7 +843,7 @@ public class CoreTests {
      * style-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.17")
+    @Test(description = "OGC 08-085r4, A.1.16 and OGC 08-085r8, A.1.17")
     public void containsGMLJP2fileStyle() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -884,7 +884,7 @@ public class CoreTests {
      * gmlcov-filename-codestream</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.17")
+    @Test(description = "OGC 08-085r4, A.1.17 and OGC 08-085r8, A.1.18")
     public void containsGMLJP2filenameCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -928,7 +928,7 @@ public class CoreTests {
      * xml-boxes</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.19")
+    @Test(description = "OGC 08-085r4, A.1.18 and OGC 08-085r8, A.1.19")
     public void containsXMLboxes() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -960,7 +960,7 @@ public class CoreTests {
      * xml-box-signal</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.20")
+    @Test(description = "OGC 08-085r4, A.1.19 and OGC 08-085r8, A.1.20")
     public void containsGMLJP2fileXMLSignaledCorrectly() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1019,7 +1019,7 @@ public class CoreTests {
      * jpx-jp2-compatible</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.21")
+    @Test(description = "OGC 08-085r4, A.1.20 and OGC 08-085r8, A.1.21")
     public void containsGMLJP2fileJPXJP2Compatible() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1070,7 +1070,7 @@ public class CoreTests {
      * jp2-outer-box</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.22")
+    @Test(description = "OGC 08-085r4, A.1.21 and OGC 08-085r8, A.1.22")
     public void containsGMLJP2fileJp2OuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1103,7 +1103,7 @@ public class CoreTests {
      * jp2-other-inner-box</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.23")
+    @Test(description = "OGC 08-085r4, A.1.22 and OGC 08-085r8, A.1.23")
     public void containsGMLJP2fileJp2OtherOuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1135,7 +1135,7 @@ public class CoreTests {
      * gmljp2-schemalocation</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.24")
+    @Test(description = "OGC 08-085r4, A.1.23 and OGC 08-085r8, A.1.24")
     public void containsFileSchemaLocation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1172,7 +1172,7 @@ public class CoreTests {
      * gmljp2-external-references</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.25")
+    @Test(description = "OGC 08-085r4, A.1.24 and OGC 08-085r8, A.1.25")
     public void containsFileExternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1210,7 +1210,7 @@ public class CoreTests {
      * internal-references</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.26")
+    @Test(description = "OGC 08-085r4, A.1.25 and OGC 08-085r8, A.1.26")
     public void containsFileInternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1329,7 +1329,7 @@ public class CoreTests {
      * internal-references-to-xmlbox</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.29")
+    @Test(description = "OGC 08-085r4, A.1.26 and OGC 08-085r8, A.1.29")
     public void containsGMLJP2fileInternalRefToXMLBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1373,7 +1373,7 @@ public class CoreTests {
      * internal-references-to-codestream</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r8, A.1.30")
+    @Test(description = "OGC 08-085r4, A.1.27 and OGC 08-085r8, A.1.30")
     public void containsInternalRefToCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
