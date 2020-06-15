@@ -3,7 +3,7 @@
 == Scope
 
 This test suites checks JPEG 2000 image data for conformance against _OGC GML
-in JPEG 2000 (GMLJP2) Encoding Standard Part 1_ http://docs.opengeospatial.org/is/08-085r4/08-085r4.html[OGC 08-085r4].
+in JPEG 2000 (GMLJP2) Encoding Standard Part 1_ http://docs.opengeospatial.org/is/08-085r4/08-085r8.html[OGC 08-085r8].
 The nominal conformance target is a software component (an application or library)
 that can produce JPEG 2000 codestreams containing supplementary geospatial metadata.
 
