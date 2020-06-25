@@ -76,27 +76,23 @@ public class CoreTests {
     }
 
     /**
-     * {@code [Test]} A conforming GMLJP2 encoded file shall use a GMLCOV coverage description in accord with OGC 12-108
-     * so as to describe the coverage collection and to describe the individual coverages. In particular, the permitted
-     * coverage types include:
-     * <ul>
-     * <li>GMLJP2GridCoverage</li>
-     * <li>GMLJP2RectifiedGridCoverage</li>
-     * <li>GMLJP2ReferenceableGridCoverage</li>
-     * <li>any coverage type derived thereof with exactly 2 dimensions</li>
-     * </ul>
+     * {@code [Test]} A GMLJP2 encoded file conformant to this standard shall use a CIS coverage description 
+     * following the OGC 12-108 GML Application Schema - Coverages - JPEG 2000 Coverage Encoding Extension 
+     * to describe the coverage collection and to describe the individual coverages.
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.1:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.1:
      * GMLJP2 file contains a GMLCOV coverage</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_1">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_1">
      * gmljp2-gmlcov</a></li>
+     * <li>Check if the GMLJP2 XML instances use elements from  <a href="http://www.opengis.net/gmlcov/1.0">http://www.opengis.net/gmlcov/1.0</a> 
+     * Test passes if <a href="http://www.opengis.net/gmlcov/1.0">http://www.opengis.net/gmlcov/1.0</a> is used.</li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.1")
+    @Test(description = "OGC 08-085r4, A.1.1 and OGC 08-085r8, A.1.1")
     public void containsGmlCoverageDescriptions() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -120,22 +116,22 @@ public class CoreTests {
     }
 
     /**
-     * {@code [Test]} In a JPEG2000 encoded file containing coverage metadata about the internal structure of the
-     * JPEG2000 file (e.g. number of codestreams, number of rows and columns of a codestream) shall be coherent with the
-     * JPEG2000 binary header information. In case of discrepancies the JPEG2000 binary headers information takes
-     * precedence.
+     * {@code [Test]} Coverage metadata in a GMLJP2 XML instance about the internal structure of the JPEG 2000 file 
+     * (e.g. number of codestreams, number of rows and columns of a codestream) shall be coherent with the JPEG 2000 
+     * binary header information. In case of discrepancies the JPEG 2000 binary headers information takes precedence.
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.2:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.2:
      * GMLJP2 coverage metadata coherence with JPEG2000 header</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_2">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_2">
      * header-precedence</a></li>
+     * <li>Verify that the image headers values are the same that are included in the GMLJP2 XML instance. Test passes if they are the same.</li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.2")
+    @Test(description = "OGC 08-085r4, A.1.2 and OGC 08-085r8, A.1.2")
     public void containsGmlCoverageMetadataCoherence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -186,13 +182,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.3:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.3:
      * GMLJP2 file GMLCOV precedence</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_3">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_3">
      * gmljp2-gmlcov:precedence</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.3")
+    @Test(description = "OGC 08-085r4, A.1.3 and OGC 08-085r8, A.1.3")
     public void containsGmlcovPrecedence() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -245,13 +241,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.4:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.4:
      * Usage of gmlcov:metadata instead of gml:metaDataProperty</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_4">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_4">
      * gmljp2-gml-metaDataProperty</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.4")
+    @Test(description = "OGC 08-085r4, A.1.4 and OGC 08-085r8, A.1.4")
     public void containsGmlcovInsteadmetaDataProperty() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -270,9 +266,56 @@ public class CoreTests {
     }
 
     /**
-     * {@code [Test]} In those cases where a CRS is identified by reference to an authority and code, it SHALL be
-     * identified by URI following the OGC document 07-092r3 and maintained in http://www.opengis.net/def (URIs of
-     * Definitions in OGC Namespace).
+     * {@code [Test]} Geographic features (if any) included in a JPEG 2000 encoded image using GMLJP2 shall be 
+     * encoded as GML 3.2 features.
+     * <ul>
+     * <li>gml-geographicFeatures</li>
+     * <li>Verify that geographic features (if any) under the gmljp2:GMLJP2Features element comply 
+     * with the rules for GML application schemas as defined in Clause 21 of the GML 3.2.1 standard [OGC 07-036].</li>
+     * </ul>
+     *
+     * <p style="margin-bottom: 0.5em">
+     * <strong>Sources</strong>
+     * </p>
+     * <ul>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.5:
+     * Verify that CRS are declared using URIs. Test passes if all CRSs are URIs.</li>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_5">
+     * gmljp2-gmlcov-CRS-byref</a></li>
+     * </ul>
+     */
+    @Test(description = "OGC 08-085r8, A.1.5")
+    public void containsGeographicGML32Features() {
+        try (InputStream inStream = new FileInputStream( this.jp2File )) {
+            JP2Stream jp2s = new JP2Stream( inStream );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
+            assertXmlBox( xmlBox );
+
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
+            // Note: Just check doc element for allowed coverage types?
+            boolean isRectifiedGrid = XMLUtils.evaluateXPath( doc, "//*[local-name()='RectifiedGrid']" );
+            if ( !isRectifiedGrid ) {
+                throw new AssertionError( ErrorMessage.get( GMLJP2_GMLCOV_CRS_RECTIFIED_GRID ) );
+
+            }
+            NodeList A15 = (NodeList) XMLUtils.evaluateXPath( doc, "//*[local-name()='AbstractGML'] | "
+            		+ "//*[local-name()='AbstractFeature'] | "
+            		+ "//*[local-name()='AbstractGeometry'] | "
+            		+ "//*[local-name()='AbstractCoverage']", null, NODESET );
+            boolean hasGeographicFeatures = A15.getLength() > 0;
+            if(hasGeographicFeatures) {
+            	//TODO: What do the geographic features need to comply with. Requirement can be more specific
+            	throw new AssertionError( ErrorMessage.get( GMLJP2_GML_GEOGRAPHIC_FEATURES ) );
+            }
+        } catch ( IOException | SAXException | XPathExpressionException e ) {
+            throw new AssertionError( e.getMessage() );
+        }
+    }
+    
+    
+    /**
+     * {@code [Test]}  CRS SHALL be identified by URI following the OGC document OGC 11-135 
+     * and maintained in http://www.opengis.net/def.
      * <ul>
      * <li>gmlcov-CRS-byref</li>
      * <li>Verify that CRS are declared using URIs. Test passes if all CRSs are URIs.</li>
@@ -282,13 +325,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.5:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.5:
      * Verify that CRS are declared using URIs. Test passes if all CRSs are URIs.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_5">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_6">
      * gmljp2-gmlcov-CRS-byref</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.5")
+    @Test(description = "OGC 08-085r4, A.1.5 and OGC 08-085r8, A.1.6")
     public void containsCRSdeclaredUsingURIs() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -330,13 +373,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.6:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.7:
      * Verify that all GMLJP2RectifiedGridCoverage have CRS defined in the domainSet.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_6">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_7">
      * gmlcov-RectifiedGridCoverage-CRS</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.6")
+    @Test(description = "OGC 08-085r4, A.1.6 and OGC 08-085r8, A.1.7")
     public void containsCRSrectifiedGridCoverage() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -378,13 +421,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.7:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.8:
      * UoM in rangeType are defined when applicable</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_7">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_8">
      * gmlcov-rangetype-uom</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.7")
+    @Test(description = "OGC 08-085r4, A.1.7 and OGC 08-085r8, A.1.8")
     public void containsGmlRangeTypeDataRecordUom() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -431,14 +474,14 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.8:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.9:
      * UoM are defined by reference.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_8">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_9">
      * gmljp2-gmlcov-uom-byref</a></li>
      * </ul>
      */
 
-    @Test(description = "OGC 08-085r4, A.1.8")
+    @Test(description = "OGC 08-085r4, A.1.8 and OGC 08-085r8, A.1.9")
     public void containsUomByReference() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -483,13 +526,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.9:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.10:
      * GMLJP2 file gmlcov-nil-values.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_9">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_10">
      * gmljp2-gmlcov-nil-values</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.9")
+    @Test(description = "OGC 08-085r4, A.1.9 and OGC 08-085r8, A.1.10")
     public void containsGmlcovNilValues() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -519,20 +562,20 @@ public class CoreTests {
      * Definitions in OGC Namespace).
      * <ul>
      * <li>gmlcov-nil-reason-byref</li>
-     * <li>Verify that the all reasons for nill values are defined as URIâ€™s. Test passes if there are.</li>
+     * <li>Verify that the all reasons for nill values are defined as URI's. Test passes if there are.</li>
      * </ul>
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.10:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.11:
      * Nil-values by reference.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_10">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_11">
      * gmljp2-gmlcov-nil-reason-byref</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.10")
+    @Test(description = "OGC 08-085r4, A.1.10 and OGC 08-085r8, A.1.11")
     public void containsGmlcovNilValuesByRef() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -567,20 +610,21 @@ public class CoreTests {
      * /req/gmlcov
      * <ul>
      * <li>gmlcov-coverage-collection-container</li>
-     * <li>Verify that the all reasons for nill values are defined as URIâ€™s. Test passes if there are.</li>
+     * <li>erify that the root element is a gmljp2:GMLJP2CoverageCollection and the elements gml:domainSet, the gml:rangeSet 
+     * and the gmlcov:rangeType have been populated according to requirement 11. Test passes if the root is as expected.</li>
      * </ul>
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.11:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.12:
      * GMLJP2 file root is a coverage collection.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_11">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_12">
      * gmljp2-gmlcov-coverage-collection-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.11")
+    @Test(description = "OGC 08-085r4, A.1.11 and OGC 08-085r8, A.1.12")
     public void containsGmlcovCoverageCollectionContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -620,13 +664,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.12:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.13:
      * GMLJP2 file coverages.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_12">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_13">
      * gmljp2-gmlcov-coverage-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.12")
+    @Test(description = "OGC 08-085r4, A.1.12 and OGC 08-085r8, A.1.13")
     public void containsGmlcovCoverageContainer() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -665,13 +709,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.13:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.14:
      * GMLJP2 file gmlcov-metadata.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_13">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_14">
      * gmljp2-gmlcov-metadata</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.13")
+    @Test(description = "OGC 08-085r4, A.1.13 and OGC 08-085r8, A.1.14")
     public void containsGmlcovMetadata() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -706,13 +750,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.14:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.15:
      * GMLJP2 file features.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_14">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_15">
      * gmljp2-gml-feature-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.14")
+    @Test(description = "OGC 08-085r4, A.1.14 and OGC 08-085r8, A.1.15")
     public void containsFileFeatures() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -751,13 +795,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.15:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.16:
      * GMLJP2 file annotations.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_15">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_16">
      * annotation-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.15")
+    @Test(description = "OGC 08-085r4, A.1.15 and OGC 08-085r8, A.1.16")
     public void containsGMLJP2annotation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -793,13 +837,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.16:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.17:
      * GMLJP2 file styles.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_16">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_17">
      * style-container</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.16")
+    @Test(description = "OGC 08-085r4, A.1.16 and OGC 08-085r8, A.1.17")
     public void containsGMLJP2fileStyle() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -834,13 +878,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.17:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.18:
      * GMLJP2 file /req/gmlcov-filename-codestream.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_17">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_18">
      * gmlcov-filename-codestream</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.17")
+    @Test(description = "OGC 08-085r4, A.1.17 and OGC 08-085r8, A.1.18")
     public void containsGMLJP2filenameCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -878,13 +922,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.18:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.19:
      * GMLJP2 file XML boxes.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_18">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_19">
      * xml-boxes</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.18")
+    @Test(description = "OGC 08-085r4, A.1.18 and OGC 08-085r8, A.1.19")
     public void containsXMLboxes() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -910,13 +954,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.19:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.20:
      * GMLJP2 file XML boxes signaled correctly.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_19">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_20">
      * xml-box-signal</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.19")
+    @Test(description = "OGC 08-085r4, A.1.19 and OGC 08-085r8, A.1.20")
     public void containsGMLJP2fileXMLSignaledCorrectly() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -962,22 +1006,20 @@ public class CoreTests {
      * box (see Annex I of [ISO 15444-1] and Annex M.2.1 of [ISO 15444-2]).
      * <ul>
      * <li>jpx-jp2-compatible</li>
-     * <li>Verify that the JPEG 2000 is marked as â€œjpxâ€� in the compatibility list. Verify that the JPEG 2000 is
-     * marked as â€œjp2â€� in the compatibility list (except if opacity channel is specified outside the scope of jp2).
-     * If so, test passes.</li>
+     * <li>Verify that the JPEG 2000 is marked as "jp2" in the compatibility list. If so, test passes.</li>
      * </ul>
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.20:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.21:
      * GMLJP2 file is a jpx and jp2 compatible.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_20">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_21">
      * jpx-jp2-compatible</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.20")
+    @Test(description = "OGC 08-085r4, A.1.20 and OGC 08-085r8, A.1.21")
     public void containsGMLJP2fileJPXJP2Compatible() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1022,13 +1064,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.21:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.22:
      * GMLJP2 file /req/ jp2-outer-box.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_21">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_22">
      * jp2-outer-box</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.21")
+    @Test(description = "OGC 08-085r4, A.1.21 and OGC 08-085r8, A.1.22")
     public void containsGMLJP2fileJp2OuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1055,13 +1097,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.22:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.23:
      * GMLJP2 file /req/jp2-other-outer-box.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_22">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_23">
      * jp2-other-inner-box</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.22")
+    @Test(description = "OGC 08-085r4, A.1.22 and OGC 08-085r8, A.1.23")
     public void containsGMLJP2fileJp2OtherOuterBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1078,22 +1120,22 @@ public class CoreTests {
      * {@code [Test]} When XML schema definitions are embedded in a JPEG200 file, then schemaLocation attribute is
      * mandatory.
      * <ul>
-     * <li>xsi:schemaLocation</li>
-     * <li>Verify that when a XML resource embedded in a JPEG200 file includes a schema definition, a reference to a
-     * schemaLocation is provided. If so, test passes.</li>
+     * <li>gmlcov-XML-ReferencesByURIs</li>
+     * <li>Verify that when XML resources embedded in a JPEG200 file includes a schema definition, verify that such 
+     * resources follow the specified assessment rules. If so, test passes.</li>
      * </ul>
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.23:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.24:
      * GMLJP2 file /req/gmlcov-schemalocation.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_23">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_24">
      * gmljp2-schemalocation</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.23")
+    @Test(description = "OGC 08-085r4, A.1.23 and OGC 08-085r8, A.1.24")
     public void containsFileSchemaLocation() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1109,13 +1151,13 @@ public class CoreTests {
         } catch ( IOException | SAXException | XPathExpressionException e ) {
             throw new AssertionError( e.getMessage() );
         }
-    }
-
+    }    
+    
     /**
      * {@code [Test]} The GMLJP2 file processor should follow the assessment rules for schemas as laid out in XML Schema
      * Specification, Part I Structures, Section 4.3.2.
      * <ul>
-     * <li>xsi:schemaLocation</li>
+     * <li>gmljp2-schemalocation</li>
      * <li>Verify that when a XML resource embedded in a JPEG200 file includes a schema definition, a reference to a
      * schemaLocation is provided. If so, test passes.</li>
      * </ul>
@@ -1124,13 +1166,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.24:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.25:
      * GMLJP2 file /req/external-references.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_24">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_25">
      * gmljp2-external-references</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.24")
+    @Test(description = "OGC 08-085r4, A.1.24 and OGC 08-085r8, A.1.25")
     public void containsFileExternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1153,7 +1195,7 @@ public class CoreTests {
      * resource is referenced in an xlink:href, it shall be referenced using a http://reference type to an XML instance,
      * a relative reference shall be interpreted as relative to the jpeg2000 file position.
      * <ul>
-     * <li>gmljp2:references</li>
+     * <li>gmljp2-xmlSchema</li>
      * <li>Verify that the internal references to schemaLocations are made using gmljp2: references. If so, test passes.
      * </li>
      * </ul>
@@ -1162,13 +1204,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.25:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.26:
      * GMLJP2 file /req/internal-references.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_25">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_26">
      * internal-references</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.25")
+    @Test(description = "OGC 08-085r4, A.1.25 and OGC 08-085r8, A.1.26")
     public void containsFileInternalReferences() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1187,25 +1229,107 @@ public class CoreTests {
     }
 
     /**
-     * {@code [Test]} The structure of an internal GMLJP2 URI shall be as follows:
-     * gmljp2://[resource.type]/[resource.id][#fragment-id]
+     * {@code [Test]} When an external application schema is referenced in the xsi:schemaLocation attribute or any resource
+     *  is referenced in an xlink:href, that schema shall be referenced using a http://reference type to an XML instance, 
+     *  a relative reference shall be interpreted as relative to the JPEG 2000 file position.
      * <ul>
-     * <li>gmljp2://xml/</li>
-     * <li>Verify that the internal references to schemaLocations in xmlboxes are made using gmljp2://xml/ references.
-     * If so, test passes.</li>
+     * <li>external-references</li>
+     * <li>Verify that the external references to schemaLocations are made using http references. If so, test passes.</li>
      * </ul>
      *
      * <p style="margin-bottom: 0.5em">
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.26:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.27:
+     * GMLJP2 file /req/external-references-to-xmlbox.</li>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_27">
+     * external-references-to-xmlbox</a></li>
+     * </ul>
+     */
+    @Test(description = "OGC 08-085r8, A.1.27")
+    public void containsGMLJP2ExternalRefToXMLBox() {
+        try (InputStream inStream = new FileInputStream( this.jp2File )) {
+            JP2Stream jp2s = new JP2Stream( inStream );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
+            assertXmlBox( xmlBox );
+
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
+
+            List<String> A127 = getNodeValueArray( doc, "//@*[local-name()='schemaLocation']" );
+            
+            boolean hasSchemaLocation = !A127.isEmpty();
+            if(hasSchemaLocation) {
+            boolean hasRefToHttp = A127.stream().filter(e -> e.contains( "http" )).count() > 0;
+	            if ( !hasRefToHttp ) {
+	                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REF_TO_XML_BOX ) );
+	            }
+            }
+        } catch ( IOException | SAXException | XPathExpressionException e ) {
+            throw new AssertionError( e.getMessage() );
+        }
+    }
+
+    /**
+     * {@code [Test]} The structure of an internal GMLJP2 URI shall be as follows:
+     * gmljp2://[resource.type]/[resource.id][#fragment-id]
+     * <ul>
+     * <li>internal-references</li>
+     * <li>Verify that the internal references to schemaLocations are made using gmljp2: references. If so, test passes.</li>
+     * </ul>
+     *
+     * <p style="margin-bottom: 0.5em">
+     * <strong>Sources</strong>
+     * </p>
+     * <ul>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.28:
      * GMLJP2 file /req/internal-references-to-xmlbox.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_26">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_28">
      * internal-references-to-xmlbox</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.26")
+    @Test(description = "OGC 08-085r8, A.1.28")
+    public void containsGMLJP2fileInternalRef() {
+        try (InputStream inStream = new FileInputStream( this.jp2File )) {
+            JP2Stream jp2s = new JP2Stream( inStream );
+            XMLBox xmlBox = findXMLbox( jp2s.boxes);
+            assertXmlBox( xmlBox );
+
+            Document doc = docBuilder.parse( new InputSource( new StringReader( xmlBox.getXmldata().trim() ) ) );
+
+            List<String> A126 = getNodeAttributeValueArray( doc, "//*[local-name()='feature']/*", "xsi:schemaLocation" );
+            
+            boolean hasGmlFeatureCollection = !A126.isEmpty();
+            if(hasGmlFeatureCollection) {
+            boolean hasFileInternalRefToXmlBox = A126.stream().filter(e -> e.contains( "gmljp2://" )).count() > 0;
+	            if ( !hasFileInternalRefToXmlBox ) {
+	                throw new AssertionError( ErrorMessage.get( GMLJP2_INTERNAL_REFERENCES ) );
+	            }
+            }
+        } catch ( IOException | SAXException | XPathExpressionException e ) {
+            throw new AssertionError( e.getMessage() );
+        }
+    }
+    
+    /**
+     * {@code [Test]} The structure of an internal GMLJP2 URI shall be as follows:
+     * gmljp2://[resource.type]/[resource.id][#fragment-id]
+     * <ul>
+     * <li>internal-references</li>
+     * <li>Verify that the internal references to schemaLocations are made using gmljp2: references. If so, test passes.</li>
+     * </ul>
+     *
+     * <p style="margin-bottom: 0.5em">
+     * <strong>Sources</strong>
+     * </p>
+     * <ul>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.29:
+     * GMLJP2 file /req/internal-references-to-xmlbox.</li>
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_29">
+     * internal-references-to-xmlbox</a></li>
+     * </ul>
+     */
+    @Test(description = "OGC 08-085r4, A.1.26 and OGC 08-085r8, A.1.29")
     public void containsGMLJP2fileInternalRefToXMLBox() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
@@ -1243,13 +1367,13 @@ public class CoreTests {
      * <strong>Sources</strong>
      * </p>
      * <ul>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html">OGC 08-085r4</a>, A.1.27:
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html">OGC 08-085r8</a>, A.1.30:
      * GMLJP2 file /req/internal-references-to-codestream.</li>
-     * <li><a target="_blank" href= "http://docs.opengeospatial.org/is/08-085r4/08-085r4.html#requirement_27">
+     * <li><a target="_blank" href= "https://docs.opengeospatial.org/is/08-085r8/08-085r8.html#requirement_30">
      * internal-references-to-codestream</a></li>
      * </ul>
      */
-    @Test(description = "OGC 08-085r4, A.1.27")
+    @Test(description = "OGC 08-085r4, A.1.27 and OGC 08-085r8, A.1.30")
     public void containsInternalRefToCodestream() {
         try (InputStream inStream = new FileInputStream( this.jp2File )) {
             JP2Stream jp2s = new JP2Stream( inStream );
