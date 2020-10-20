@@ -1,5 +1,11 @@
 = Release Notes GML in JPEG 2000 2.0
 
+== 1.1 (2020-10-20)
+
+- https://github.com/opengeospatial/ets-gmljpx20/pull/36[#36]: Adapted and added tests to - v21 OGC 08-085r8
+- https://github.com/opengeospatial/ets-gmljpx20/issues/37[#37]: Cleanup dependencies
+- https://github.com/opengeospatial/ets-gmljpx20/pull/39[#39]: Bump xercesImpl from 2.11.0 to 2.12.0
+
 == 1.0 (2020-05-08)
 
 - https://github.com/opengeospatial/ets-gmljpx20/issues/35[#35]: Prepare release 1.0
