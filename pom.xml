@@ -7,7 +7,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-gmljpx20</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>GML in JPEG 2000 Conformance Test Suite</name>
@@ -31,7 +31,7 @@
     <connection>scm:git:https://github.com/opengeospatial/ets-gmljpx20.git</connection>
     <developerConnection>scm:git:git@github.com:opengeospatial/ets-gmljpx20.git</developerConnection>
     <url>https://github.com/opengeospatial/ets-gmljpx20</url>
-    <tag>HEAD</tag>
+    <tag>1.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Tracker</system>
