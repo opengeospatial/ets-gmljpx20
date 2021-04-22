@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite>
+	<title>GML in JPEG 2000 Conformance Test Suite</title>
+	<description>
+	    This executable test suite (ETS) verifies the conformance of JPEG 2000 codestreams against OGC GML 
+		in JPEG 2000 (GMLJP2) Encoding Standard Part 1 (OGC 08-085r4) and related specifications. The JPEG 
+		2000 standard (ISO 15444 series) is a wavelet-based encoding for imagery that provides the ability 
+		to include XML data for description of the image within the JPEG 2000 data file. The test run 
+		arguments are summarized in the following table. The obligation descriptor can have the following 
+		values: M (mandatory), O (optional), or C (conditional).
+	</description>
+	<testrunarguments>
+		<testrunargument>
+			<name>iut</name>
+			<valuedomain>URI</valuedomain>
+			<obligation>M</obligation>
+			<description>A URI that refers to the test subject or metadata about it. Ampersand ('&amp;')
+				characters must be percent-encoded as '%26'.</description>
+		</testrunargument>
+	</testrunarguments>
+</testsuite>
