@@ -1,5 +1,11 @@
 = Release Notes GML in JPEG 2000 2.0
 
+== 1.2 (2022-03-31)
+
+- https://github.com/opengeospatial/ets-gmljpx20/issues/41[#41]: Add template to get an XML/JSON response via rest endpoint
+- https://github.com/opengeospatial/ets-gmljpx20/pull/45[#45]: Bump xercesImpl from 2.12.0 to 2.12.2
+- https://github.com/opengeospatial/ets-gmljpx20/pull/43[#43]: Set Docker TEAM Engine version to 5.4.1
+
 == 1.1 (2020-10-20)
 
 - https://github.com/opengeospatial/ets-gmljpx20/pull/36[#36]: Adapted and added tests to - v21 OGC 08-085r8
