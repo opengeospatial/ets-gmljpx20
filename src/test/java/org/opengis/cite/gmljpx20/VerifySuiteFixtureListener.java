@@ -65,7 +65,7 @@ public class VerifySuiteFixtureListener {
 		SuiteFixtureListener iut = new SuiteFixtureListener();
 		iut.onStart(suite);
 		verify(suite).setAttribute(ArgumentMatchers.eq(SuiteAttribute.TEST_SUBJECT.getName()),
-				Matchers.isA(File.class));
+				ArgumentMatchers.isA(File.class));
 	}
 
 }
