@@ -10,12 +10,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
 
@@ -62,7 +63,7 @@ public class VerifySuiteFixtureListener {
         when(xmlSuite.getParameters()).thenReturn(params);
         SuiteFixtureListener iut = new SuiteFixtureListener();
         iut.onStart(suite);
-        verify(suite).setAttribute(Matchers.eq(SuiteAttribute.TEST_SUBJECT.getName()), Matchers.isA(File.class));
+        verify(suite).setAttribute(ArgumentMatchers.eq(SuiteAttribute.TEST_SUBJECT.getName()), Matchers.isA(File.class));
     }
 
 }

@@ -1,17 +1,19 @@
 package org.opengis.cite.gmljpx20;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
 import java.net.URI;
 import java.util.Map;
-import javax.ws.rs.core.MediaType;
+
+import org.glassfish.jersey.client.ClientRequest;
+import org.glassfish.jersey.client.ClientResponse;
 import org.opengis.cite.gmljpx20.util.ClientUtils;
 import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.w3c.dom.Document;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * A supporting base class that sets up a common test fixture. These
@@ -78,25 +80,6 @@ public class CommonFixture {
     public Document getResponseEntityAsDocument(ClientResponse response,
             String targetURI) {
         return ClientUtils.getResponseEntityAsDocument(response, targetURI);
-    }
-
-    /**
-     * Builds an HTTP request message that uses the GET method. This convenience
-     * method wraps a static method call to facilitate unit testing (Mockito
-     * workaround).
-     *
-     * @param endpoint A URI indicating the target resource.
-     * @param qryParams A Map containing query parameters (may be null);
-     * @param mediaTypes A list of acceptable media types; if not specified,
-     * generic XML ("application/xml") is preferred.
-     * @return A ClientRequest object.
-     *
-     * @see ClientUtils#buildGetRequest(java.net.URI, java.util.Map,
-     * javax.ws.rs.core.MediaType...)
-     */
-    public ClientRequest buildGetRequest(URI endpoint,
-            Map<String, String> qryParams, MediaType... mediaTypes) {
-        return ClientUtils.buildGetRequest(endpoint, qryParams, mediaTypes);
     }
 
 }

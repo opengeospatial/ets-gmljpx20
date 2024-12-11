@@ -1,10 +1,10 @@
 package org.opengis.cite.gmljpx20;
 
-import com.sun.jersey.api.client.ClientResponse;
 import java.net.URL;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
@@ -14,6 +14,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import org.glassfish.jersey.client.ClientResponse;
 import org.opengis.cite.gmljpx20.util.NamespaceBindings;
 import org.opengis.cite.gmljpx20.util.XMLUtils;
 import org.opengis.cite.validation.SchematronValidator;
@@ -23,6 +25,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  * Provides a set of custom assertion methods.
@@ -191,9 +195,9 @@ public class ETSAssert {
     public static void assertExceptionReport(ClientResponse rsp,
             String exceptionCode, String locator) {
         Assert.assertEquals(rsp.getStatus(),
-                ClientResponse.Status.BAD_REQUEST.getStatusCode(),
+                Status.BAD_REQUEST.getStatusCode(),
                 ErrorMessage.get(ErrorMessageKeys.UNEXPECTED_STATUS));
-        Document doc = rsp.getEntity(Document.class);
+        Document doc = rsp.readEntity(Document.class);
         String expr = String.format("//ows:Exception[@exceptionCode = '%s']",
                 exceptionCode);
         NodeList nodeList = null;
