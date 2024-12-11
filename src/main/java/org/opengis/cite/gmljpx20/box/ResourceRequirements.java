@@ -9,7 +9,6 @@ import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
  * <p>
  * ResourceRequirements class.
  * </p>
- *
  */
 public class ResourceRequirements extends Box {
 

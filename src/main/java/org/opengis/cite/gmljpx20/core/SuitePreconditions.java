@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import org.opengis.cite.gmljpx20.SuiteAttribute;
 import org.opengis.cite.gmljpx20.util.TestSuiteLogger;
 import org.testng.ITestContext;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
 
 /**
@@ -17,10 +18,10 @@ public class SuitePreconditions {
 	/**
 	 * Verifies that a a JPEG 2000 image resource was supplied as a test run argument and
 	 * that the implementation it describes is available.
-	 * @param testContext Information about the (pending) test run.
 	 */
 	@BeforeSuite
-	public void verifyTestSubject(ITestContext testContext) {
+	public void verifyTestSubject() {
+		ITestContext testContext = Reporter.getCurrentTestResult().getTestContext();
 		Object sutObj = testContext.getSuite().getAttribute(SuiteAttribute.TEST_SUBJECT.getName());
 		if (null != sutObj && File.class.isInstance(sutObj)) {
 			// TODO: Verify test subject

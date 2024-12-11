@@ -10,7 +10,6 @@ import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
  * <p>
  * XMLBox class.
  * </p>
- *
  */
 public class XMLBox extends Box {
 

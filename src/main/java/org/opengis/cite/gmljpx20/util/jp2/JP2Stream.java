@@ -12,7 +12,6 @@ import org.opengis.cite.gmljpx20.box.Box;
  * <p>
  * JP2Stream class.
  * </p>
- *
  */
 public class JP2Stream {
 

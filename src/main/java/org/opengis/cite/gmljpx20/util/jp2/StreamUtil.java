@@ -7,7 +7,6 @@ import java.io.InputStream;
  * <p>
  * StreamUtil class.
  * </p>
- *
  */
 public class StreamUtil {
 

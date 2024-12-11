@@ -9,7 +9,6 @@ import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
  * <p>
  * ContigousCodestream class.
  * </p>
- *
  */
 public class ContigousCodestream extends Box {
 

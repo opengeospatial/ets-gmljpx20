@@ -10,7 +10,6 @@ import org.opengis.cite.gmljpx20.util.jp2.StreamUtil;
  * <p>
  * Label class.
  * </p>
- *
  */
 public class Label extends Box {
 

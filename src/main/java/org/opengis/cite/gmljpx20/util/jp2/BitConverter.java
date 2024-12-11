@@ -4,7 +4,6 @@ package org.opengis.cite.gmljpx20.util.jp2;
  * <p>
  * BitConverter class.
  * </p>
- *
  */
 public class BitConverter {
 

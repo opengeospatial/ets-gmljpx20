@@ -4,7 +4,6 @@ package org.opengis.cite.gmljpx20.box;
  * <p>
  * Abstract Box class.
  * </p>
- *
  */
 public abstract class Box {
 

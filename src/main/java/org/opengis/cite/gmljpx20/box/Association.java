@@ -10,7 +10,6 @@ import java.util.List;
  * <p>
  * Association class.
  * </p>
- *
  */
 public class Association extends Box {
 

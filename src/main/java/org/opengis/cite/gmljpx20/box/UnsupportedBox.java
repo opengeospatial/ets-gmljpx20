@@ -7,7 +7,6 @@ import java.io.InputStream;
  * <p>
  * UnsupportedBox class.
  * </p>
- *
  */
 public class UnsupportedBox extends Box {
 

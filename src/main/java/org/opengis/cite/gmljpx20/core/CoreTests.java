@@ -85,7 +85,6 @@ import org.xml.sax.SAXException;
  * <p>
  * CoreTests class.
  * </p>
- *
  */
 public class CoreTests {
 
