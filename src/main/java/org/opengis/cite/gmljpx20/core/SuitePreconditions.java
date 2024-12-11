@@ -1,11 +1,12 @@
 package org.opengis.cite.gmljpx20.core;
 
+import java.io.File;
+import java.util.logging.Level;
+
 import org.opengis.cite.gmljpx20.SuiteAttribute;
 import org.opengis.cite.gmljpx20.util.TestSuiteLogger;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeSuite;
-import java.io.File;
-import java.util.logging.Level;
 
 /**
  * Checks that all preconditions are satisfied before the test suite is run. If any of

@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

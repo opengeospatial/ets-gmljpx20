@@ -1,5 +1,7 @@
 package org.opengis.cite.gmljpx20.util.jp2;
 
+import java.io.InputStream;
+
 import org.opengis.cite.gmljpx20.box.Association;
 import org.opengis.cite.gmljpx20.box.Box;
 import org.opengis.cite.gmljpx20.box.ContigousCodestream;
@@ -8,8 +10,6 @@ import org.opengis.cite.gmljpx20.box.Label;
 import org.opengis.cite.gmljpx20.box.ResourceRequirements;
 import org.opengis.cite.gmljpx20.box.UnsupportedBox;
 import org.opengis.cite.gmljpx20.box.XMLBox;
-
-import java.io.InputStream;
 
 /**
  * <p>
