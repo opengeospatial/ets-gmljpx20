@@ -8,22 +8,35 @@ import java.util.List;
 
 import org.opengis.cite.gmljpx20.box.Box;
 
+/**
+ * <p>
+ * JP2Stream class.
+ * </p>
+ *
+ */
 public class JP2Stream {
 
-    public InputStream fs;
+	public InputStream fs;
 
-    public List<Box> boxes = new ArrayList<>();
+	public List<Box> boxes = new ArrayList<>();
 
-    public JP2Stream( InputStream source ) {
-        fs = source;
-        while ( true ) {
-            try {
-                Box box = readFromStream( source );
-                boxes.add( box );
-            } catch ( Exception e ) {
-                return;
-            }
-        }
-    }
+	/**
+	 * <p>
+	 * Constructor for JP2Stream.
+	 * </p>
+	 * @param source a {@link java.io.InputStream} object
+	 */
+	public JP2Stream(InputStream source) {
+		fs = source;
+		while (true) {
+			try {
+				Box box = readFromStream(source);
+				boxes.add(box);
+			}
+			catch (Exception e) {
+				return;
+			}
+		}
+	}
 
 }
