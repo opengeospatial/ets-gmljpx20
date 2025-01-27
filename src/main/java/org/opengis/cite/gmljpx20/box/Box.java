@@ -1,11 +1,22 @@
 package org.opengis.cite.gmljpx20.box;
 
+/**
+ * <p>
+ * Abstract Box class.
+ * </p>
+ */
 public abstract class Box {
 
-    protected long length;
+	protected long length;
 
-    public Box( long length ) {
-        this.length = length;
-    }
+	/**
+	 * <p>
+	 * Constructor for Box.
+	 * </p>
+	 * @param length a long
+	 */
+	public Box(long length) {
+		this.length = length;
+	}
 
 }

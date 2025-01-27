@@ -1,6 +1,6 @@
 package org.opengis.cite.gmljpx20;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,8 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 
-import net.sf.saxon.s9api.XdmValue;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -23,51 +21,48 @@ import org.junit.Test;
 import org.opengis.cite.gmljpx20.util.XMLUtils;
 import org.w3c.dom.Document;
 
+import net.sf.saxon.s9api.XdmValue;
+
 /**
  * Verifies the results of executing a test run using the main controller
  * (TestNGController).
- * 
+ *
  */
 public class VerifyTestNGController {
 
-    private static DocumentBuilder docBuilder;
-    private Properties testRunProps;
+	private static DocumentBuilder docBuilder;
 
-    @BeforeClass
-    public static void initParser() throws ParserConfigurationException {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        dbf.setValidating(false);
-        dbf.setFeature(
-                "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                false);
-        docBuilder = dbf.newDocumentBuilder();
-    }
+	private Properties testRunProps;
 
-    @Before
-    public void loadDefaultTestRunProperties()
-            throws InvalidPropertiesFormatException, IOException {
-        this.testRunProps = new Properties();
-        this.testRunProps.loadFromXML(getClass().getResourceAsStream(
-                "/test-run-props.xml"));
-    }
+	@BeforeClass
+	public static void initParser() throws ParserConfigurationException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
+		dbf.setValidating(false);
+		dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		docBuilder = dbf.newDocumentBuilder();
+	}
 
-    @Test
-    @Ignore("Use actual SUT")
-    public void doTestRun() throws Exception {
-        URL testSubject = getClass().getResource("/atom-feed-2.xml");
-        this.testRunProps.setProperty(TestRunArg.IUT.toString(), testSubject
-                .toURI().toString());
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream(1024);
-        this.testRunProps.storeToXML(outStream, "Integration test");
-        Document testRunArgs = docBuilder.parse(new ByteArrayInputStream(
-                outStream.toByteArray()));
-        TestNGController controller = new TestNGController();
-        Source results = controller.doTestRun(testRunArgs);
-        String xpath = "/testng-results/@failed";
-        XdmValue failed = XMLUtils.evaluateXPath2(results, xpath, null);
-        int numFailed = Integer.parseInt(failed.getUnderlyingValue()
-                .getStringValue());
-        assertEquals("Unexpected number of fail verdicts.", 3, numFailed);
-    }
+	@Before
+	public void loadDefaultTestRunProperties() throws InvalidPropertiesFormatException, IOException {
+		this.testRunProps = new Properties();
+		this.testRunProps.loadFromXML(getClass().getResourceAsStream("/test-run-props.xml"));
+	}
+
+	@Test
+	@Ignore("Use actual SUT")
+	public void doTestRun() throws Exception {
+		URL testSubject = getClass().getResource("/atom-feed-2.xml");
+		this.testRunProps.setProperty(TestRunArg.IUT.toString(), testSubject.toURI().toString());
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream(1024);
+		this.testRunProps.storeToXML(outStream, "Integration test");
+		Document testRunArgs = docBuilder.parse(new ByteArrayInputStream(outStream.toByteArray()));
+		TestNGController controller = new TestNGController();
+		Source results = controller.doTestRun(testRunArgs);
+		String xpath = "/testng-results/@failed";
+		XdmValue failed = XMLUtils.evaluateXPath2(results, xpath, null);
+		int numFailed = Integer.parseInt(failed.getUnderlyingValue().getStringValue());
+		assertEquals("Unexpected number of fail verdicts.", 3, numFailed);
+	}
+
 }
